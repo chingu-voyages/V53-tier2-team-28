@@ -37,6 +37,7 @@ coding!
 - Teammate name #1: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Laura: [GitHub](https://github.com/frosty8104) / [LinkedIn](https://www.linkedin.com/in/laura-gieg-web-designer-dev/)
 - Bobby: [GitHub](https://github.com/minorObsession) / [LinkedIn](https://www.linkedin.com/in/bogdanterzic95/)
+- Erica Chong: [GitHub](https://github.com/chonger878) / [LinkedIn](https://linkedin.com/in/charwaeericachong)
 
    ...
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
