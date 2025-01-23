@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import { Home } from "./pages/Home";
+import Home from "./pages/Home";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         {/* // ! examples of child-grandchild routes */}
         {/* <Route path="/child/:id" element={<Child />} />
         <Route path="/child/:id/grand-child" element={<GrandChild />} /> */}
+
+        <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
     </Router>
   );
