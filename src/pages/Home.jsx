@@ -45,24 +45,27 @@ function Home() {
   //   }, 1000);
   // }
 
-  const currentAccount = null;
+  let currentAccount; // Initialize currentAccount
+  // ! fake admin
+  // currentAccount.typeOfUser = "admin";
+
+  // ! fake employee
+  // currentAccount.typeOfUser = "employee";
 
   return (
     // ! MAIN CONTAINER
-    <div className="flex flex-col justify-center w-full min-h-screen p-10 bg-backgroundImage bg-cover bg-fixed bg-bottom ">
+    <div className="flex flex-col justify-between w-full min-h-screen p-14 bg-backgroundImage bg-cover bg-fixed bg-bottom h-full">
       {/* // ! Check if the user is logged in */}
       {currentAccount ? (
         <>
           {/* // ! If the user is an admin, show this message */}
           {currentAccount.typeOfUser === "admin" && (
-            <h2 className="text-2xl font-bold text-textColor">
-              Check upcoming orders
-            </h2>
+            <h2 className="text-2xl font-bold text-textColor">Manage</h2>
           )}
           {/* // ! If the user is a employee, show this message */}
           {currentAccount.typeOfUser === "employee" && (
             <h2 className="text-2xl font-bold text-textColor">
-              Get back to ordering, {capitalize(currentAccount)}
+              Want to change your preferences, {capitalize(currentAccount)}?
             </h2>
           )}
 
@@ -79,15 +82,13 @@ function Home() {
           </div>
         </>
       ) : (
-        <div className="h-full flex flex-col items-start justify-between">
+        <div className="grow h-full flex flex-col items-center sm:items-start justify-between">
           {/* // ! New employee section */}
-          <div className="flex flex-col gap-4 mb-8">
+          <div className="flex flex-col gap-4 mb-8 items-center">
             <h2 className="text-2xl text-textColor">
-              Haven't set your preferences yet?
+              Set your food preferences?
             </h2>
-            <Button onClick={() => setIsOpenModalSignup(true)}>
-              SIGNUP FOR MEALS
-            </Button>
+            <Button onClick={() => setIsOpenModalSignup(true)}>SIGNUP</Button>
           </div>
           {/* // ! Welcome screen */}
           <div className="flex flex-col self-center items-center gap-4 mb-8">
@@ -101,7 +102,7 @@ function Home() {
           </div>
 
           {/* // ! Admin login section  */}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col gap-4">
             <h2 className="text-2xl text-textColor">Manage weekly meals </h2>
             <Button onClick={() => setIsOpenModalLoginA(true)}>
               MANAGER LOGIN

@@ -74,5 +74,6 @@ export function getPosition() {
 }
 
 export function capitalize(word) {
+  if (typeof word !== "string") return "";
   return word.split("")[0].toUpperCase() + word.slice(1);
 }
