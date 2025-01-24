@@ -10,9 +10,11 @@ export default {
       colors: {
         primary: {
           DEFAULT: "#fb7185", // rose-400
+          hover: "#f43f5e", // rose-500
         },
         accent: {
           DEFAULT: "#fcd34d", // yellow-300
+          hover: "#fbbf24", // yellow-400
         },
         background: {
           DEFAULT: "#fff1f2", // rose-50
@@ -22,9 +24,9 @@ export default {
         },
         error: {
           DEFAULT: "#f87171", // red-400
+          hover: "#ef4444", // red-500
         },
       },
     },
   },
-  plugins: [],
 };

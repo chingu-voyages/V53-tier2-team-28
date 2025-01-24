@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useModalContext } from "../UI components/useModalContext";
 import { capitalize } from "../helpers/helperFunctions.jsx";
 import Button from "../UI components/Button.jsx";
-// import { logOutOfAccount } from "../features/accountsSlice";
+import Section from "../UI components/Section.jsx";
 
 function Home() {
   // const { 'bogdan' } = useSelector((store) => store.accounts);
@@ -84,12 +84,11 @@ function Home() {
       ) : (
         <div className="grow h-full flex flex-col items-center sm:items-start justify-between">
           {/* // ! New employee section */}
-          <div className="flex flex-col gap-4 mb-8 items-center">
-            <h2 className="text-2xl text-textColor">
-              Set your food preferences?
-            </h2>
-            <Button onClick={() => setIsOpenModalSignup(true)}>SIGNUP</Button>
-          </div>
+          <Section
+            title="Set your food preferences?"
+            buttonText="SIGNUP"
+            onClick={() => setIsOpenModalSignup(true)}
+          />
           {/* // ! Welcome screen */}
           <div className="flex flex-col self-center items-center gap-4 mb-8">
             <h1 className="text-4xl font-bold text-center text-textColor">
@@ -102,12 +101,11 @@ function Home() {
           </div>
 
           {/* // ! Admin login section  */}
-          <div className="flex flex-col gap-4">
-            <h2 className="text-2xl text-textColor">Manage weekly meals </h2>
-            <Button onClick={() => setIsOpenModalLoginA(true)}>
-              MANAGER LOGIN
-            </Button>
-          </div>
+          <Section
+            title="Manage weekly meals"
+            buttonText="MANAGER LOGIN"
+            onClick={() => setIsOpenModalLoginA(true)}
+          />
         </div>
       )}
     </div>
