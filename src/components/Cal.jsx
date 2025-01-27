@@ -13,12 +13,12 @@ function Cal () {
                 <td className="border-solid-2 border-gray-950"></td>
                 <td className="border-solid-2 border-gray-950"></td>
                 <td className="border-solid-2 border-gray-950">1
-                <p>Breakfast: Berry Chia Smoothie & Sourdough Raisin Toast</p>
-                <p>Lunch: Greek Salad & Veggie Primo Pizza</p>
-                <p>Supper: Buffalo Wings & Green Salad</p></td>
+                <p className="bg-lt-blue">Breakfast: Berry Chia Smoothie & Sourdough Raisin Toast</p>
+                <p className="bg-lt-green">Lunch: Greek Salad & Veggie Primo Pizza</p>
+                <p className="bg-lt-red">Supper: Buffalo Wings & Green Salad</p></td>
                 <td className="border-solid-2 border-gray-950">2
-                <p>Breakfast: Tomato-Feta Spinach Smoothie & Granola</p>
-                <p>Lunch: BLT Sandwich & Cobb Salad</p>
+                <p bg-lt-blue>Breakfast: Tomato-Feta Spinach Smoothie & Granola</p>
+                <p bg-lt-green>Lunch: BLT Sandwich & Cobb Salad</p>
                 <p>Supper: Caesar Salad & Lasagna</p></td>
                 <td className="border-solid-2 border-gray-950">3
                 <p>Breakfast: Peach Mango Pinneaple Smoothie</p>
