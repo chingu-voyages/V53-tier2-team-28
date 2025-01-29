@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import Button from "./Button.jsx"; // Ensure this is correctly imported
-import SmallSpinner from "./SmallSpinner.jsx"; // Ensure this exists if you're using it
+import Button from "./Button.jsx";
+import SmallSpinner from "./SmallSpinner.jsx";
 
 function RecipePreview({ recipe }) {
   const { ID } = useParams();

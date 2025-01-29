@@ -15,7 +15,7 @@ function App() {
         <Route path="login" element={<Login />} />
 
         <Route path="recipes" element={<Recipes />}>
-          <Route path=":id" element={<RecipePreview />} />
+          <Route path=":ID" element={<RecipePreview />} />
         </Route>
 
         {/* <Route path="/child/:id" element={<Child />} />

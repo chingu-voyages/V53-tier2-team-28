@@ -21,7 +21,7 @@ function Recipes() {
 
   return (
     <div>
-      <h2>Recipes</h2>
+      <h1>Recipes</h1>
       {fakeRecipes.map((recipe) => (
         <div key={recipe.ID}>
           <NavLink to={`/recipes/${recipe.ID}`}>{recipe.name}</NavLink>
