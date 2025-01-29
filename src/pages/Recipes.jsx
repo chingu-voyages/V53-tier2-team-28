@@ -1,33 +1,37 @@
-import { useEffect } from "react";
-import RecipePreview from "../UI components/RecipePreview";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 function Recipes() {
   const fakeRecipes = [
     {
-      id: 1,
+      ID: 1,
       name: "Pasta",
       ingredients: ["pasta", "tomato", "onion", "garlic"],
     },
     {
-      id: 2,
+      ID: 2,
       name: "Pizza",
       ingredients: ["flour", "tomato", "onion", "garlic"],
     },
     {
-      id: 3,
+      ID: 3,
       name: "Burger",
       ingredients: ["bread", "tomato", "onion", "garlic"],
     },
   ];
 
-  {
-    fakeRecipes.map((recipe) => (
-      <div key={recipe.id}>
-        <NavLink to={`/recipes/${recipe.id}`}>{recipe.name}</NavLink>
-      </div>
-    ));
-  }
+  return (
+    <div>
+      <h2>Recipes</h2>
+      {fakeRecipes.map((recipe) => (
+        <div key={recipe.ID}>
+          <NavLink to={`/recipes/${recipe.ID}`}>{recipe.name}</NavLink>
+        </div>
+      ))}
+
+      {/* This ensures RecipePreview renders when route matches */}
+      <Outlet />
+    </div>
+  );
 }
 
 export default Recipes;
