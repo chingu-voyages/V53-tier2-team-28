@@ -2,42 +2,25 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Button from "./Button.jsx";
 import SmallSpinner from "./SmallSpinner.jsx";
+import { determineNext7Days } from "../helpers/helperFunctions.jsx";
 
-function RecipePreview({ recipe }) {
+function DishPreview({ dish }) {
   const { ID } = useParams();
   console.log(ID);
-  const [isSelectExpanded, setIsSelectExpanded] = useState(false);
-  const [selectedWeekday, setSelectedWeekday] = useState("");
 
-  if (!recipe || recipe.ID !== ID) return <p>Recipe not found</p>;
-
-  const handleAddToMeals = () => {
-    console.log("Added to meals:", recipe.name);
-  };
-
-  const handleDeleteRecipe = () => {
-    console.log("Removed from meals:", recipe.name);
-  };
-
-  // const next7Days = (index, shortFormat = false) => {
-  //   const date = new Date();
-  //   date.setDate(date.getDate() + index);
-  //   return shortFormat
-  //     ? date.toLocaleDateString("en-US", { weekday: "short" })
-  //     : date.toLocaleDateString("en-US", { weekday: "long" });
-  // };
+  if (!dish || dish.ID !== ID) return <p>dish not found</p>;
 
   return (
     <div className="relative p-4">
-      {/* Recipe Title */}
+      {/* dish Title */}
       <h3 className="text-center whitespace-nowrap overflow-hidden mb-2 text-xl font-semibold">
-        {recipe.title}
+        {dish.title}
       </h3>
 
-      {/* Recipe Image */}
+      {/* dish Image */}
       <img
-        src={recipe.imageUrl}
-        alt={recipe.title}
+        src={dish.imageUrl}
+        alt={dish.title}
         className="w-[300px] h-[200px] lg:w-[500px] lg:h-[300px] object-cover text-center p-2 lg:p-5 opacity-65 rounded-3xl"
       />
 
@@ -46,47 +29,32 @@ function RecipePreview({ recipe }) {
         <span className="text-sm italic whitespace-nowrap">Add to Meals</span>
         <select
           className="bg-amber-900 italic max-w-[8rem] text-sm p-1 rounded-full transition-all duration-700"
-          onFocus={() => setIsSelectExpanded(true)}
-          onBlur={() => setIsSelectExpanded(false)}
           value={selectedWeekday}
-          onChange={(e) => setSelectedWeekday(e.target.value)}
         >
           {[...Array(7)].map((_, i) => (
-            <option key={i} value={next7Days(i)}>
-              {next7Days(i, !isSelectExpanded)}
+            <option key={i} value={determineNext7Days(i)}>
+              {determineNext7Days(i, !isSelectExpanded)}
             </option>
           ))}
         </select>
-        <Button onClick={handleAddToMeals} type="round">
+        <Button onClick={() => console.log("btn clicked")}>
           {isSelectExpanded ? <SmallSpinner /> : "+"}
-        </Button>
-      </div>
-
-      {/* Remove from Meals Section */}
-      <div className="absolute bottom-4 lg:bottom-8 right-8 lg:right-12 flex items-center gap-3 bg-stone-500 rounded-lg p-1.5 transition-all duration-700">
-        <span className="text-sm italic">Remove from my recipes</span>
-        <Button
-          onClick={handleDeleteRecipe}
-          additionalClasses="text-2xl"
-          type="round"
-        >
-          {isSelectExpanded ? <SmallSpinner /> : "-"}
         </Button>
       </div>
     </div>
   );
 }
 
-export default RecipePreview;
+export default DishPreview;
 
 // ! copied from other project
 // return (
 //   <div className="relative">
 //     <h3 className="text-center whitespace-nowrap overflow-hidden mb-2">
-//       {recipe?.title}
+//       {dish?.title}
 //     </h3>
 //     <img
-//       src={recipe.imageUrl}
+//       src={dish.imageUrl}
 //       className=" w-[300px] h-[200px] lg:w-[500px] lg:h-[300px] object-cover text-center p-2 lg:p-5 opacity-65 rounded-3xl "
 //     ></img>
 //     <div className="absolute top-12 lg:top-16 right-8 lg:right-12 flex items-center gap-3 bg-stone-500 rounded-lg p-1.5 transition-all duration-700">
@@ -99,38 +67,38 @@ export default RecipePreview;
 //         value={selectedWeekday}
 //         onChange={(e) => setSelectedWeekday(e.target.value)}
 //       >
-//         <option value={next7Days(0)}>
-//           {next7Days(0, !isSelectExpanded)}
+//         <option value={determineNext7Days(0)}>
+//           {determineNext7Days(0, !isSelectExpanded)}
 //         </option>
-//         <option value={next7Days(1)}>
-//           {next7Days(1, !isSelectExpanded)}
+//         <option value={determineNext7Days(1)}>
+//           {determineNext7Days(1, !isSelectExpanded)}
 //         </option>
-//         <option value={next7Days(2)}>
-//           {next7Days(2, !isSelectExpanded)}
+//         <option value={determineNext7Days(2)}>
+//           {determineNext7Days(2, !isSelectExpanded)}
 //         </option>
-//         <option value={next7Days(3)}>
-//           {next7Days(3, !isSelectExpanded)}
+//         <option value={determineNext7Days(3)}>
+//           {determineNext7Days(3, !isSelectExpanded)}
 //         </option>
-//         <option value={next7Days(4)}>
-//           {next7Days(4, !isSelectExpanded)}
+//         <option value={determineNext7Days(4)}>
+//           {determineNext7Days(4, !isSelectExpanded)}
 //         </option>
-//         <option value={next7Days(5)}>
-//           {next7Days(5, !isSelectExpanded)}
+//         <option value={determineNext7Days(5)}>
+//           {determineNext7Days(5, !isSelectExpanded)}
 //         </option>
-//         <option value={next7Days(6)}>
-//           {next7Days(6, !isSelectExpanded)}
+//         <option value={determineNext7Days(6)}>
+//           {determineNext7Days(6, !isSelectExpanded)}
 //         </option>
 //       </select>
-//       <Button onClick={handleAddToMeals} type="round">
+//       <Button onClick={()=> console.log('btn clicked')} >
 //         {isLoading ? <SmallSpinner /> : "+"}
 //       </Button>
 //     </div>
 //     <div className="absolute bottom-4 lg:bottom-8 right-8 lg:right-12 flex items-center gap-3 bg-stone-500 rounded-lg p-1.5 transition-all duration-700">
-//       <span className="text-sm italic">Remove from my recipes </span>
+//       <span className="text-sm italic">Remove from my dishs </span>
 //       <Button
-//         onClick={handleDeleteRecipe}
+//         onClick={()=> console.log('btn clicked')}
 //         additionalClasses="text-2xl"
-//         type="round"
+//
 //       >
 //         {isLoading ? <SmallSpinner /> : "-"}
 //       </Button>

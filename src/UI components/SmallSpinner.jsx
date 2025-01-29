@@ -1,5 +1,5 @@
 function SmallSpinner() {
-  return <span className="spin font-bold text-inherit">&#9684;</span>;
+  return <span className="spin font-bold text-inherit">&#fcd34d;</span>;
 }
 
 export default SmallSpinner;

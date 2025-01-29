@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+// ! IMPLEMENT DARK MODE FOR APP IF THERE'S TIME
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {

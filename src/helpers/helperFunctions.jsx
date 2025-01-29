@@ -1,3 +1,12 @@
+export const determineNext7Days = (index, shortFormat = false) => {
+  const date = new Date();
+  date.setDate(date.getDate() + index);
+  return shortFormat
+    ? date.toLocaleDateString("en-US", { weekday: "short" })
+    : date.toLocaleDateString("en-US", { weekday: "long" });
+};
+
+// ! adjust for needs of this app
 export function sortFood(foodArray, sortBy = "soldOut") {
   let sortedFood;
 
@@ -15,13 +24,6 @@ export function sortFood(foodArray, sortBy = "soldOut") {
   return sortedFood;
 }
 
-export function formatCurrency(value) {
-  return new Intl.NumberFormat("en", {
-    style: "currency",
-    currency: "USD",
-  }).format(value);
-}
-
 export const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -29,49 +31,6 @@ export const formatDate = (date) =>
     year: "numeric",
     weekday: "short",
   }).format(new Date(date));
-
-async function reverseGeocodingCurrentPosition(latitude, longitude) {
-  try {
-    const res = await fetch(
-      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`
-    );
-
-    if (!res.ok) throw new Error("Couldn't get your position");
-
-    const data = await res.json();
-    console.log(data);
-    const {
-      locality: city,
-      countryCode: country,
-      postcode: zipCode,
-      principalSubdivisionCode,
-    } = data;
-
-    const address = {
-      city,
-      country,
-      zipCode,
-      state: principalSubdivisionCode.slice(-2),
-    };
-
-    return address;
-  } catch (err) {
-    console.error("Error with reverse geocoding:", err.message);
-  }
-}
-
-export function getPosition() {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(
-      async function (pos) {
-        const { latitude, longitude } = pos.coords;
-        const city = await reverseGeocodingCurrentPosition(latitude, longitude);
-        resolve(city);
-      },
-      (err) => reject(err)
-    );
-  });
-}
 
 export function capitalize(word) {
   if (typeof word !== "string") return "";

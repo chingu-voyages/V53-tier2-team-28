@@ -1,53 +1,11 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-import { useModalContext } from "../UI components/useModalContext";
 import { capitalize } from "../helpers/helperFunctions.jsx";
 import Button from "../UI components/Button.jsx";
 import Section from "../UI components/Section.jsx";
 
 function Home() {
-  // const { 'bogdan' } = useSelector((store) => store.accounts);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // const {
-  //   isOpenModalLoginC,
-  //   isOpenModalLoginA,
-  //   isOpenModalSignup,
-  //   setIsOpenModalLoginC,
-  //   setIsOpenModalLoginA,
-  //   setIsOpenModalSignup,
-  // } = useModalContext();
-
-  // useEffect(() => {
-  //   if (isOpenModalLoginA) {
-  //     navigate("/loginAdmin");
-  //   }
-  // }, [isOpenModalLoginA, navigate]);
-
-  // useEffect(() => {
-  //   if (isOpenModalLoginC) {
-  //     navigate("/loginemployee");
-  //   }
-  // }, [isOpenModalLoginC, navigate]);
-
-  // useEffect(() => {
-  //   if (isOpenModalSignup) {
-  //     navigate("/signup");
-  //   }
-  // }, [isOpenModalSignup, navigate]);
-
-  // function logOut() {
-  //   const confirmLogout = confirm("Are you sure?");
-  //   setTimeout(() => {
-  //     if (confirmLogout === true) dispatch(logOutOfAccount());
-  //   }, 1000);
-  // }
-
   let currentAccount; // Initialize currentAccount
-  // ! fake admin
-  // currentAccount.typeOfUser = "admin";
+  // ! fake manager
+  // currentAccount.typeOfUser = "manager";
 
   // ! fake employee
   // currentAccount.typeOfUser = "employee";
@@ -58,8 +16,8 @@ function Home() {
       {/* // ! Check if the user is logged in */}
       {currentAccount ? (
         <>
-          {/* // ! If the user is an admin, show this message */}
-          {currentAccount.typeOfUser === "admin" && (
+          {/* // ! If the user is an manager, show this message */}
+          {currentAccount.typeOfUser === "manager" && (
             <h2 className="text-2xl font-bold text-textColor">Manage</h2>
           )}
           {/* // ! If the user is a employee, show this message */}
@@ -74,11 +32,7 @@ function Home() {
             <h3 className="text-xl font-semibold text-textColor">
               {capitalize(currentAccount)}
             </h3>
-            <Button
-            // onClick={logOut}
-            >
-              LOGOUT
-            </Button>
+            <Button>LOGOUT</Button>
           </div>
         </>
       ) : (
@@ -100,7 +54,7 @@ function Home() {
             </h2>
           </div>
 
-          {/* // ! Admin login section  */}
+          {/* // ! manager login section  */}
           <Section
             title="Manage weekly meals"
             buttonText="MANAGER LOGIN"
