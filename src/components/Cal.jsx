@@ -1,7 +1,7 @@
 function Cal () {
     return (
         <div className="table bg-white">
-            <table className="border-solid-2 border-black">
+            <table className="border-solid-2 border-gray-950">
                 <tr><th className="text-black border-solid-2 border-black">Sunday</th>
                 <th className="text-black border-solid-2 border-gray-950">Monday</th>
                 <th className="text-black border-solid-2 border-gray-950">Tuesday</th>
@@ -17,7 +17,7 @@ function Cal () {
                 <p className="bg-lt-green">Lunch: Greek Salad & Veggie Primo Pizza</p>
                 <p className="bg-lt-red">Supper: Buffalo Wings & Green Salad</p></td>
                 <td className="text-black border-solid-2 border-gray-950">2
-                <p bg-lt-blue>Breakfast: Tomato-Feta Spinach Smoothie & Granola</p>
+                <p className="bg-lt-blue">Breakfast: Tomato-Feta Spinach Smoothie & Granola</p>
                 <p bg-lt-green>Lunch: BLT Sandwich & Cobb Salad</p>
                 <p>Supper: Caesar Salad & Lasagna</p></td>
                 <td className="text-black border-solid-2 border-gray-950">3
