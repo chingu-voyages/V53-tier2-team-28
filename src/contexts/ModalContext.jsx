@@ -13,28 +13,30 @@ export function ModalProvider({ children }) {
   function closeAnyModal() {
     setIsOpenModalLogin(false);
     setIsOpenModalSignup(false);
-    navigate(-1);
+    navigate("/");
   }
 
   const isAnyModalOpen = isOpenModalSignup || isOpenModalLogin;
 
-  useKeyPress("Escape", () => {
+  function handleCloseAnyModal() {
     if (!isAnyModalOpen) return;
     else {
       closeAnyModal();
       navigate("/");
     }
-  });
+  }
+
+  useKeyPress("Escape", handleCloseAnyModal);
 
   return (
     <ModalContext.Provider
       value={{
-        closeAnyModal,
         isAnyModalOpen,
         isOpenModalLogin,
         isOpenModalSignup,
         setIsOpenModalLogin,
         setIsOpenModalSignup,
+        handleCloseAnyModal,
       }}
     >
       {children}

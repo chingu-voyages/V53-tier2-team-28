@@ -27,9 +27,9 @@ export function DishesProvider({ children }) {
     console.log("New dish added:", newDish);
   }
 
-  function removeDish(dishId) {
-    setDishes((prevDishes) => prevDishes.filter((dish) => dish.ID !== dishId));
-    console.log("Dish removed:", dishId);
+  function removeDish(dishID) {
+    setDishes((prevDishes) => prevDishes.filter((dish) => dish.ID !== dishID));
+    console.log("Dish removed:", dishID);
   }
 
   return (

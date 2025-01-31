@@ -1,72 +1,62 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useKeyPress } from "../helpers/useKeyPress";
 import SmallSpinner from "../UI components/SmallSpinner";
 import { useModalContext } from "../contexts/ModalContext";
 
 function Login() {
-  const { isOpenModalLogin } = useModalContext();
-
+  const { isOpenModalLogin, handleCloseAnyModal } = useModalContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const { accounts } = useSelector((store) => store.search);
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleLogin(e) {
     if (e) e.preventDefault();
-
-    // const account = accounts.find((acc) => acc.username === username);
-    // console.log(account);
-
-    // if (
-    //   !username ||
-    //   !password ||
-    //   username !== account?.username ||
-    //   password !== account?.password
-    // )
-    //   return alert("Something went wrong... Please try logging in again");
-
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      // dispatch(login(account));
-      navigate("/app");
+      navigate("/app/manager");
     }, 1000);
   }
 
   useKeyPress("Enter", handleLogin);
-
   if (!isOpenModalLogin) return null;
+
   return (
-    <form
-      onSubmit={handleLogin}
-      className="min-h-[30vh] max-h-[50vh] flex flex-col items-center  gap-8 lg:gap:10 text-xl"
-    >
-      <h1 className="text-3xl lg:text-4xl mb-10">Log back into your account</h1>
-      <div className="grid grid-cols-2 items-center gap-x-12  w-full gap-y-4 -translate-x-12 lg:-translate-x-20">
-        <label className="justify-self-end">username</label>
-        <input
-          className={`w-48 lg:w-72 `}
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></input>
-        <label className="justify-self-end">password</label>
-        <input
-          className={`w-48 lg:w-72 `}
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button className="col-span-2 justify-self-end w-20 lg:w-32">
-          {" "}
-          {isLoading ? <SmallSpinner /> : "LOGIN"}
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-6">Log In</h1>
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <input
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="bg-primary hover:bg-primary-hover text-white font-semibold p-3 rounded-lg transition"
+          >
+            {isLoading ? <SmallSpinner /> : "Login"}
+          </button>
+        </form>
+        <button
+          className="mt-4 text-gray-500 hover:text-gray-700"
+          onClick={handleCloseAnyModal}
+        >
+          Close
         </button>
       </div>
-    </form>
+    </div>
   );
 }
 
