@@ -17,16 +17,6 @@ export function AllergyDietProvider({ children }) {
     (employee) => employee.name
   );
 
-  function addNewEmployee() {
-    // ! logic
-    console.log("new employee added!!");
-  }
-
-  function removeEmployee() {
-    // ! logic
-    console.log(" employee removed!!");
-  }
-
   return (
     <AllergyDietContext.Provider
       value={{
