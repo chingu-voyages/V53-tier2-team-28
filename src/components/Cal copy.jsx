@@ -1,7 +1,7 @@
 import TableHead from "./TableHead"; // Import TableHead component
 import TableCell from "./TableCell"; // Import TableCell component
 
-function MenuCalendar() {
+function Cal() {
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -12,12 +12,19 @@ function MenuCalendar() {
     "Saturday",
   ];
 
+  const daysInMonth = 31;
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  console.log(days);
+
   return (
-    <div className="table bg-white">
-      <table className=" border-black">
+    <div className="bg-white w-full">
+      <table className="w-full border border-black table-fixed">
         <TableHead>
           {daysOfWeek.map((day, index) => (
-            <th key={index} className="text-textColor border-gray-950">
+            <th
+              key={index}
+              className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
+            >
               {day}
             </th>
           ))}
@@ -87,4 +94,4 @@ function MenuCalendar() {
   );
 }
 
-export default MenuCalendar;
+export default Cal;
