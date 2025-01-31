@@ -10,7 +10,7 @@ function Signup() {
     employeeList,
   } = useAllergyDietContext();
 
-  const [selectedName, setSelectedName] = useState("your name");
+  const [selectedName, setSelectedName] = useState(employeeList[0] || "");
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [selectedAllergies, setSelectedAllergies] = useState([]);
 
@@ -39,17 +39,24 @@ function Signup() {
     );
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    // Combine dietary preferences and allergies into one array
-    const combinedPreferences = [...selectedDiets, ...selectedAllergies];
+    //  find employee object within the array
+    console.log(selectedName);
+    const employeeObject = employeeDietAndAllergies.find(
+      (employee) => employee.name === selectedName
+    );
 
     // Update the state with the new data
-    setEmployeeDietAndAllergies((prev) => ({
+    setEmployeeDietAndAllergies((prev) => [
       ...prev,
-      [selectedName]: combinedPreferences,
-    }));
+      {
+        ...employeeObject,
+        diet: selectedDiets,
+        allergies: selectedAllergies,
+      },
+    ]);
 
     // Close modal after submission
     handleCloseAnyModal();
