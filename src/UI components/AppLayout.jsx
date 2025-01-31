@@ -1,6 +1,6 @@
 // import FlexibleContent from "./FlexibleContent";
-import Footer from "../components/Footer";
-import Cal from "../components/Cal";
+import Footer from "../UI components/Footer";
+import Cal from "../UI components/Cal";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function AppLayout() {

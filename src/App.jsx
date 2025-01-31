@@ -7,10 +7,7 @@ import Signup from "./pages/Signup";
 
 import AppLayout from "./UI components/AppLayout";
 import { ModalProvider } from "./contexts/ModalContext";
-<<<<<<< HEAD
 import Cal from "./UI components/Cal";
-=======
->>>>>>> d866510d60328ec74de6ab2b401af12c79eb0e0a
 import { AllergyDietProvider } from "./contexts/AllergyDietContext";
 
 // ! TO DECIDE HOW WE'LL KEEP GLOBAL UI STATE (contextAPI?) + URL

@@ -1,4 +1,4 @@
-import github from "./img/github.png";
+import github from "../assets/github.png";
 
 function Footer() {
   return (
@@ -6,7 +6,7 @@ function Footer() {
       <div className="link">
         <a href="https://github.com/v53-tier2-team-28/tree/main">
           <img className="" src={github}></img>
-          Chingu Voyage 47 Tier 2 Team 28 Repo
+          Chingu Voyage 53 Tier 2 Team 28 Repo
         </a>
         <ul>
           <li className="text-black">

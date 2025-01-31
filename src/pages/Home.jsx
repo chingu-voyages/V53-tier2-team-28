@@ -3,7 +3,7 @@ import { useModalContext } from "../contexts/ModalContext.jsx";
 import { capitalize } from "../helpers/helperFunctions.jsx";
 import Button from "../UI components/Button.jsx";
 import Section from "../UI components/Section.jsx";
-import Footer from "../components/Footer.jsx";
+import Footer from "../UI components/Footer.jsx";
 
 function Home() {
   let currentAccount; // Initialize currentAccount
