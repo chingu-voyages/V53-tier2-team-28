@@ -14,7 +14,7 @@ import Favorites from "./pages/Favorites";
 import AppLayout from "./UI components/AppLayout";
 import { ModalProvider } from "./contexts/ModalContext";
 import { AllergyDietProvider } from "./contexts/AllergyDietContext";
-import Cal from "./components/Cal";
+import Cal from "./components/MenuCalendar";
 // ! TO DECIDE HOW WE'LL KEEP GLOBAL UI STATE (redux? contextAPI?) + URL
 // ! TO DECIDE HOW WE'LL KEEP REMOTE STATE (fetchAPI? reactQuery?)
 

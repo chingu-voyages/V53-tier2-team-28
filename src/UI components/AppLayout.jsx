@@ -1,6 +1,6 @@
 // import FlexibleContent from "./FlexibleContent";
 import Footer from "./Footer";
-import Cal from "../components/Cal";
+import Cal from "../components/MenuCalendar";
 
 function AppLayout() {
   return (
