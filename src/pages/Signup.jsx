@@ -13,10 +13,12 @@ function Signup() {
           <input
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
             type="text"
-            placeholder="Company Name"
+            placeholder="Your name"
           />
           <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none">
-            <option value="none">Dietary Preferences</option>
+            <option disabled selected>
+              Dietary Preferences
+            </option>
             <option value="vegan">Vegan</option>
             <option value="vegetarian">Vegetarian</option>
             <option value="pescetarian">Pescetarian</option>
@@ -24,8 +26,14 @@ function Signup() {
             <option value="heart">Heart Healthy</option>
           </select>
           <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none">
-            <option value="none">Allergies</option>
+            <option disabled selected>
+              Allergies
+            </option>
             <option value="nut">Nut Allergy</option>
+            <option value="gluten">Gluten Allergy</option>
+            <option value="soy">Soy Allergy</option>
+            <option value="dairy">Dairy Allergy</option>
+            <option value="shellfish">Shellfish Allergy</option>
           </select>
           <button
             type="submit"
