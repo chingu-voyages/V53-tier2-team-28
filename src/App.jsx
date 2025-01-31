@@ -13,9 +13,8 @@ import PlanMeals from "./pages/PlanMeals";
 import Favorites from "./pages/Favorites";
 import AppLayout from "./UI components/AppLayout";
 import { ModalProvider } from "./contexts/ModalContext";
-import Cal from "./components/Cal";
 import { AllergyDietProvider } from "./contexts/AllergyDietContext";
-
+import Cal from "./components/Cal";
 // ! TO DECIDE HOW WE'LL KEEP GLOBAL UI STATE (redux? contextAPI?) + URL
 // ! TO DECIDE HOW WE'LL KEEP REMOTE STATE (fetchAPI? reactQuery?)
 
@@ -28,8 +27,8 @@ function App() {
         <AllergyDietProvider>
           <Routes>
             {/* // ! trying to incorporate Laura's component */}
-            <Route path="cal" element={<Cal />} />
             <Route path="/" element={<Home />} />
+            <Route path="cal" element={<Cal />} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
 
