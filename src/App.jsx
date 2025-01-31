@@ -13,7 +13,7 @@ import PlanMeals from "./pages/PlanMeals";
 import Favorites from "./pages/Favorites";
 import AppLayout from "./UI components/AppLayout";
 import { ModalProvider } from "./contexts/ModalContext";
-import Cal from "./components/Cal";
+import Cal from "./UI components/Cal";
 import { AllergyDietProvider } from "./contexts/AllergyDietContext";
 
 // ! TO DECIDE HOW WE'LL KEEP GLOBAL UI STATE (redux? contextAPI?) + URL
