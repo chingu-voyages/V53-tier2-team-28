@@ -1,15 +1,21 @@
-import FlexibleContent from "./FlexibleContent";
-import Footer from "./Footer";
+// import FlexibleContent from "./FlexibleContent";
+import Footer from "../components/Footer";
+import Cal from "../components/Cal";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function AppLayout() {
+  const { employeeDietAndAllergies } = useAllergyDietContext();
+  console.log(employeeDietAndAllergies);
+
   return (
     <>
-      {/* // ! APP CONTAINER (regardless of who's logged in)... TO BE STYLED */}
-      <div className="">
-        <FlexibleContent />
-        {/* // ! ADD FOOTER LAURA */}
-        <Footer />
-      </div>
+      {/* // ! EMPLOYEE SELECT TAB  */}
+      {/* // ! EMPLOYEE ALLERGIES AND DIET  */}
+
+      <Cal />
+      {/* // ! PREVIEW COMPONENT  */}
+
+      <Footer />
     </>
   );
 }
