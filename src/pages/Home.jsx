@@ -18,13 +18,11 @@ function Home() {
 
   function handleLogin() {
     setIsOpenModalLogin(true);
-    console.log("Login modal opened");
     navigate("/login");
   }
 
   function handleSignup() {
     setIsOpenModalSignup(true);
-    console.log("Signup modal opened");
     navigate("/signup");
   }
 

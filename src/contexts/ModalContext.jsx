@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useKeyPress } from "../helpers/useKeyPress";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ModalContext = createContext();
 
@@ -9,6 +9,7 @@ export function ModalProvider({ children }) {
   const [isOpenModalSignup, setIsOpenModalSignup] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   function closeAnyModal() {
     setIsOpenModalLogin(false);
@@ -17,6 +18,19 @@ export function ModalProvider({ children }) {
   }
 
   const isAnyModalOpen = isOpenModalSignup || isOpenModalLogin;
+
+  // Auto-open modals when navigating to specific routes
+  useEffect(() => {
+    if (location.pathname === "/login") {
+      setIsOpenModalLogin(true);
+      setIsOpenModalSignup(false);
+    } else if (location.pathname === "/signup") {
+      setIsOpenModalSignup(true);
+      setIsOpenModalLogin(false);
+    } else {
+      closeAnyModal();
+    }
+  }, [location.pathname]);
 
   function handleCloseAnyModal() {
     if (!isAnyModalOpen) return;
