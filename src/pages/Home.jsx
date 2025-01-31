@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useModalContext } from "../contexts/ModalContext.jsx";
 import { capitalize } from "../helpers/helperFunctions.jsx";
 import Button from "../UI components/Button.jsx";
 import Section from "../UI components/Section.jsx";
@@ -9,6 +11,22 @@ function Home() {
 
   // ! fake employee
   // currentAccount.typeOfUser = "employee";
+
+  const navigate = useNavigate();
+
+  const { setIsOpenModalLogin, setIsOpenModalSignup } = useModalContext();
+
+  function handleLogin() {
+    setIsOpenModalLogin(true);
+    console.log("Login modal opened");
+    navigate("/login");
+  }
+
+  function handleSignup() {
+    setIsOpenModalSignup(true);
+    console.log("Signup modal opened");
+    navigate("/signup");
+  }
 
   return (
     // ! MAIN CONTAINER
@@ -41,7 +59,7 @@ function Home() {
           <Section
             title="Set your food preferences?"
             buttonText="SIGNUP"
-            onClick={() => setIsOpenModalSignup(true)}
+            onClick={handleSignup}
           />
           {/* // ! Welcome screen */}
           <div className="flex flex-col self-center items-center gap-4 mb-8">
@@ -58,7 +76,7 @@ function Home() {
           <Section
             title="Manage weekly meals"
             buttonText="MANAGER LOGIN"
-            onClick={() => setIsOpenModalLoginA(true)}
+            onClick={handleLogin}
           />
         </div>
       )}

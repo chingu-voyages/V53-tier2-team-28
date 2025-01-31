@@ -1,30 +1,39 @@
-import { createContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 // ! CREATE USER SNIPPET FOR CONTEXT API TEMPLATE LIKE THIS
 
 const DishesContext = createContext();
 
-function DishesContext({ children }) {
-  // ! dishes to be loaded from API not hardcoded here!!
-  // ! this will be the object structure!
-  const dishes = [
-    { title: "John", ID: "", imageUrl: [] },
-    { title: "Melissa", ID: "", imageUrl: [] },
-    { title: "Cathy", ID: "", imageUrl: [] },
-  ];
+export function DishesProvider({ children }) {
+  const [dishes, setDishes] = useState([]);
 
-  function addNewDish() {
-    // ! logic
-    console.log("new dish added!!");
+  useEffect(() => {
+    async function fetchDishes() {
+      try {
+        const response = await fetch("https://menus-api.vercel.app/dishes");
+        if (!response.ok) throw new Error("Failed to fetch dishes");
+        const data = await response.json();
+        setDishes(data);
+      } catch (error) {
+        console.error("Error fetching dishes:", error);
+      }
+    }
+
+    fetchDishes();
+  }, []);
+
+  function addNewDish(newDish) {
+    setDishes((prevDishes) => [...prevDishes, newDish]);
+    console.log("New dish added:", newDish);
   }
 
-  function removeDish() {
-    // ! logic
-    console.log(" dish removed!!");
+  function removeDish(dishId) {
+    setDishes((prevDishes) => prevDishes.filter((dish) => dish.ID !== dishId));
+    console.log("Dish removed:", dishId);
   }
 
   return (
-    <DishesContext.Provider value={{ dishes }}>
+    <DishesContext.Provider value={{ dishes, addNewDish, removeDish }}>
       {children}
     </DishesContext.Provider>
   );

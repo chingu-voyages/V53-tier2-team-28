@@ -4,7 +4,7 @@ import { createContext } from "react";
 
 const AllergyDietContext = createContext();
 
-function AllergyDietContext({ children }) {
+export function AllergyDietProvider({ children }) {
   // ! write logic which will save the allergies and diet restrictions on signup using this context
 
   const employees = [

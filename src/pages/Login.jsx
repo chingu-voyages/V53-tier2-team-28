@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { useKeyPress } from "../helpers/useKeyPress";
 import SmallSpinner from "../UI components/SmallSpinner";
+import { useModalContext } from "../contexts/ModalContext";
 
 function Login() {
+  const { isOpenModalLogin } = useModalContext();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +39,7 @@ function Login() {
 
   useKeyPress("Enter", handleLogin);
 
+  if (!isOpenModalLogin) return null;
   return (
     <form
       onSubmit={handleLogin}
