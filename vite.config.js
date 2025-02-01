@@ -1,8 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import eslintPlugin from "vite-plugin-eslint";
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()], 
-})
+  plugins: [
+    react(),
+    eslintPlugin({
+      cache: false, // Disable cache if necessary
+      include: ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"], // Include specific files
+    }),
+  ],
+});
