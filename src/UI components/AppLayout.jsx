@@ -1,6 +1,7 @@
 // import FlexibleContent from "./FlexibleContent";
 import Footer from "../UI components/Footer";
 import Cal from "../UI components/Cal";
+import Diet from "../UI components/Diet"
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function AppLayout() {
@@ -11,7 +12,7 @@ function AppLayout() {
     <>
       {/* // ! EMPLOYEE SELECT TAB  */}
       {/* // ! EMPLOYEE ALLERGIES AND DIET  */}
-
+      <Diet />
       <Cal />
       {/* // ! PREVIEW COMPONENT  */}
 
