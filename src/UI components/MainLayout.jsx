@@ -11,6 +11,7 @@ function MainLayout() {
         {/* Adjust margin if needed */}
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }

@@ -1,4 +1,9 @@
+import { useLocation } from "react-router-dom";
+
 function Header() {
+  const isManagerLoggedIn =
+    useLocation().pathname === "/app" || useLocation().pathname === "/app/";
+
   return (
     <header className="fixed top-0 left-0 w-full bg-background bg-opacity-85 shadow-md p-4 flex items-center z-50">
       {/* // ! LOGO  */}

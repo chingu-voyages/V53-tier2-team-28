@@ -2,13 +2,14 @@ import github from "../assets/github.png";
 
 function Footer() {
   return (
-    <div className="bg-white">
-      <div className="link">
+    // ! main container
+    <div className=" bg-white max-h-[20vh]">
+      <div className="link flex gap-2 justify-between">
         <a href="https://github.com/v53-tier2-team-28/tree/main">
-          <img className="" src={github}></img>
+          <img className="w-52" src={github} alt="GitHub" />
           Chingu Voyage 53 Tier 2 Team 28 Repo
         </a>
-        <ul>
+        <ul className="overflow-auto">
           <li className="text-black">
             <strong>Developer</strong>
           </li>
@@ -38,8 +39,7 @@ function Footer() {
             <a href="https://www.linkedin.com/in/noelle-jefferson/">LinkedIn</a>
           </li>
           <li className="text-black">
-            Theresa Green |{" "}
-            <a href="https://github.com/Tegsy">Github</a> | 
+            Theresa Green | <a href="https://github.com/Tegsy">Github</a> |
             <a href="https://www.linkedin.com/in/t-g-78b60b5/">LinkedIn</a>
           </li>
         </ul>
