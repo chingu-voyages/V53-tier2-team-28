@@ -1,84 +1,74 @@
-function Cal() {
+import TableHead from "./TableHead"; // Import TableHead component
+import TableCell from "./TableCell"; // Import TableCell component
+
+function TableRow({ days, startIndex }) {
+  // Fill the row with days, considering the starting index for the first day
+  const rowDays = Array.from({ length: 7 }, (_, i) => {
+    const day = days[startIndex + i];
+    return day !== undefined ? day : null; // If no day, return null
+  });
+
   return (
-    <div className="table bg-white">
-      <table className="border-solid-2 border-black">
-        <tr>
-          <th className="text-black border-solid-2 border-black">Sunday</th>
-          <th className="text-black border-solid-2 border-gray-950">Monday</th>
-          <th className="text-black border-solid-2 border-gray-950">Tuesday</th>
-          <th className="text-black border-solid-2 border-gray-950">
-            Wednesday
-          </th>
-          <th className="text-black border-solid-2 border-gray-950">
-            Thursday
-          </th>
-          <th className="text-black border-solid-2 border-gray-950">Friday</th>
-          <th className="text-black border-solid-2 border-gray-950">
-            Saturday
-          </th>
-        </tr>
-        <tr>
-          <td className="text-black border-solid-2 border-gray-950"></td>
-          <td className=" text-black border-solid-2 border-gray-950"></td>
-          <td className=" text-blackborder-solid-2 border-gray-950"></td>
-          <td className="text-black border-solid-2 border-gray-950">
-            1
-            <p className="bg-lt-blue">
-              Breakfast: Berry Chia Smoothie & Sourdough Raisin Toast
-            </p>
-            <p className="bg-lt-green">
-              Lunch: Greek Salad & Veggie Primo Pizza
-            </p>
-            <p className="bg-lt-red">Supper: Buffalo Wings & Green Salad</p>
-          </td>
-          <td className="text-black border-solid-2 border-gray-950">
-            2<p bg-lt-blue>Breakfast: Tomato-Feta Spinach Smoothie & Granola</p>
-            <p bg-lt-green>Lunch: BLT Sandwich & Cobb Salad</p>
-            <p>Supper: Caesar Salad & Lasagna</p>
-          </td>
-          <td className="text-black border-solid-2 border-gray-950">
-            3<p>Breakfast: Peach Mango Pinneaple Smoothie</p>
-            <p>Lunch: Taco Salad</p>
-            <p>Supper: Poutine, Honey Garlic Chicken</p>
-          </td>
-          <td className="text-black border-solid-2 border-gray-950">4</td>
-        </tr>
-        <tr>
-          <td className="text-black border-solid-2 border-gray-950">5</td>
-          <td className="text-black border-solid-2 border-gray-950">6</td>
-          <td className="text-black border-solid-2 border-gray-950">7</td>
-          <td className="text-black border-solid-2 border-gray-950">8</td>
-          <td className="text-black border-solid-2 border-gray-950">9</td>
-          <td className="text-black border-solid-2 border-gray-950">10</td>
-          <td className="text-black border-solid-2 border-gray-950">11</td>
-        </tr>
-        <tr>
-          <td className="text-black border-solid-2 border-gray-950">12</td>
-          <td className="text-black border-solid-2 border-gray-950">13</td>
-          <td className="text-black border-solid-2 border-gray-950">14</td>
-          <td className="text-black border-solid-2 border-gray-950">15</td>
-          <td className="text-black border-solid-2 border-gray-950">16</td>
-          <td className="text-black border-solid-2 border-gray-950">17</td>
-          <td className="text-black border-solid-2 border-gray-950">18</td>
-        </tr>
-        <tr>
-          <td className="text-black border-solid-2 border-gray-950">19</td>
-          <td className="text-black border-solid-2 border-gray-950">20</td>
-          <td className="text-black border-solid-2 border-gray-950">21</td>
-          <td className="text-black border-solid-2 border-gray-950">22</td>
-          <td className="text-black border-solid-2 border-gray-950">23</td>
-          <td className="text-black border-solid-2 border-gray-950">24</td>
-          <td className="text-black border-solid-2 border-gray-950">25</td>
-        </tr>
-        <tr>
-          <td className="text-black border-solid-2 border-gray-950">26</td>
-          <td className="text-black border-solid-2 border-gray-950">27</td>
-          <td className="text-black border-solid-2 border-gray-950">28</td>
-          <td className="text-black border-solid-2 border-gray-950">29</td>
-          <td className="text-black border-solid-2 border-gray-950">30</td>
-          <td className="text-black border-solid-2 border-gray-950">31</td>
-          <td className="text-black border-solid-2 border-gray-950"></td>
-        </tr>
+    <tr>
+      {rowDays.map((day, index) => (
+        <TableCell key={index} day={day}>
+          {day && (
+            <>
+              <p>Breakfast: Example Breakfast</p>
+              <p>Lunch: Example Lunch</p>
+              <p>Dinner: Example DDD</p>
+            </>
+          )}
+        </TableCell>
+      ))}
+    </tr>
+  );
+}
+
+function Cal() {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const daysInMonth = 31; // Set the number of days in the month
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  // Find out which day of the week the 1st of the month is on (e.g., Sunday = 0, Monday = 1, etc.)
+  const startDayOfMonth = new Date(2025, 0, 1).getDay(); // For example, January 1st, 2025
+
+  // Calculate the number of rows needed
+  const numberOfRows = Math.ceil((daysInMonth + startDayOfMonth) / 7);
+
+  return (
+    <div className="bg-background w-full">
+      <table className="w-full border border-black table-fixed">
+        <TableHead>
+          {daysOfWeek.map((day, index) => (
+            <th
+              key={index}
+              className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
+            >
+              {day}
+            </th>
+          ))}
+        </TableHead>
+
+        <tbody>
+          {/* Generate rows dynamically */}
+          {Array.from({ length: numberOfRows }).map((_, rowIndex) => (
+            <TableRow
+              key={rowIndex}
+              days={days}
+              startIndex={rowIndex * 7 - startDayOfMonth}
+            />
+          ))}
+        </tbody>
       </table>
     </div>
   );

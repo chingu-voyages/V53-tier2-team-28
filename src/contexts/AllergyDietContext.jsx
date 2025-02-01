@@ -5,8 +5,6 @@ import { createContext, useContext, useState } from "react";
 const AllergyDietContext = createContext();
 
 export function AllergyDietProvider({ children }) {
-  // ! write logic which will save the allergies and diet restrictions on signup using this context
-
   const [employeeDietAndAllergies, setEmployeeDietAndAllergies] = useState([
     { name: "John", allergies: [], diet: [] },
     { name: "Melissa", allergies: [], diet: [] },
@@ -16,6 +14,15 @@ export function AllergyDietProvider({ children }) {
   const employeeList = employeeDietAndAllergies.map(
     (employee) => employee.name
   );
+
+  // function addNewEmployee() {
+  //   // ! logic
+  //   console.log("new employee added!!");
+  // }
+
+  // function removeEmployee() {
+  //   // ! logic
+  //   console.log(" employee removed!!");  // }
 
   return (
     <AllergyDietContext.Provider

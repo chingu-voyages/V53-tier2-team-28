@@ -1,16 +1,16 @@
-import FlexibleContent from "./FlexibleContent";
-import Footer from "./Footer";
+// import FlexibleContent from "./FlexibleContent";
+import Footer from "../UI components/Footer";
+import Cal from "../UI components/Cal";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function AppLayout() {
+  const { employeeDietAndAllergies } = useAllergyDietContext();
+  console.log(employeeDietAndAllergies);
+
   return (
-    <>
-      {/* // ! APP CONTAINER (regardless of who's logged in)... TO BE STYLED */}
-      <div className="">
-        <FlexibleContent />
-        {/* // ! ADD FOOTER LAURA */}
-        <Footer />
-      </div>
-    </>
+    <div className="p-20 w-full max-h-[85vh]">
+      <Cal />
+    </div>
   );
 }
 

@@ -2,45 +2,99 @@ import github from "../assets/github.png";
 
 function Footer() {
   return (
-    <div className="bg-white">
-      <div className="link">
-        <a href="https://github.com/v53-tier2-team-28/tree/main">
-          <img className="color-black h-sm w-sm" src={github}></img>
-          Chingu Voyage 47 Tier 2 Team 28 Repo
+    // ! main container
+    <div className="bg-background w-full fixed bottom-0 left-0 p-4 overflow-hidden">
+      <div className="link flex flex-wrap justify-between items-center">
+        {/* Left section: GitHub Link */}
+        <a
+          href="https://github.com/v53-tier2-team-28/tree/main"
+          className="flex items-center space-x-2 w-full sm:w-auto"
+        >
+          <img className="w-24" src={github} alt="GitHub" />
+          <span>Chingu Voyage 53 Tier 2 Team 28 Repo</span>
         </a>
-        <ul>
-          <li className="text-black">
-            <strong>Developer</strong>
-          </li>
-          <li className="text-black">
-            Erica C | <a href="https://github.com/chonger878">Github</a> |
-            <a href="https://www.linkedin.com/in/charwaeericachong/">
-              LinkedIn
-            </a>
-          </li>
-          <li className="text-black">
-            Frosty/Laura | <a href="https://github.com/frosty8104">Github</a> |
-            <a href="https://www.linkedin.com/in/laura-gieg-web-designer-dev/">
-              LinkedIn
-            </a>
-          </li>
-          <li className="text-black">
-            Bogdan Terzic |{" "}
-            <a href="https://github.com/minorObsession">Github</a> |
-            <a href="https://www.linkedin.com/in/bogdanterzic95/">LinkedIn</a>
-          </li>
-          <li className="text-black">
-            <strong>Scrum Master</strong>
-          </li>
-          <li className="text-black">
-            Noelle Jefferson |{" "}
-            <a href="https://github.com/Equillibria">Github</a> |
-            <a href="https://www.linkedin.com/in/noelle-jefferson/">LinkedIn</a>
-          </li>
-          <li className="text-black">
-            Theresa Green | <a href="">Github</a> | <a href="">LinkedIn</a>
-          </li>
-        </ul>
+
+        {/* Right section: peoples' info list */}
+        <div className="flex gap-4 w-full sm:w-auto flex-wrap">
+          {/* Developer section */}
+          <ul className="text-left w-full sm:w-auto">
+            <li className="text-textColor">
+              <strong>Developer</strong>
+            </li>
+            <li className="text-textColor">
+              Erica C |{" "}
+              <a href="https://github.com/chonger878" className="underline">
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/charwaeericachong/"
+                className="underline"
+              >
+                LinkedIn
+              </a>
+            </li>
+            <li className="text-textColor">
+              Frosty/Laura |{" "}
+              <a href="https://github.com/frosty8104" className="underline">
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/laura-gieg-web-designer-dev/"
+                className="underline"
+              >
+                LinkedIn
+              </a>
+            </li>
+            <li className="text-textColor">
+              Bogdan Terzic |{" "}
+              <a href="https://github.com/minorObsession" className="underline">
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/bogdanterzic95/"
+                className="underline"
+              >
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+
+          {/* Scrum Master section */}
+          <ul className="text-left w-full sm:w-auto">
+            <li className="text-textColor">
+              <strong>Scrum Master</strong>
+            </li>
+            <li className="text-textColor">
+              Noelle Jefferson |{" "}
+              <a href="https://github.com/Equillibria" className="underline">
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/noelle-jefferson/"
+                className="underline"
+              >
+                LinkedIn
+              </a>
+            </li>
+            <li className="text-textColor">
+              Theresa Green |{" "}
+              <a href="https://github.com/Tegsy" className="underline">
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/t-g-78b60b5/"
+                className="underline"
+              >
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

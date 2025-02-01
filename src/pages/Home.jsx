@@ -3,6 +3,7 @@ import { useModalContext } from "../contexts/ModalContext.jsx";
 import { capitalize } from "../helpers/helperFunctions.jsx";
 import Button from "../UI components/Button.jsx";
 import Section from "../UI components/Section.jsx";
+import Footer from "../UI components/Footer.jsx";
 
 function Home() {
   let currentAccount; // Initialize currentAccount
@@ -27,8 +28,8 @@ function Home() {
   }
 
   return (
-    // ! MAIN CONTAINER
-    <div className="flex flex-col justify-between w-full min-h-screen p-14 bg-backgroundImage bg-cover bg-fixed bg-bottom h-full">
+    // * THIS CONTAINER TO BE 80% AND FOOTER TO BE 20% OF THE SCREEN HEIGHT
+    <div className="flex flex-col justify-between w-full h-[90vh] p-28 bg-backgroundImage bg-cover bg-fixed bg-bottom ">
       {/* // ! Check if the user is logged in */}
       {currentAccount ? (
         <>
@@ -52,7 +53,7 @@ function Home() {
           </div>
         </>
       ) : (
-        <div className="grow h-full flex flex-col items-center sm:items-start justify-between">
+        <div className="grow h-full flex flex-col items-center sm:items-start justify-between ">
           {/* // ! New employee section */}
           <Section
             title="Set your food preferences?"
