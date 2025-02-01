@@ -18,17 +18,17 @@ export function ModalProvider({ children }) {
 
   const isAnyModalOpen = isOpenModalSignup || isOpenModalLogin;
 
-  useEffect(() => {
-    if (location.pathname === "/login" && !isOpenModalLogin) {
-      setIsOpenModalLogin(true);
-      setIsOpenModalSignup(false);
-    } else if (location.pathname === "/signup" && !isOpenModalSignup) {
-      setIsOpenModalSignup(true);
-      setIsOpenModalLogin(false);
-    } else {
-      closeAnyModal(); // Close modals if not on login/signup page
-    }
-  }, [location.pathname, isOpenModalLogin, isOpenModalSignup]);
+  // useEffect(() => {
+  //   if (location.pathname === "/login" && !isOpenModalLogin) {
+  //     setIsOpenModalLogin(true);
+  //     setIsOpenModalSignup(false);
+  //   } else if (location.pathname === "/signup" && !isOpenModalSignup) {
+  //     setIsOpenModalSignup(true);
+  //     setIsOpenModalLogin(false);
+  //   } else {
+  //     closeAnyModal(); // Close modals if not on login/signup page
+  //   }
+  // }, [location.pathname, isOpenModalLogin, isOpenModalSignup]);
 
   // Prevent navigate from triggering unnecessary redirects
   function handleCloseAnyModal() {

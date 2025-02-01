@@ -7,20 +7,20 @@ const ManagerContext = createContext();
 export function ManagerProvider({ children }) {
   const [dishes, setDishes] = useState([]);
 
-  useEffect(() => {
-    async function fetchDishes() {
-      try {
-        const response = await fetch("https://menus-api.vercel.app/dishes");
-        if (!response.ok) throw new Error("Failed to fetch dishes");
-        const data = await response.json();
-        setDishes(data);
-      } catch (error) {
-        console.error("Error fetching dishes:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchDishes() {
+  //     try {
+  //       const response = await fetch("https://menus-api.vercel.app/dishes");
+  //       if (!response.ok) throw new Error("Failed to fetch dishes");
+  //       const data = await response.json();
+  //       setDishes(data);
+  //     } catch (error) {
+  //       console.error("Error fetching dishes:", error);
+  //     }
+  //   }
 
-    fetchDishes();
-  }, []);
+  //   fetchDishes();
+  // }, []);
 
   function addNewDish(newDish) {
     setDishes((prevDishes) => [...prevDishes, newDish]);
