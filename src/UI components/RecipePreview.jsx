@@ -18,20 +18,22 @@ function RecipePreview() {
 
   return (
     // ! Main container that holds everything in a row layout with gap between sections
-    <div className="bg-background flex justify-center lg:justify-between lg:gap-10 mt-5 lg:mt-8">
+    <div className="bg-background flex justify-center lg:justify-between lg:gap-10 mt-5 lg:mt-8 rounded-xl">
       {/* // !  Container for the recipe image and details, uses flex for responsive layout */}
       <div className="flex flex-col gap-2 lg:flex-row items-center lg:items-start">
         {/* // !  Recipe Details Container:
           - A flex column for displaying the recipe details below the image
           - Adds spacing between elements with `gap-4` and padding with `p-4` */}
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-3 p-4">
           {/* // !  Recipe Title: 
             - Styled as a large, bold font */}
-          <h1 className="text-2xl font-bold">{fakeRecipe.title}</h1>
+          <h1 className="text-center mt-1 text-2xl font-bold">
+            {fakeRecipe.title}
+          </h1>
 
           {/* // !  Recipe Description: 
             - Slightly lighter text color for description */}
-          <p className="text-gray-600">{fakeRecipe.description}</p>
+          <p className="text-center">{fakeRecipe.description}</p>
 
           {/* // !  Ingredients Title: 
             - Styled as a slightly smaller, bold text */}
@@ -41,7 +43,7 @@ function RecipePreview() {
             - Displays each ingredient with a disc (bullet) style */}
           <ul className="list-disc pl-5">
             {fakeRecipe.ingredients?.map((ingredient, index) => (
-              <li key={index} className="text-gray-700">
+              <li key={index} className="text-textColor">
                 {ingredient}
               </li>
             ))}
@@ -49,7 +51,7 @@ function RecipePreview() {
 
           {/* // !  Calories:
             - Displays the calories information with a gray text color */}
-          <p className="mt-2 text-gray-500">Calories: {fakeRecipe.calories}</p>
+          <p className="mt-2 text-textColor">Calories: {fakeRecipe.calories}</p>
         </div>
 
         {/* // !  Recipe Image Container: 
