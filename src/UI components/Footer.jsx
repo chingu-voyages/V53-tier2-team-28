@@ -3,7 +3,7 @@ import github from "../assets/github.png";
 function Footer() {
   return (
     // ! main container
-    <div className=" bg-white max-h-[20vh]">
+    <div className=" bg-white max-h-[20vh] w-full fixed bottom-0 left-0">
       <div className="link flex gap-2 justify-between">
         <a href="https://github.com/v53-tier2-team-28/tree/main">
           <img className="w-52" src={github} alt="GitHub" />
