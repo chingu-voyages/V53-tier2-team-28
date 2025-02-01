@@ -38,7 +38,9 @@ function Footer() {
             <a href="https://www.linkedin.com/in/noelle-jefferson/">LinkedIn</a>
           </li>
           <li className="text-black">
-            Theresa Green | <a href="">Github</a> | <a href="">LinkedIn</a>
+            Theresa Green |{" "}
+            <a href="https://github.com/Tegsy">Github</a> | 
+            <a href="https://www.linkedin.com/in/t-g-78b60b5/">LinkedIn</a>
           </li>
         </ul>
       </div>
