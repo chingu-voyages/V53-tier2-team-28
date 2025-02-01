@@ -9,13 +9,7 @@ function AppLayout() {
 
   return (
     <>
-      {/* // ! EMPLOYEE SELECT TAB  */}
-      {/* // ! EMPLOYEE ALLERGIES AND DIET  */}
-
       <Cal />
-      {/* // ! PREVIEW COMPONENT  */}
-
-      <Footer />
     </>
   );
 }

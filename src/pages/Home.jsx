@@ -54,7 +54,7 @@ function Home() {
             </div>
           </>
         ) : (
-          <div className="grow h-full flex flex-col items-center sm:items-start justify-between">
+          <div className="grow h-full flex flex-col items-center sm:items-start justify-between mt-10">
             {/* // ! New employee section */}
             <Section
               title="Set your food preferences?"

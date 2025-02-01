@@ -22,8 +22,7 @@ export function AllergyDietProvider({ children }) {
 
   // function removeEmployee() {
   //   // ! logic
-  //   console.log(" employee removed!!");
-  // }
+  //   console.log(" employee removed!!");  // }
 
   return (
     <AllergyDietContext.Provider
