@@ -9,15 +9,10 @@ function AppLayout() {
   console.log(employeeDietAndAllergies);
 
   return (
-    <>
-      {/* // ! EMPLOYEE SELECT TAB  */}
-      {/* // ! EMPLOYEE ALLERGIES AND DIET  */}
+    <div className="p-20 w-full max-h-[85vh]">
       <Diet />
       <Cal />
-      {/* // ! PREVIEW COMPONENT  */}
-
-      <Footer />
-    </>
+    </div>
   );
 }
 

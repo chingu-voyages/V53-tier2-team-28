@@ -14,13 +14,11 @@ export function ModalProvider({ children }) {
   function closeAnyModal() {
     setIsOpenModalLogin(false);
     setIsOpenModalSignup(false);
-    navigate("/");
   }
 
   const isAnyModalOpen = isOpenModalSignup || isOpenModalLogin;
 
   // useEffect(() => {
-
   //   if (location.pathname === "/login" && !isOpenModalLogin) {
   //     setIsOpenModalLogin(true);
   //     setIsOpenModalSignup(false);

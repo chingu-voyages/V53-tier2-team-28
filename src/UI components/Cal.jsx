@@ -46,7 +46,7 @@ function Cal() {
   const numberOfRows = Math.ceil((daysInMonth + startDayOfMonth) / 7);
 
   return (
-    <div className="bg-white w-full">
+    <div className="bg-background w-full">
       <table className="w-full border border-black table-fixed">
         <TableHead>
           {daysOfWeek.map((day, index) => (
