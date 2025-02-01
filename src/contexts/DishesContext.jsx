@@ -2,9 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 // ! CREATE USER SNIPPET FOR CONTEXT API TEMPLATE LIKE THIS
 
-const DishesContext = createContext();
+const ManagerContext = createContext();
 
-export function DishesProvider({ children }) {
+export function ManagerProvider({ children }) {
   const [dishes, setDishes] = useState([]);
 
   useEffect(() => {
@@ -33,12 +33,12 @@ export function DishesProvider({ children }) {
   }
 
   return (
-    <DishesContext.Provider value={{ dishes, addNewDish, removeDish }}>
+    <ManagerContext.Provider value={{ dishes, addNewDish, removeDish }}>
       {children}
-    </DishesContext.Provider>
+    </ManagerContext.Provider>
   );
 }
 
-export function useDishesContext() {
-  return useContext(DishesContext);
+export function useManagerContext() {
+  return useContext(ManagerContext);
 }

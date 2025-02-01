@@ -7,7 +7,6 @@ function MainLayout() {
     <>
       <Header />
       <main className="mt-[headerHeight]">
-        {" "}
         {/* Adjust margin if needed */}
         <Outlet />
       </main>

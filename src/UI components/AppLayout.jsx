@@ -8,9 +8,9 @@ function AppLayout() {
   console.log(employeeDietAndAllergies);
 
   return (
-    <>
+    <div className="p-20 w-full max-h-[85vh]">
       <Cal />
-    </>
+    </div>
   );
 }
 

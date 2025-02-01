@@ -29,7 +29,7 @@ function Home() {
 
   return (
     // * THIS CONTAINER TO BE 80% AND FOOTER TO BE 20% OF THE SCREEN HEIGHT
-    <div className="flex flex-col justify-between w-full p-28 bg-backgroundImage bg-cover bg-fixed bg-bottom h-[80vh]">
+    <div className="flex flex-col justify-between w-full h-[90vh] p-28 bg-backgroundImage bg-cover bg-fixed bg-bottom ">
       {/* // ! Check if the user is logged in */}
       {currentAccount ? (
         <>

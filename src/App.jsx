@@ -10,6 +10,7 @@ import { ModalProvider } from "./contexts/ModalContext";
 import Cal from "./UI components/Cal";
 import { AllergyDietProvider } from "./contexts/AllergyDietContext";
 import MainLayout from "./UI components/MainLayout";
+import { ManagerProvider } from "./contexts/DishesContext";
 
 // ! TO DECIDE HOW WE'LL KEEP GLOBAL UI STATE (contextAPI?) + URL
 // ! TO DECIDE HOW WE'LL KEEP REMOTE STATE (fetchAPI!?) + URL
@@ -21,15 +22,17 @@ function App() {
     <Router>
       <ModalProvider>
         <AllergyDietProvider>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              <Route index element={<Home />} />
-              <Route path="signup" element={<Signup />} />
-              <Route path="login" element={<Login />} />
-              <Route path="app" element={<AppLayout />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Route>
-          </Routes>
+          <ManagerProvider>
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route index element={<Home />} />
+                <Route path="signup" element={<Signup />} />
+                <Route path="login" element={<Login />} />
+                <Route path="app" element={<AppLayout />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Route>
+            </Routes>
+          </ManagerProvider>
         </AllergyDietProvider>
       </ModalProvider>
     </Router>
