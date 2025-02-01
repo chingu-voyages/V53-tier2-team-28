@@ -7,10 +7,9 @@ import Signup from "./pages/Signup";
 
 import AppLayout from "./UI components/AppLayout";
 import { ModalProvider } from "./contexts/ModalContext";
-import Cal from "./UI components/Cal";
 import { AllergyDietProvider } from "./contexts/AllergyDietContext";
 import MainLayout from "./UI components/MainLayout";
-import { ManagerProvider } from "./contexts/DishesContext";
+import { ManagerProvider } from "./contexts/ManagerContext";
 
 // ! TO DECIDE HOW WE'LL KEEP GLOBAL UI STATE (contextAPI?) + URL
 // ! TO DECIDE HOW WE'LL KEEP REMOTE STATE (fetchAPI!?) + URL

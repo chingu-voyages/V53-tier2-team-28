@@ -3,20 +3,41 @@ import { useNavigate } from "react-router-dom";
 import { useKeyPress } from "../helpers/useKeyPress";
 import SmallSpinner from "../UI components/SmallSpinner";
 import { useModalContext } from "../contexts/ModalContext";
+import { useManagerContext } from "../contexts/ManagerContext";
 
 function Login() {
-  const { isOpenModalLogin, handleCloseAnyModal } = useModalContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
+  const { isOpenModalLogin, handleCloseAnyModal } = useModalContext();
+  const { managerCredentials } = useManagerContext();
+
+  console.log("THESE ARE THE managerCredentials:", managerCredentials);
 
   function handleLogin(e) {
     if (e) e.preventDefault();
+
+    // Activate loading spinner
     setIsLoading(true);
+
     setTimeout(() => {
+      // Guard clause for invalid credentials
+      if (username !== managerCredentials.username) {
+        alert("Invalid username");
+        setIsLoading(false);
+        return;
+      } else if (+password !== +managerCredentials.password) {
+        alert("Invalid password");
+        setIsLoading(false);
+        return;
+      } else {
+        // Successful login
+        navigate("/app");
+      }
+
       setIsLoading(false);
-      navigate("/app/manager");
     }, 1000);
   }
 
