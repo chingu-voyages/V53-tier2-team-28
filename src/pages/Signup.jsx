@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import { useModalContext } from "../contexts/ModalContext";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 
 function Signup() {
   const { isOpenModalSignup, handleCloseAnyModal } = useModalContext();
@@ -49,6 +50,7 @@ function Signup() {
     );
 
     // Update the state with the new data
+    // ! I WAS HERE!! IT'S MAKING DUPLICATES INSTEAD OF JUST MODIFYING THE EXISTING OBJECT
     setEmployeeDietAndAllergies((prev) => [
       ...prev,
       {
@@ -57,6 +59,11 @@ function Signup() {
         allergies: selectedAllergies,
       },
     ]);
+
+    // update local storage
+    // useEffect(() => {
+    //   useLocalStorage(employeeDietAndAllergies, "employeePreferences");
+    // }, [employeeDietAndAllergies]);
 
     // Close modal after submission
     handleCloseAnyModal();
