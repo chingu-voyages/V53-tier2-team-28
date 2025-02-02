@@ -1,7 +1,7 @@
 import Cal from "../UI components/Cal";
 import Diet from "../UI components/Diet";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
-import RecipePreview from "./RecipePreview";
+import DishPreview from "./DishPreview";
 
 function AppLayout() {
   const { employeeDietAndAllergies } = useAllergyDietContext();
@@ -12,7 +12,7 @@ function AppLayout() {
       <Diet />
       <div className="p-20 w-full">
         <Cal />
-        <RecipePreview />
+        <DishPreview />
       </div>
     </div>
   );
