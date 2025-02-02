@@ -7,20 +7,20 @@ import Vegetarian from "../assets/vegetarian.png";
 
 function Diet() {
     return (
-        <div className="bg-rose-50 border border-black flex items-center justify-between">
-            <div class="w-full border border-black text-grey-800 text-center flex items-center">
-            <img className="w-1/2 p-2" src={GlutenFree}></img>Gluten Free</div>
-            <div class="w-full border border-black text-grey-800 text-center flex items-center">
-            <img className="w-1/2 p-2" src={Keto}></img>Keto</div>
-            <div class="w-full border border-black text-grey-800 text-center flex items-center">
-            <img className="w-1/2 p-2" src={Mediterranean}></img>Mediterranean</div>
-            <div class="w-full border border-black text-grey-800 text-center flex items-center">
-            <img className="w-1/2 p-2" src={Paleo}></img>Paleo</div>
-            <div class="w-full border border-black text-grey-800 text-center flex items-center">
-            <img className="w-1/2 p-2" src={Vegan}></img>Vegan</div>
-            <div class="w-full border border-black text-grey-800 text-center flex items-center">
-            <img className="w-1/2 p-2" src={Vegetarian}></img>Vegetarian</div>
-        </div>
+        <table className="bg-rose-50 mb-2 flex items-center justify-between">
+            <tr><th class="w-1/6 border border-black text-grey-800 text-center text-sm">
+            <button><img className="pl-2 pr-2" src={GlutenFree}></img>Gluten Free</button></th>
+            <th class="w-1/6 border border-black text-grey-800 text-center text-sm">
+            <button><img className="pl-2 pr-2" src={Keto}></img>Keto</button></th>
+            <th class="w-1/6 border border-black text-grey-800 text-center text-sm">
+            <button><img className="pt-2 pl-2 pr-2" src={Mediterranean}></img>Mediterranean</button></th>
+            <th class="w-1/6 border border-black text-grey-800 text-center text-sm">
+            <button><img className="pl-2 pr-2" src={Paleo}></img>Paleo</button></th>
+            <th class="w-16 border border-black text-grey-800 text-center text-sm">
+            <button><img className="pl-2 pr-2" src={Vegan}></img>Vegan</button></th>
+            <th class="w-1/6 border border-black text-grey-800 text-center text-sm">
+            <button><img className="pl-2 pr-2" src={Vegetarian}></img>Vegetarian</button></th></tr>
+        </table>
     );
 }
 export default Diet;
