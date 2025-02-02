@@ -20,6 +20,7 @@ function Diet() {
             <button><img className="pl-2 pr-2" src={Vegan}></img>Vegan</button></th>
             <th class="w-1/6 border border-black text-grey-800 text-center text-sm">
             <button><img className="pl-2 pr-2" src={Vegetarian}></img>Vegetarian</button></th></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         </table>
     );
 }
