@@ -1,6 +1,6 @@
 import Cal from "../UI components/Cal";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
-import RecipePreview from "./RecipePreview";
+import RecipePreview from "./DishPreview";
 
 function AppLayout() {
   const { employeeDietAndAllergies } = useAllergyDietContext();
