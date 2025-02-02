@@ -10,7 +10,7 @@ function AppLayout() {
   return (
     <div className="p-20 w-full ">
       <Diet />
-      <div className="p-20 w-full">
+      <div className="py-20 w-full">
         <Cal />
         <DishPreview />
       </div>
