@@ -1,9 +1,11 @@
 import github from "../assets/github.png";
 
 function Footer() {
+  // * NOTES:
+  // * footer to be fixed at the bottom of the HOMEPAGE otherwise it will be at the bottom of the page but need to scroll down to see it
   return (
     // ! main container
-    <div className="bg-background w-full fixed bottom-0 left-0 p-4 overflow-hidden">
+    <div className="bg-background w-full mt-20 p-4 ">
       <div className="link flex flex-wrap justify-between items-center">
         {/* Left section: GitHub Link */}
         <a
