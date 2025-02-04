@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import { useModalContext } from "../contexts/ModalContext";
 import { useLocalStorage } from "../helpers/useLocalStorage";
+import { useManagerContext } from "../contexts/ManagerContext";
 
 function Signup() {
   const { isOpenModalSignup, handleCloseAnyModal } = useModalContext();
@@ -11,26 +12,13 @@ function Signup() {
     employeeList,
   } = useAllergyDietContext();
 
+  const { dietaryOptions, allergyOptions } = useManagerContext();
+
   const [selectedName, setSelectedName] = useState(employeeList[0] || "");
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [selectedAllergies, setSelectedAllergies] = useState([]);
 
   console.log(employeeDietAndAllergies);
-  const dietaryOptions = [
-    "Vegan",
-    "Vegetarian",
-    "Pescetarian",
-    "More Protein",
-    "Heart Healthy",
-  ];
-
-  const allergyOptions = [
-    "Nut Allergy",
-    "Gluten Allergy",
-    "Soy Allergy",
-    "Dairy Allergy",
-    "Shellfish Allergy",
-  ];
 
   function handleCheckboxChange(setState, value) {
     setState((prev) =>
@@ -44,7 +32,6 @@ function Signup() {
     e.preventDefault();
 
     //  find employee object within the array
-    console.log(selectedName);
     const employeeObject = employeeDietAndAllergies.find(
       (employee) => employee.name === selectedName
     );
