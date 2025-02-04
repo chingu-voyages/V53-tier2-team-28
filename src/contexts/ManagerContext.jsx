@@ -106,7 +106,7 @@ export function ManagerProvider({ children }) {
     };
   }
 
-  // get and fix up dishes from dishesAPI
+  // ! get and fix up dishes from dishesAPI
   useEffect(() => {
     async function fetchAllRecipes() {
       const res = await fetch("https://menus-api.vercel.app/dishes");

@@ -5,15 +5,46 @@ import { createContext, useContext, useState } from "react";
 const AllergyDietContext = createContext();
 
 export function AllergyDietProvider({ children }) {
-  const [employeeDietAndAllergies, setEmployeeDietAndAllergies] = useState([
-    { name: "John", allergies: [], diet: [] },
-    { name: "Melissa", allergies: [], diet: [] },
-    { name: "Cathy", allergies: [], diet: [] },
+  const [employeesArray, setEmployeesArray] = useState([
+    {
+      name: "John",
+      allergies: ["Nut Allergy"],
+      diet: ["Mediterranean", "Keto"],
+      employeeID: Math.random(),
+    },
+    {
+      name: "Melissa",
+      allergies: ["Gluten Allergy", "Soy Allergy"],
+      diet: ["GlutenFree"],
+      employeeID: Math.random(),
+    },
+    {
+      name: "Emilio",
+      allergies: [],
+      diet: ["Vegan"],
+      employeeID: Math.random(),
+    },
+    {
+      name: "Miguel",
+      allergies: ["Dairy Allergy"],
+      diet: ["Vegetarian"],
+      employeeID: Math.random(),
+    },
+    {
+      name: "Cassandra",
+      allergies: ["Dairy Allergy", "Shellfish Allergy"],
+      diet: ["Vegan"],
+      employeeID: Math.random(),
+    },
+    {
+      name: "Eric",
+      allergies: ["Shellfish Allergy"],
+      diet: [],
+      employeeID: Math.random(),
+    },
   ]);
 
-  const employeeList = employeeDietAndAllergies.map(
-    (employee) => employee.name
-  );
+  const employeeList = employeesArray.map((employee) => employee.name);
 
   // function addNewEmployee() {
   //   // ! logic
@@ -27,8 +58,8 @@ export function AllergyDietProvider({ children }) {
   return (
     <AllergyDietContext.Provider
       value={{
-        employeeDietAndAllergies,
-        setEmployeeDietAndAllergies,
+        employeesArray,
+        setEmployeesArray,
         employeeList,
       }}
     >
