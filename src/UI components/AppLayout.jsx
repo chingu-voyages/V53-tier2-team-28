@@ -2,6 +2,7 @@ import Cal from "../UI components/Cal";
 import Diet from "../UI components/Diet";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import DishPreview from "./DishPreview";
+import Week from "./Week";
 
 function AppLayout() {
   const { employeeDietAndAllergies } = useAllergyDietContext();
@@ -11,7 +12,9 @@ function AppLayout() {
     <div className="p-20 w-full ">
       <Diet />
       <div className="py-20 w-full">
-        <Cal />
+        {/* // ! started working with weekly calendar */}
+        <Week />
+        {/* <Cal /> */}
         <DishPreview />
       </div>
     </div>

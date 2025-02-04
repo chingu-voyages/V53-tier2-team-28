@@ -43,7 +43,7 @@ export function ManagerProvider({ children }) {
 
   // !  chat analysis function
   // ! make the Object.keys dynamic
-  function addDietAllergyFlags(dish) {
+  function addDietAllergyFlagsAndIcons(dish) {
     const dietaryRules = {
       "Gluten Free": ["Bread", "Wheat", "Barley", "Rye", "Pasta"],
       Keto: ["Sugar", "Rice", "Potato", "Corn"],
@@ -115,7 +115,9 @@ export function ManagerProvider({ children }) {
       const data = await res.json();
 
       // ! analyze dish - add allergy/diet flags
-      const allDishesAnalyzed = data.map((dish) => addDietAllergyFlags(dish));
+      const allDishesAnalyzed = data.map((dish) =>
+        addDietAllergyFlagsAndIcons(dish)
+      );
       console.log(allDishesAnalyzed);
 
       // ! find 50 images for 50 dishes... pfff who's gonna spend 2 hours doing that ...
