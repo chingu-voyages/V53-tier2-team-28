@@ -11,4 +11,10 @@ export default defineConfig({
       include: ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"], // Include specific files
     }),
   ],
+  assetsInclude: ["**/*.png", "**/*.svg", "**/*.jpg"], // Make sure this includes image types you are using
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
 });

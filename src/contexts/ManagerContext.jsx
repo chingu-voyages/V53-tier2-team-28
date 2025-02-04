@@ -1,13 +1,20 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import GlutenFree from "../assets/gluten-free.png";
+import Keto from "../assets/keto.png";
+import Mediterranean from "../assets/mediterranean.png";
+import Paleo from "../assets/paleo.png";
+import Vegan from "../assets/vegan.png";
+import Vegetarian from "../assets/vegetarian.png";
+
 // ! CREATE USER SNIPPET FOR CONTEXT API TEMPLATE LIKE THIS
 
 const ManagerContext = createContext();
 
 export function ManagerProvider({ children }) {
   const [allDishes, setAllDishes] = useState([]);
-
+  console.log(GlutenFree);
   const location = useLocation();
   const isManagerLoggedIn =
     location.pathname === "/app" || location.pathname === "/app/";
@@ -18,7 +25,7 @@ export function ManagerProvider({ children }) {
   };
 
   const dietaryOptions = [
-    "Gluten Free",
+    "GlutenFree",
     "Keto",
     "Mediterranean",
     "Paleo",
@@ -63,36 +70,37 @@ export function ManagerProvider({ children }) {
       "Shellfish Allergy": ["Shrimp", "Lobster", "Crab"],
     };
 
-    let dietRestrictions = [];
-    let allergyRestrictions = [];
+    const dietIconsObj = {
+      "Gluten Free": GlutenFree,
+      Keto: Keto,
+      Mediterranean: Mediterranean,
+      Paleo: Paleo,
+      Vegetarian: Vegetarian,
+      Vegan: Vegan,
+    };
 
-    // Check dietary restrictions
-    for (const [diet, restrictedItems] of Object.entries(dietaryRules)) {
-      if (
-        dish.ingredients.some((ingredient) =>
-          restrictedItems.includes(ingredient)
-        )
-      ) {
-        dietRestrictions.push(diet);
-      }
-    }
+    const dishIngredients = new Set(
+      dish.ingredients.map((i) => i.toLowerCase())
+    );
 
-    // Check allergy restrictions
-    for (const [allergy, restrictedItems] of Object.entries(allergyRules)) {
-      if (
-        dish.ingredients.some((ingredient) =>
-          restrictedItems.includes(ingredient)
-        )
-      ) {
-        allergyRestrictions.push(allergy);
-      }
-    }
+    const dietRestrictions = Object.keys(dietaryRules).filter((diet) =>
+      dietaryRules[diet].some((item) => dishIngredients.has(item.toLowerCase()))
+    );
+
+    const allergyRestrictions = Object.keys(allergyRules).filter((allergy) =>
+      allergyRules[allergy].some((item) =>
+        dishIngredients.has(item.toLowerCase())
+      )
+    );
 
     return {
       ...dish,
       dietRestrictions,
       allergyRestrictions,
-      // ? same fake image for every dish
+      dietIconsObj: dietRestrictions.map((diet) => ({
+        name: diet,
+        icon: dietIconsObj[diet] || null,
+      })),
       fakeImage:
         "https://tse2.mm.bing.net/th?id=OIP.MwazWhKS4ywVTleV0KCkaQHaLH&w=474&h=474&c=7",
     };

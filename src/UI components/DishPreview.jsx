@@ -1,20 +1,12 @@
 import { useState } from "react";
 import { useManagerContext } from "../contexts/ManagerContext";
 
-import GlutenFree from "../assets/gluten-free.png";
-import Keto from "../assets/keto.png";
-import Mediterranean from "../assets/mediterranean.png";
-import Paleo from "../assets/paleo.png";
-import Vegan from "../assets/vegan.png";
-import Vegetarian from "../assets/vegetarian.png";
 import SmallIcon from "./SmallIcon";
 
 function DishPreview({ dishToPreview }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { dietaryOptions } = useManagerContext();
-  const iconNames = [GlutenFree, Keto];
-  console.log(iconNames);
 
   // ! fix diet option names and icon names
 
@@ -68,10 +60,10 @@ function DishPreview({ dishToPreview }) {
 
           {/* // ! Diet/Allergy */}
           <div className="self-end justify-self-end mt-auto">
-            <div>
+            <div className="flex items-center">
               <label>Diet Restrictions:</label>
               {/* // * MAKE ICONS APPEAR DYNAMICALLY */}
-              <SmallIcon src={GlutenFree} />
+              <SmallIcon />
               {/* <img s /> */}
             </div>
             <div>
