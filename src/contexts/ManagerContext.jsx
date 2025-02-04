@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 const ManagerContext = createContext();
 
 export function ManagerProvider({ children }) {
-  const [dishes, setDishes] = useState([]);
+  const [allDishes, setAllDishes] = useState([]);
 
   const location = useLocation();
   const isManagerLoggedIn =
@@ -34,68 +34,6 @@ export function ManagerProvider({ children }) {
     "Shellfish Allergy",
   ];
 
-  // ! FORKIFY API (BETTER DISH INFO)
-
-  const BASE_URL = "https://forkify-api.herokuapp.com/api/v2/recipes/";
-  const API_KEY = "8dca65f9-7186-4b08-b9b4-f198ea66266e";
-
-  // ! FETCH ALL DISHES (forkify API)
-  // useEffect(() => {
-  //   async function fetchAllRecipes() {
-  //     let allRecipes = [];
-  //     const keywords = [
-  //       "chicken",
-  //       "pasta",
-  //       "salad",
-  //       "dessert",
-  //       "beef",
-  //       "fish",
-  //       "vegetarian",
-  //     ]; // Broad categories
-  //     const maxPages = 3; // Prevents infinite loops
-
-  //     try {
-  //       for (const keyword of keywords) {
-  //         let page = 1;
-  //         let hasMoreRecipes = true;
-
-  //         while (hasMoreRecipes && page <= maxPages) {
-  //           const res = await fetch(
-  //             `${BASE_URL}?search=${keyword}&page=${page}&key=${API_KEY}`
-  //           );
-
-  //           if (!res.ok)
-  //             throw new Error(`Failed to fetch dishes for ${keyword}`);
-
-  //           const data = await res.json();
-  //           console.log(
-  //             `Fetched ${data.data.recipes.length} recipes for ${keyword}`
-  //           );
-
-  //           if (data.data && data.data.recipes) {
-  //             allRecipes = [...allRecipes, ...data.data.recipes];
-  //           }
-
-  //           if (
-  //             data.data.recipes.length === 0 ||
-  //             data.data.recipes.length < 10
-  //           ) {
-  //             hasMoreRecipes = false;
-  //           } else {
-  //             page += 1;
-  //           }
-  //         }
-  //       }
-
-  //       setDishes(allRecipes);
-  //     } catch (error) {
-  //       console.error("Error fetching dishes:", error);
-  //     }
-  //   }
-
-  //   fetchAllRecipes();
-  // }, []);
-
   // !  chat analysis function
   // ! make the Object.keys dynamic
   function addDietAllergyFlags(dish) {
@@ -104,8 +42,17 @@ export function ManagerProvider({ children }) {
       Keto: ["Sugar", "Rice", "Potato", "Corn"],
       Mediterranean: ["Olive Oil", "Fish", "Nuts", "Legumes"],
       Paleo: ["Dairy", "Grains", "Legumes"],
-      Vegetarian: ["Chicken", "Beef", "Fish", "Pork"],
-      Vegan: ["Chicken", "Beef", "Fish", "Pork", "Milk", "Eggs", "Cheese"],
+      Vegetarian: ["Chicken", "Beef", "Fish", "Pork", "Sausage"],
+      Vegan: [
+        "Chicken",
+        "Beef",
+        "Fish",
+        "Pork",
+        "Milk",
+        "Eggs",
+        "Cheese",
+        "Sausage",
+      ],
     };
 
     const allergyRules = {
@@ -145,25 +92,29 @@ export function ManagerProvider({ children }) {
       ...dish,
       dietRestrictions,
       allergyRestrictions,
+      // ? same fake image for every dish
+      fakeImage:
+        "https://tse2.mm.bing.net/th?id=OIP.MwazWhKS4ywVTleV0KCkaQHaLH&w=474&h=474&c=7",
     };
   }
 
-  // dishesAPI
+  // get and fix up dishes from dishesAPI
   useEffect(() => {
     async function fetchAllRecipes() {
       const res = await fetch("https://menus-api.vercel.app/dishes");
 
       if (!res.ok) throw new Error("Failed to fetch dishes");
       const data = await res.json();
-      console.log(data);
 
-      // ! analyze dish - add flags
+      // ! analyze dish - add allergy/diet flags
       const allDishesAnalyzed = data.map((dish) => addDietAllergyFlags(dish));
       console.log(allDishesAnalyzed);
 
-      // ! store in state
+      // ! find 50 images for 50 dishes... pfff who's gonna spend 2 hours doing that ...
+      const dishNames = allDishesAnalyzed.map((dish) => dish.name);
 
-      // setDishes()
+      // ! store in state
+      setAllDishes(allDishesAnalyzed);
     }
     fetchAllRecipes();
   }, []);
@@ -182,7 +133,7 @@ export function ManagerProvider({ children }) {
   return (
     <ManagerContext.Provider
       value={{
-        dishes,
+        allDishes,
         isManagerLoggedIn,
         managerCredentials,
         dietaryOptions,
@@ -197,3 +148,64 @@ export function ManagerProvider({ children }) {
 export function useManagerContext() {
   return useContext(ManagerContext);
 }
+
+// // ! FORKIFY API (BETTER DISH INFO)
+
+// const BASE_URL = "https://forkify-api.herokuapp.com/api/v2/recipes/";
+// const API_KEY = "8dca65f9-7186-4b08-b9b4-f198ea66266e";
+// ! FETCH ALL DISHES (forkify API)
+// useEffect(() => {
+//   async function fetchAllRecipes() {
+//     let allRecipes = [];
+//     const keywords = [
+//       "chicken",
+//       "pasta",
+//       "salad",
+//       "dessert",
+//       "beef",
+//       "fish",
+//       "vegetarian",
+//     ]; // Broad categories
+//     const maxPages = 3; // Prevents infinite loops
+
+//     try {
+//       for (const keyword of keywords) {
+//         let page = 1;
+//         let hasMoreRecipes = true;
+
+//         while (hasMoreRecipes && page <= maxPages) {
+//           const res = await fetch(
+//             `${BASE_URL}?search=${keyword}&page=${page}&key=${API_KEY}`
+//           );
+
+//           if (!res.ok)
+//             throw new Error(`Failed to fetch dishes for ${keyword}`);
+
+//           const data = await res.json();
+//           console.log(
+//             `Fetched ${data.data.recipes.length} recipes for ${keyword}`
+//           );
+
+//           if (data.data && data.data.recipes) {
+//             allRecipes = [...allRecipes, ...data.data.recipes];
+//           }
+
+//           if (
+//             data.data.recipes.length === 0 ||
+//             data.data.recipes.length < 10
+//           ) {
+//             hasMoreRecipes = false;
+//           } else {
+//             page += 1;
+//           }
+//         }
+//       }
+
+//       setDishes(allRecipes);
+//     } catch (error) {
+//       console.error("Error fetching dishes:", error);
+//     }
+//   }
+
+//   fetchAllRecipes();
+// }, []);
