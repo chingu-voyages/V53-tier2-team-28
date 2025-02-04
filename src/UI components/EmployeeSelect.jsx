@@ -2,7 +2,6 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function EmployeeSelect() {
   const { employeesArray } = useAllergyDietContext();
-  console.log(employeesArray);
 
   return (
     <ul className="flex gap-8">

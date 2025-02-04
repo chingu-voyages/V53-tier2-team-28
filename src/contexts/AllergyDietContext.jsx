@@ -39,7 +39,7 @@ export function AllergyDietProvider({ children }) {
     {
       name: "Eric",
       allergies: ["Shellfish Allergy"],
-      diet: [],
+      diet: ["Mediterranean", "Paleo"],
       employeeID: Math.random(),
     },
   ]);

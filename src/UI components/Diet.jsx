@@ -6,7 +6,6 @@ import Vegan from "../assets/vegan.png";
 import Vegetarian from "../assets/vegetarian.png";
 
 // ! laura go with these categories:
-
 // const allergyOptions = [
 // "Nut Allergy",
 // "Gluten Allergy",

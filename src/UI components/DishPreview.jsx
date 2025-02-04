@@ -37,7 +37,7 @@ function DishPreview({ dishToPreview }) {
         {/* // ! Recipe Details Container:
           - A flex column for displaying the recipe details below the image
           - Adds spacing between elements with `gap-4` and padding with `p-4` */}
-        <div className="flex flex-col h-full grow md:flex-1 gap-3 p-4 max-w-[600px] mx-auto lg:mx-0">
+        <div className="flex flex-col h-full w-full items-center md:items-stretch grow md:flex-1 gap-3 p-4 max-w-[600px] mx-auto lg:mx-0">
           {/* // ! Title/description div */}
           <div className="border-b-2 border-textColor p-4 ">
             {/* // ! Recipe Title */}
@@ -46,9 +46,9 @@ function DishPreview({ dishToPreview }) {
             <p className="text-center">{dish.description}</p>
           </div>
           {/* // ! Ingredients Title */}
-          <h3 className="font-semibold text-xl">Ingredients</h3>
+          <h3 className="font-semibold text-xl pl-4">Ingredients</h3>
           {/* // ! Ingredients List */}
-          <ul className="list-disc pl-5">
+          <ul className="list-disc pl-10">
             {dish.ingredients?.map((ingredient, index) => (
               <li key={index} className="text-textColor">
                 {ingredient}
@@ -56,10 +56,10 @@ function DishPreview({ dishToPreview }) {
             ))}
           </ul>
           {/* // ! Calories */}
-          <p className="mt-2 text-textColor">Calories: {dish.calories}</p>
+          <p className="mt-4 text-textColor">Calories: {dish.calories}</p>
 
           {/* // ! Diet/Allergy */}
-          <div className="self-end justify-self-end mt-auto">
+          <div className="md:self-end justify-self-end mt-auto">
             <div className="flex items-center">
               <label>Diet Restrictions:</label>
               {/* // * MAKE ICONS APPEAR DYNAMICALLY */}
