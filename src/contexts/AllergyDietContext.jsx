@@ -37,12 +37,14 @@ export function AllergyDietProvider({ children }) {
       employeeID: Math.random(),
     },
     {
-      name: "Eric",
+      name: "Aaron",
       allergies: ["Shellfish Allergy"],
       diet: ["Mediterranean", "Paleo"],
       employeeID: Math.random(),
     },
   ]);
+
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const employeeList = employeesArray.map((employee) => employee.name);
 
@@ -61,6 +63,8 @@ export function AllergyDietProvider({ children }) {
         employeesArray,
         setEmployeesArray,
         employeeList,
+        selectedEmployee,
+        setSelectedEmployee,
       }}
     >
       {children}

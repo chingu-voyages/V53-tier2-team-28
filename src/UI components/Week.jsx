@@ -21,13 +21,13 @@ function TableRow({ days }) {
 
 function Week() {
   const daysOfWeek = [
-    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Sunday",
   ];
 
   // Get the current week starting from Sunday
