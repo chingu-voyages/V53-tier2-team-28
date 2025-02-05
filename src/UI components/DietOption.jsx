@@ -1,29 +1,26 @@
-function DietOption({ name, icons }) {
-  const multipleIcons = Array.isArray(icons);
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
+import SmallIcon from "./SmallIcon";
 
-  if (!multipleIcons)
-    return (
-      <th className="w-1/6 border border-textColor text-center text-sm">
-        <div>
-          <img className="px-8" src={icons} alt={name} />
-          {name}
-        </div>
-      </th>
-    );
+function DietOption({ names, icons }) {
+  const { selectedEmployee } = useAllergyDietContext();
 
-  // ! if multiple icons
   return (
-    <th className="w-1/6 border border-textColor text-center text-sm">
-      {icons.map((icon) => {
-        console.log(icon);
-        return (
-          <div key={icon} className="">
-            <img className="px-8" src={icon} alt={name} />
-            {name}
+    <th className="w-48 border border-textColor text-center text-sm flex gap-5">
+      {/* // ! multiple diet restrictions */}
+      {Array.isArray(icons) ? (
+        icons.map((icon, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <SmallIcon src={icon} /> <span>{names[index]}</span>
           </div>
-        );
-      })}
+        ))
+      ) : (
+        <div>
+          {/* // ! one diet restriction */}
+          <SmallIcon src={icons} /> <span>{names}</span>
+        </div>
+      )}
     </th>
   );
 }
+
 export default DietOption;

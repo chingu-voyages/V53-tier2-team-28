@@ -19,6 +19,8 @@ const dietIcons = {
 function Diet() {
   const { selectedEmployee } = useAllergyDietContext();
 
+  const moreThanOneDietRestriction = selectedEmployee?.diet.length > 1;
+
   if (!selectedEmployee) return null;
 
   return (
@@ -26,14 +28,19 @@ function Diet() {
       <tbody>
         <tr>
           <DietOption
-            key={selectedEmployee.name}
-            name={selectedEmployee.name}
+            key={selectedEmployee.employeeID}
+            names={
+              moreThanOneDietRestriction
+                ? [...selectedEmployee.diet]
+                : selectedEmployee.diet
+            }
             // ! either 1 or more icons...
             icons={
-              dietIcons[selectedEmployee.diet] ||
-              [...selectedEmployee?.diet].map(
-                (dietCategory) => dietIcons[dietCategory]
-              )
+              moreThanOneDietRestriction
+                ? [...selectedEmployee?.diet].map(
+                    (dietCategory) => dietIcons[dietCategory]
+                  )
+                : dietIcons[selectedEmployee.diet]
             }
           />
         </tr>
