@@ -4,44 +4,49 @@ import Mediterranean from "../assets/mediterranean.png";
 import Paleo from "../assets/paleo.png";
 import Vegan from "../assets/vegan.png";
 import Vegetarian from "../assets/vegetarian.png";
-import Milk from "../assets/allergen-milk.png";
-import Eggs from "../assets/allergen-eggs.png";
-import Nuts from "../assets/allergen-nuts.png";
-import Soybeans from "../assets/allergen-soy.png";
-import Fish from "../assets/allergen-fish.png";
-import Wheat from "../assets/allergen-wheat.png";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
+import DietOption from "./DietOption";
+
+const dietIcons = {
+  GlutenFree,
+  Keto,
+  Mediterranean,
+  Paleo,
+  Vegan,
+  Vegetarian,
+};
 
 function Diet() {
-    return (
-        <table className="bg-rose-50 mb-2 items-center justify-between">
-            <tr><th className="w-1/6 border border-black text-grey-800 text-center text-xs">
-                <button><img className="pl-2 pr-2" src={GlutenFree}></img>Gluten Free
-                </button></th>
-                <th className="w-1/6 border border-black text-grey-800 text-center text-xs">
-                <button><img className="pl-2 pr-2" src={Keto}></img>Keto</button></th>
-                <th className="w-1/6 border border-black text-grey-800 text-center text-xs">
-                <button><img className="pt-2 pl-2 pr-2" src={Mediterranean}></img>Mediterranean
-                </button></th>
-                <th className="w-1/6 border border-black text-grey-800 text-center text-xs">
-                <button><img className="pl-2 pr-2" src={Paleo}></img>Paleo</button></th>
-                <th className="w-16 border border-black text-grey-800 text-center text-xs">
-                <button><img className="pl-2 pr-2" src={Vegan}></img>Vegan</button></th>
-                <th className="w-1/6 border border-black text-grey-800 text-center text-xs">
-                <button><img className="pl-2 pr-2" src={Vegetarian}></img>Vegetarian</button>
-            </th></tr>
-            <tr><td className="w-1/6 border border-black text-grey-800 text-center text-xs">
-                <button><img className="p-2" src={Nuts}></img></button>Peanuts/Tree Nuts</td>
-                <td className="w-1/6 border border-black border-black text-grey-800 text-center text-xs">
-                <button><img className="p-2" src={Soybeans}></img></button>Soybeans</td>
-                <td className="w-1/6 border border-black border-black text-grey-800 text-center text-xs">
-                <button><img className="p-2" src={Milk}></img>Milk</button></td>      
-                <td className="w-1/6 border border-black border-black text-grey-800 text-center text-xs">
-                <button><img className="p-2" src={Fish}></img>Fish/Shellfish</button></td>
-                <td className="w-1/6 border border-black border-black text-grey-800 text-center text-xs">
-                <button><img className="p-2" src={Wheat}></img>Wheat</button></td>
-                <td className="w-1/6 border border-black border-black text-grey-800 text-center text-xs">
-                <button><img className="p-2" src={Eggs}></img>Eggs</button></td></tr>
-        </table>
-    );
+  const { selectedEmployee } = useAllergyDietContext();
+
+  const moreThanOneDietRestriction = selectedEmployee?.diet.length > 1;
+
+  if (!selectedEmployee) return null;
+
+  return (
+    <table className="bg-rose-50 mb-2 flex items-center justify-between">
+      <tbody>
+        <tr>
+          <DietOption
+            key={selectedEmployee.employeeID}
+            names={
+              moreThanOneDietRestriction
+                ? [...selectedEmployee.diet]
+                : selectedEmployee.diet
+            }
+            // ! either 1 or more icons...
+            icons={
+              moreThanOneDietRestriction
+                ? [...selectedEmployee?.diet].map(
+                    (dietCategory) => dietIcons[dietCategory]
+                  )
+                : dietIcons[selectedEmployee.diet]
+            }
+          />
+        </tr>
+      </tbody>
+    </table>
+  );
 }
+
 export default Diet;

@@ -27,13 +27,13 @@ function TableRow({ days, startIndex }) {
 
 function Cal() {
   const daysOfWeek = [
-    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Sunday",
   ];
 
   const daysInMonth = 31; // Set the number of days in the month
