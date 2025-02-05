@@ -14,7 +14,8 @@ const ManagerContext = createContext();
 
 export function ManagerProvider({ children }) {
   const [allDishes, setAllDishes] = useState([]);
-  console.log(GlutenFree);
+  const [weeklyOrMonthly, setWeeklyOrMonthly] = useState("Weekly");
+
   const location = useLocation();
   const isManagerLoggedIn =
     location.pathname === "/app" || location.pathname === "/app/";
@@ -41,8 +42,7 @@ export function ManagerProvider({ children }) {
     "Shellfish Allergy",
   ];
 
-  // !  chat analysis function
-  // ! make the Object.keys dynamic
+  // ! based on ingredients, add diet and allergies
   function addDietAllergyFlagsAndIcons(dish) {
     const dietaryRules = {
       "Gluten Free": ["Bread", "Wheat", "Barley", "Rye", "Pasta"],
@@ -118,7 +118,6 @@ export function ManagerProvider({ children }) {
       const allDishesAnalyzed = data.map((dish) =>
         addDietAllergyFlagsAndIcons(dish)
       );
-      console.log(allDishesAnalyzed);
 
       // ! find 50 images for 50 dishes... pfff who's gonna spend 2 hours doing that ...
       const dishNames = allDishesAnalyzed.map((dish) => dish.name);
@@ -148,6 +147,8 @@ export function ManagerProvider({ children }) {
         managerCredentials,
         dietaryOptions,
         allergyOptions,
+        weeklyOrMonthly,
+        setWeeklyOrMonthly,
       }}
     >
       {children}

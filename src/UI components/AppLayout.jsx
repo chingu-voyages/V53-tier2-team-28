@@ -1,3 +1,4 @@
+import { useManagerContext } from "../contexts/ManagerContext";
 import Cal from "../UI components/Cal";
 import Diet from "../UI components/Diet";
 import CalendarSelect from "./CalendarSelect";
@@ -6,23 +7,24 @@ import EmployeeSelect from "./EmployeeSelect";
 import Week from "./Week";
 
 function AppLayout() {
-  // const
+  const { weeklyOrMonthly } = useManagerContext();
 
   //  ! ORGANIZE APP LAYOUT AGAIN
   return (
+    // ! Main App Container
     <div className="p-20 w-full flex flex-col gap-5 ">
-      {/* // ! component that has the selected employee name */}
+      {/* // ! Employee and Calendar Tabs */}
+      <div className="flex items-center justify-between">
+        <EmployeeSelect />
+        <CalendarSelect />
+      </div>
 
-      <EmployeeSelect />
-
-      <CalendarSelect />
       {/* // ! add the paragraph - 'select employee to manage their meals' */}
 
       {/* // *   */}
       <div className="">
         <Diet />
-        <Week />
-        {/* <Cal /> */}
+        {weeklyOrMonthly === "Weekly" ? <Week /> : <Cal />}
         <DishPreview />
       </div>
     </div>
