@@ -1,13 +1,11 @@
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
-// * CONSIDER CHANGING INTO SELECT/OPTION ELEMENT
-
 function EmployeeSelect() {
   const { employeesArray, selectedEmployee, setSelectedEmployee } =
     useAllergyDietContext();
 
   return (
-    <ul className="flex gap-1">
+    <ul className="flex gap-8">
       {employeesArray.map((employee) => (
         <div
           className={`${
