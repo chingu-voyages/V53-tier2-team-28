@@ -16,7 +16,6 @@ function AppLayout() {
       {/* // ! Employee and Calendar Tabs */}
       <div className="flex items-center justify-between">
         <EmployeeSelect />
-        <CalendarSelect />
       </div>
 
       {/* // ! add the paragraph - 'select employee to manage their meals' */}
