@@ -12,6 +12,7 @@ function DishPreview({ dishToPreview }) {
 
   // ! loop thru names and match with icon names
 
+  // const dish =
   // const iconsToDisplay =
   // // Fake Recipe Data
   const dish = {
@@ -22,7 +23,7 @@ function DishPreview({ dishToPreview }) {
     allergyRestrictions: ["Gluten Allergy"],
     // ! fake image
     imageUrl:
-      "https://tse2.mm.bing.net/th?id=OIP.MwazWhKS4ywVTleV0KCkaQHaLH&w=474&h=474&c=7",
+      "https://unsplash.com/photos/cooked-food-on-black-ceramic-bowl-0Kbjfwunink",
   };
 
   // ! function to determine which icons to display for allergies/diet

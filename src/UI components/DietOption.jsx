@@ -2,24 +2,32 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import SmallIcon from "./SmallIcon";
 
 function DietOption({ names, icons }) {
-  const { selectedEmployee } = useAllergyDietContext();
-
   return (
-    <th className="w-48 border border-textColor text-center text-sm flex gap-5">
-      {/* // ! multiple diet restrictions */}
-      {Array.isArray(icons) ? (
-        icons.map((icon, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <SmallIcon src={icon} /> <span>{names[index]}</span>
+    <div className="flex flex-col items-center">
+      <h1 className="text-xl">Diet</h1>
+      <span className=" p-2 text-center text-sm flex gap-5 justify-center">
+        {Array.isArray(icons) ? (
+          icons.map((icon, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center justify-center"
+            >
+              <div className="flex items-center justify-center ">
+                <SmallIcon src={icon} />
+              </div>
+              <span>{names[index]}</span>
+            </div>
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex items-center justify-center ">
+              <SmallIcon src={icons} />
+            </div>
+            <span>{names}</span>
           </div>
-        ))
-      ) : (
-        <div>
-          {/* // ! one diet restriction */}
-          <SmallIcon src={icons} /> <span>{names}</span>
-        </div>
-      )}
-    </th>
+        )}
+      </span>
+    </div>
   );
 }
 

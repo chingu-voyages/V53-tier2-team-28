@@ -7,6 +7,11 @@ import Mediterranean from "../assets/mediterranean.png";
 import Paleo from "../assets/paleo.png";
 import Vegan from "../assets/vegan.png";
 import Vegetarian from "../assets/vegetarian.png";
+import NutAllergy from "../assets/allergen-nuts.png";
+import GlutenAllergy from "../assets/allergen-wheat.png";
+import DairyAllergy from "../assets/allergen-milk.png";
+import ShellfishAllergy from "../assets/allergen-fish.png";
+import SoyAllergy from "../assets/allergen-soy.png";
 
 // ! CREATE USER SNIPPET FOR CONTEXT API TEMPLATE LIKE THIS
 
@@ -35,11 +40,11 @@ export function ManagerProvider({ children }) {
   ];
 
   const allergyOptions = [
-    "Nut Allergy",
-    "Gluten Allergy",
-    "Soy Allergy",
-    "Dairy Allergy",
-    "Shellfish Allergy",
+    "NutAllergy",
+    "GlutenAllergy",
+    "SoyAllergy",
+    "DairyAllergy",
+    "ShellfishAllergy",
   ];
 
   // ! based on ingredients, add diet and allergies
@@ -79,6 +84,14 @@ export function ManagerProvider({ children }) {
       Vegan: Vegan,
     };
 
+    const allergyIconsObj = {
+      "Nut Allergy": NutAllergy,
+      "Gluten Allergy": GlutenAllergy,
+      "Soy Allergy": SoyAllergy,
+      "Dairy Allergy": DairyAllergy,
+      "Shellfish Allergy": ShellfishAllergy,
+    };
+
     const dishIngredients = new Set(
       dish.ingredients.map((i) => i.toLowerCase())
     );
@@ -92,6 +105,17 @@ export function ManagerProvider({ children }) {
         dishIngredients.has(item.toLowerCase())
       )
     );
+    // List of available dish images
+    const dishImages = [
+      "../assets/dishes-mock-images/george-zheng-0Kbjfwunink-unsplash.jpg",
+      "../assets/dishes-mock-images/irene-kredenets-6unxGRCPg0U-unsplash.jpg",
+      "../assets/dishes-mock-images/khloe-arledge-ND3edEmzcdQ-unsplash.jpg",
+      "../assets/dishes-mock-images/peter-dawn-3X7SVgAxKU8-unsplash.jpg",
+    ];
+
+    // Select a random image
+    const randomImage =
+      dishImages[Math.floor(Math.random() * dishImages.length)];
 
     return {
       ...dish,
@@ -101,8 +125,11 @@ export function ManagerProvider({ children }) {
         name: diet,
         icon: dietIconsObj[diet] || null,
       })),
-      fakeImage:
-        "https://tse2.mm.bing.net/th?id=OIP.MwazWhKS4ywVTleV0KCkaQHaLH&w=474&h=474&c=7",
+      allergyIconsObj: allergyRestrictions.map((allergy) => ({
+        name: allergy,
+        icon: allergyIconsObj[allergy] || null,
+      })),
+      fakeImage: randomImage,
     };
   }
 
@@ -127,17 +154,6 @@ export function ManagerProvider({ children }) {
     }
     fetchAllRecipes();
   }, []);
-
-  // // ! adding/removing dishes
-  // function addNewDish(newDish) {
-  //   setDishes((prevDishes) => [...prevDishes, newDish]);
-  //   console.log("New dish added:", newDish);
-  // }
-
-  // function removeDish(dishID) {
-  //   setDishes((prevDishes) => prevDishes.filter((dish) => dish.ID !== dishID));
-  //   console.log("Dish removed:", dishID);
-  // }
 
   return (
     <ManagerContext.Provider

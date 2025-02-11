@@ -1,7 +1,6 @@
 import { useManagerContext } from "../contexts/ManagerContext";
 import Cal from "../UI components/Cal";
-import Diet from "../UI components/Diet";
-import CalendarSelect from "./CalendarSelect";
+import DietAndAllergies from "./DietAndAllergies";
 import DishPreview from "./DishPreview";
 import EmployeeSelect from "./EmployeeSelect";
 import Week from "./Week";
@@ -22,7 +21,8 @@ function AppLayout() {
 
       {/* // *   */}
       <div className="">
-        <Diet />
+        <DietAndAllergies />
+        {/* <Allergies /> */}
         {weeklyOrMonthly === "Weekly" ? <Week /> : <Cal />}
         <DishPreview />
       </div>
