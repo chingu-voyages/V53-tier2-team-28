@@ -1,13 +1,10 @@
 import { useManagerContext } from "../contexts/ManagerContext";
-import Cal from "../UI components/Cal";
+import Calendar from "./Calendar";
 import DietAndAllergies from "./DietAndAllergies";
 import DishPreview from "./DishPreview";
 import EmployeeSelect from "./EmployeeSelect";
-import Week from "./Week";
 
 function AppLayout() {
-  const { weeklyOrMonthly } = useManagerContext();
-
   //  ! ORGANIZE APP LAYOUT AGAIN
   return (
     // ! Main App Container
@@ -23,7 +20,7 @@ function AppLayout() {
       <div className="">
         <DietAndAllergies />
         {/* <Allergies /> */}
-        {weeklyOrMonthly === "Weekly" ? <Week /> : <Cal />}
+        <Calendar />
         <DishPreview />
       </div>
     </div>

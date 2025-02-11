@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useManagerContext } from "../contexts/ManagerContext";
 
 import SmallIcon from "./SmallIcon";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function DishPreview({ dishToPreview }) {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { dietaryOptions } = useManagerContext();
+  const { selectedEmployee } = useAllergyDietContext();
+  const { dietaryOptions, allergyOptions } = useManagerContext();
 
   // ! fix diet option names and icon names
 
@@ -19,7 +19,7 @@ function DishPreview({ dishToPreview }) {
     name: "Vegetable Stir Fry",
     ingredients: ["Vanilla", "Bread", "Zucchini", "Parsley"],
     calories: 298,
-    dietRestrictions: ["Gluten Free"],
+    dietRestrictions: ["GlutenFree"],
     allergyRestrictions: ["Gluten Allergy"],
     // ! fake image
     imageUrl:
@@ -27,8 +27,6 @@ function DishPreview({ dishToPreview }) {
   };
 
   // ! function to determine which icons to display for allergies/diet
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     // ! Main container that holds everything in a row layout with gap between sections

@@ -45,21 +45,23 @@ function DietAndAllergies() {
       <table className="bg-rose-50 mb-2">
         <tbody>
           <tr>
-            <DietOption
-              key={selectedEmployee.employeeID}
-              names={
-                multipleDietRestrictions
-                  ? [...selectedEmployee.diet]
-                  : selectedEmployee.diet
-              }
-              icons={
-                multipleDietRestrictions
-                  ? selectedEmployee.diet.map(
-                      (dietCategory) => dietIcons[dietCategory]
-                    )
-                  : dietIcons[selectedEmployee.diet]
-              }
-            />
+            <td className="p-2">
+              <DietOption
+                key={selectedEmployee.employeeID}
+                names={
+                  multipleDietRestrictions
+                    ? [...selectedEmployee.diet]
+                    : selectedEmployee.diet
+                }
+                icons={
+                  multipleDietRestrictions
+                    ? selectedEmployee.diet.map(
+                        (dietCategory) => dietIcons[dietCategory]
+                      )
+                    : dietIcons[selectedEmployee.diet]
+                }
+              />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -69,21 +71,23 @@ function DietAndAllergies() {
         <table className="bg-rose-50 mb-2">
           <tbody>
             <tr>
-              <AllergyOption
-                key={selectedEmployee.employeeID}
-                names={
-                  multipleAllergyRestrictions
-                    ? [...selectedEmployee.allergies]
-                    : selectedEmployee.allergies
-                }
-                icons={
-                  multipleAllergyRestrictions
-                    ? selectedEmployee.allergies.map(
-                        (allergyCategory) => allergyIcons[allergyCategory]
-                      )
-                    : allergyIcons[selectedEmployee.allergies]
-                }
-              />
+              <td className="p-2">
+                <AllergyOption
+                  key={selectedEmployee.employeeID}
+                  names={
+                    multipleAllergyRestrictions
+                      ? [...selectedEmployee.allergies]
+                      : selectedEmployee.allergies
+                  }
+                  icons={
+                    multipleAllergyRestrictions
+                      ? selectedEmployee.allergies.map(
+                          (allergyCategory) => allergyIcons[allergyCategory]
+                        )
+                      : allergyIcons[selectedEmployee.allergies]
+                  }
+                />
+              </td>
             </tr>
           </tbody>
         </table>
