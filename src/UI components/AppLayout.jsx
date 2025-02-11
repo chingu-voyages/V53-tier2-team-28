@@ -21,10 +21,9 @@ function AppLayout() {
         <DietAndAllergies />
         {/* <Allergies /> */}
         <Calendar />
-        <DishPreview />
+        {/* <DishPreview /> */}
       </div>
     </div>
   );
 }
-
 export default AppLayout;

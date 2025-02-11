@@ -12,13 +12,22 @@ function TableRow({ days }) {
             <>
               <h1>{meal.name}</h1>
               <div className="flex gap-2 justify-center">
-                {/* Render dietary restriction icons */}
+                {/* Render dietary restriction icons
                 {meal.dietIconsObj?.map((iconObj, i) => (
-                  <SmallestIcon key={i} src={iconObj.icon} />
-                ))}
+                  <SmallestIcon
+                    key={i}
+                    src={iconObj.icon}
+                    label="Fits diet types"
+                  />
+                ))} */}
                 {/* Render allergy restriction icons */}
+
                 {meal.allergyIconsObj?.map((iconObj, i) => (
-                  <SmallestIcon key={i} src={iconObj.icon} />
+                  <SmallestIcon
+                    key={i}
+                    src={iconObj.icon}
+                    label="Free of allergens"
+                  />
                 ))}
               </div>
             </>

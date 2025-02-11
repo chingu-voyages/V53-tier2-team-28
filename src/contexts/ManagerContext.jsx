@@ -52,9 +52,17 @@ export function ManagerProvider({ children }) {
     const dietaryRules = {
       "Gluten Free": ["Bread", "Wheat", "Barley", "Rye", "Pasta"],
       Keto: ["Sugar", "Rice", "Potato", "Corn"],
-      Mediterranean: ["Olive Oil", "Fish", "Nuts", "Legumes"],
+      Mediterranean: [],
       Paleo: ["Dairy", "Grains", "Legumes"],
-      Vegetarian: ["Chicken", "Beef", "Fish", "Pork", "Sausage"],
+      Vegetarian: [
+        "Chicken",
+        "Beef",
+        "Fish",
+        "Pork",
+        "Sausage",
+        "Lamb",
+        "Salmon",
+      ],
       Vegan: [
         "Chicken",
         "Beef",
@@ -64,6 +72,8 @@ export function ManagerProvider({ children }) {
         "Eggs",
         "Cheese",
         "Sausage",
+        "Lamb",
+        "Salmon",
       ],
     };
 
@@ -71,7 +81,7 @@ export function ManagerProvider({ children }) {
       "Nut Allergy": ["Almonds", "Peanuts", "Walnuts", "Cashews"],
       "Gluten Allergy": ["Bread", "Wheat", "Barley", "Rye", "Pasta"],
       "Soy Allergy": ["Soy", "Tofu", "Miso", "Edamame"],
-      "Dairy Allergy": ["Milk", "Cheese", "Butter", "Yogurt"],
+      "Dairy Allergy": ["Milk", "Cheese", "Butter", "Yogurt", "Yoghurt"],
       "Shellfish Allergy": ["Shrimp", "Lobster", "Crab"],
     };
 
@@ -96,8 +106,10 @@ export function ManagerProvider({ children }) {
       dish.ingredients.map((i) => i.toLowerCase())
     );
 
-    const dietRestrictions = Object.keys(dietaryRules).filter((diet) =>
-      dietaryRules[diet].some((item) => dishIngredients.has(item.toLowerCase()))
+    const dietRestrictions = Object.keys(dietaryRules).filter((dietRule) =>
+      dietaryRules[dietRule].some((item) =>
+        dishIngredients.has(item.toLowerCase())
+      )
     );
 
     const allergyRestrictions = Object.keys(allergyRules).filter((allergy) =>
@@ -155,6 +167,115 @@ export function ManagerProvider({ children }) {
     fetchAllRecipes();
   }, []);
 
+  // // ! FORKIFY API (BETTER DISH INFO)
+
+  // const BASE_URL = "https://forkify-api.herokuapp.com/api/v2/recipes/";
+  // const API_KEY = "8dca65f9-7186-4b08-b9b4-f198ea66266e";
+  // // ! FETCH ALL DISHES (forkify API)
+  // useEffect(() => {
+  //   async function fetchFilteredRecipes() {
+  //     const keywords = [
+  //       "chicken",
+  //       "bread",
+  //       "avocado",
+  //       "pasta",
+  //       "salad",
+  //       "dessert",
+  //       "beef",
+  //       "fish",
+  //       "vegetarian",
+  //     ]; // Broad categories
+
+  //     try {
+  //       const fetchPromises = keywords.map(async (keyword) => {
+  //         const res = await fetch(
+  //           `${BASE_URL}?search=${keyword}&key=${API_KEY}`
+  //         );
+  //         if (!res.ok) throw new Error(`Failed to fetch dishes for ${keyword}`);
+  //         const data = await res.json();
+  //         return data.data?.recipes || [];
+  //       });
+
+  //       // Wait for all API calls to resolve
+  //       const allResults = await Promise.all(fetchPromises);
+
+  //       // Flatten results and remove duplicates
+  //       const allRecipes = Array.from(
+  //         new Map(
+  //           allResults.flat().map((recipe) => [recipe.id, recipe])
+  //         ).values()
+  //       );
+  //       console.log(allRecipes);
+
+  //       setAllDishes(allRecipes);
+  //     } catch (error) {
+  //       console.error("Error fetching dishes:", error);
+  //     }
+  //   }
+
+  //   fetchFilteredRecipes();
+  // }, []);
+
+  // // ! alrernatinve - maxes API calls
+  // // useEffect(() => {
+  // //   async function fetchAllRecipes() {
+  // //     let allRecipes = [];
+  // //     const keywords = [
+  // //       "chicken",
+  // //       "bread",
+  // //       "avocado",
+  // //       "",
+  // //       "pasta",
+  // //       "salad",
+  // //       "dessert",
+  // //       "beef",
+  // //       "fish",
+  // //       "vegetarian",
+  // //     ]; // Broad categories
+  // //     const maxPages = 3; // Prevents infinite loops
+
+  // //     try {
+  // //       for (const keyword of keywords) {
+  // //         let page = 1;
+  // //         let hasMoreRecipes = true;
+
+  // //         while (hasMoreRecipes && page <= maxPages) {
+  // //           const res = await fetch(
+  // //             `${BASE_URL}?search=${keyword}&page=${page}&key=${API_KEY}`
+  // //           );
+
+  // //           if (!res.ok)
+  // //             throw new Error(`Failed to fetch dishes for ${keyword}`);
+
+  // //           const data = await res.json();
+  // //           console.log(
+  // //             `Fetched ${data.data.recipes.length} recipes for ${keyword}`
+  // //           );
+
+  // //           if (data.data && data.data.recipes) {
+  // //             allRecipes = [...allRecipes, ...data.data.recipes];
+  // //           }
+
+  // //           if (
+  // //             data.data.recipes.length === 0 ||
+  // //             data.data.recipes.length < 10
+  // //           ) {
+  // //             hasMoreRecipes = false;
+  // //           } else {
+  // //             page += 1;
+  // //           }
+  // //         }
+  // //       }
+
+  // //       setAllDishes(allRecipes);
+  // //     } catch (error) {
+  // //       console.error("Error fetching dishes:", error);
+  // //     }
+  // //   }
+
+  // //   fetchAllRecipes();
+  // // }, []);
+
   return (
     <ManagerContext.Provider
       value={{
@@ -175,64 +296,3 @@ export function ManagerProvider({ children }) {
 export function useManagerContext() {
   return useContext(ManagerContext);
 }
-
-// // ! FORKIFY API (BETTER DISH INFO)
-
-// const BASE_URL = "https://forkify-api.herokuapp.com/api/v2/recipes/";
-// const API_KEY = "8dca65f9-7186-4b08-b9b4-f198ea66266e";
-// ! FETCH ALL DISHES (forkify API)
-// useEffect(() => {
-//   async function fetchAllRecipes() {
-//     let allRecipes = [];
-//     const keywords = [
-//       "chicken",
-//       "pasta",
-//       "salad",
-//       "dessert",
-//       "beef",
-//       "fish",
-//       "vegetarian",
-//     ]; // Broad categories
-//     const maxPages = 3; // Prevents infinite loops
-
-//     try {
-//       for (const keyword of keywords) {
-//         let page = 1;
-//         let hasMoreRecipes = true;
-
-//         while (hasMoreRecipes && page <= maxPages) {
-//           const res = await fetch(
-//             `${BASE_URL}?search=${keyword}&page=${page}&key=${API_KEY}`
-//           );
-
-//           if (!res.ok)
-//             throw new Error(`Failed to fetch dishes for ${keyword}`);
-
-//           const data = await res.json();
-//           console.log(
-//             `Fetched ${data.data.recipes.length} recipes for ${keyword}`
-//           );
-
-//           if (data.data && data.data.recipes) {
-//             allRecipes = [...allRecipes, ...data.data.recipes];
-//           }
-
-//           if (
-//             data.data.recipes.length === 0 ||
-//             data.data.recipes.length < 10
-//           ) {
-//             hasMoreRecipes = false;
-//           } else {
-//             page += 1;
-//           }
-//         }
-//       }
-
-//       setDishes(allRecipes);
-//     } catch (error) {
-//       console.error("Error fetching dishes:", error);
-//     }
-//   }
-
-//   fetchAllRecipes();
-// }, []);

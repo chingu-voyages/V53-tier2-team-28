@@ -21,19 +21,6 @@ function Week() {
   ];
 
   // Function to get filtered dishes based on employee's diet and allergies
-  const getFilteredMeals = (diet, allergies) => {
-    return allDishes.filter((dish) => {
-      // Check if the dish matches all dietary preferences and doesn't have any allergies
-      const dietMatch = diet.every((dietType) =>
-        dish.dietRestrictions.includes(dietType)
-      );
-      const allergyMatch = allergies.every(
-        (allergy) => !dish.allergyRestrictions.includes(allergy)
-      );
-
-      return dietMatch && allergyMatch;
-    });
-  };
 
   // Get the current week starting from Sunday
   const today = new Date();
@@ -41,22 +28,50 @@ function Week() {
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - currentDayIndex);
 
-  // Generate an array of dates for the current week
-  const days = Array.from({ length: 7 }, (_, i) => {
-    const date = new Date(startOfWeek);
-    date.setDate(startOfWeek.getDate() + i);
-    return date.getDate(); // Return just the day number
-  });
+  // // Generate an array of dates for the current week
+  // const days = Array.from({ length: 7 }, (_, i) => {
+  //   const date = new Date(startOfWeek);
+  //   date.setDate(startOfWeek.getDate() + i);
+  //   return date.getDate(); // Return just the day number
+  // });
+  // Function to filter meals based on diet preferences
+  const filterByDiet = (dish, diet) => {
+    console.log(diet);
+    console.log("diet Restriction for: ", dish, ":", dish.dietRestrictions);
+    return diet.every((dietType) => !dish.dietRestrictions.includes(dietType));
+  };
 
-  // Function to assign meals to the week, with one off day for each employee
+  // Function to filter meals based on allergy restrictions
+  const filterByAllergy = (dish, allergies) => {
+    return allergies.every(
+      (allergy) => !dish.allergyRestrictions.includes(allergy)
+    );
+  };
+
+  // Function to get meals that match both diet and allergy restrictions
+  const getFilteredMeals = (diet, allergies) => {
+    return allDishes.filter(
+      (dish) => filterByDiet(dish, diet) && filterByAllergy(dish, allergies)
+    );
+  };
+
+  // Function to assign meals to the week, ensuring one off day per employee
   const assignMealsToWeek = (employee) => {
     const offDayIndex = Math.floor(Math.random() * 7); // Randomly select a day off
     return daysOfWeek.map((_, index) => {
       if (index === offDayIndex) return null; // Employee's off day
+
       // Get filtered meals based on employee's diet and allergies
       const filteredMeals = getFilteredMeals(employee.diet, employee.allergies);
-      console.log(filteredMeals);
-      return filteredMeals[Math.floor(Math.random() * filteredMeals.length)]; // Assign random filtered meal
+      console.log("filteredMeals:", filteredMeals);
+      if (filteredMeals.length === 0) {
+        console.warn(
+          `No meals available for diet ${employee.diet} and allergies ${employee.allergies}`
+        );
+        return null; // No suitable meal found
+      }
+
+      return filteredMeals[Math.floor(Math.random() * filteredMeals.length)]; // Assign a random filtered meal
     });
   };
 
