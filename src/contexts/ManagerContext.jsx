@@ -99,53 +99,54 @@ export function ManagerProvider({ children }) {
     "ShellfishAllergy",
   ];
 
+  // Dietary and allergy rules
+  const dietaryRules = {
+    "Gluten Free": ["bread", "wheat", "barley", "rye", "pasta"],
+    Keto: ["sugar", "rice", "potato", "corn"],
+    Mediterranean: [],
+    Paleo: ["dairy", "grains", "legumes"],
+    Vegetarian: [
+      "chicken",
+      "beef",
+      "fish",
+      "pork",
+      "sausage",
+      "lamb",
+      "salmon",
+    ],
+    Vegan: [
+      "chicken",
+      "beef",
+      "fish",
+      "pork",
+      "milk",
+      "eggs",
+      "cheese",
+      "sausage",
+      "lamb",
+      "salmon",
+      "mayonnaise",
+    ],
+  };
+
+  const allergyRules = {
+    "Nut Allergy": ["almonds", "peanuts", "walnuts", "cashews"],
+    "Gluten Allergy": ["bread", "wheat", "barley", "rye", "pasta"],
+    "Soy Allergy": ["soy", "tofu", "miso", "edamame"],
+    "Dairy Allergy": ["milk", "cheese", "butter", "yogurt"],
+    "Shellfish Allergy": ["shrimp", "lobster", "crab"],
+  };
   // ! based on ingredients, add diet and allergies
 
   function addDietAllergyFlagsAndIcons(dish) {
-    const dietaryRules = {
-      "Gluten Free": ["bread", "wheat", "barley", "rye", "pasta"],
-      Keto: ["sugar", "rice", "potato", "corn"],
-      Mediterranean: [],
-      Paleo: ["dairy", "grains", "legumes"],
-      Vegetarian: [
-        "chicken",
-        "beef",
-        "fish",
-        "pork",
-        "sausage",
-        "lamb",
-        "salmon",
-      ],
-      Vegan: [
-        "chicken",
-        "beef",
-        "fish",
-        "pork",
-        "milk",
-        "eggs",
-        "cheese",
-        "sausage",
-        "lamb",
-        "salmon",
-        "mayonnaise",
-      ],
-    };
-
-    const allergyRules = {
-      "Nut Allergy": ["almonds", "peanuts", "walnuts", "cashews"],
-      "Gluten Allergy": ["bread", "wheat", "barley", "rye", "pasta"],
-      "Soy Allergy": ["soy", "tofu", "miso", "edamame"],
-      "Dairy Allergy": ["milk", "cheese", "butter", "yogurt"],
-      "Shellfish Allergy": ["shrimp", "lobster", "crab"],
-    };
-
+    // prettier-ignore
     const dietIconsObj = {
       "Gluten Free": GlutenFree,
-      Keto: Keto,
-      Mediterranean: Mediterranean,
-      Paleo: Paleo,
-      Vegetarian: Vegetarian,
-      Vegan: Vegan,
+      "Keto": Keto,
+      "Mediterranean": Mediterranean,
+      "Paleo": Paleo,
+      "Vegetarian": Vegetarian,
+      "Vegan": Vegan,
     };
 
     const allergyIconsObj = {
@@ -199,6 +200,8 @@ export function ManagerProvider({ children }) {
         allergyOptions,
         weeklyOrMonthly,
         setWeeklyOrMonthly,
+        dietaryRules,
+        allergyRules,
       }}
     >
       {children}
