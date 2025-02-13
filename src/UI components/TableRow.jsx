@@ -5,7 +5,6 @@ import TableCell from "./TableCell";
 
 function TableRow({ dailyDishes }) {
   // Log the daily dishes array for debugging purposes
-  console.log(dailyDishes);
   const { setSelectedDish } = useManagerContext();
 
   return (
@@ -31,9 +30,10 @@ function TableRow({ dailyDishes }) {
                   <>
                     <span className="text-xs mb-1">Allergy flags:</span>
                     <div className="flex gap-2 justify-center overflow-hidden">
-                      {meal.allergyIconsObj.map((iconObj, i) => (
-                        <SmallestIcon key={i} src={iconObj.icon} />
-                      ))}
+                      <SmallestIcon
+                        key={index}
+                        iconsArray={meal.allergyIconsObj}
+                      />
                     </div>
                   </>
                 ) : (
