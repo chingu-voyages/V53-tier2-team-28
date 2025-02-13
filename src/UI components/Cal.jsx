@@ -1,29 +1,20 @@
-import TableHead from "./TableHead"; // Import TableHead component
-import TableCell from "./TableCell"; // Import TableCell component
-
-function TableRow({ days, startIndex }) {
-  // Fill the row with days, considering the starting index for the first day
-  const rowDays = Array.from({ length: 7 }, (_, i) => {
-    const day = days[startIndex + i];
-    return day !== undefined ? day : null; // If no day, return null
-  });
-
-  return (
-    <tr>
-      {rowDays.map((day, index) => (
-        <TableCell key={index} day={day}>
-          {day && (
-            <>
-              <p>Breakfast: Example Breakfast</p>
-            </>
-          )}
-        </TableCell>
-      ))}
-    </tr>
-  );
-}
+import { useState, useEffect } from "react";
+import TableHead from "./TableHead";
+import TableRow from "./TableRow";
+import { useManagerContext } from "../contexts/ManagerContext";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 
 function Cal() {
+  const { allDishes, dietaryRules, allergyRules } = useManagerContext();
+  const { selectedEmployee } = useAllergyDietContext();
+  const [filteredDishes, setFilteredDishes] = useState([]);
+  const [mealAssignments, setMealAssignments] = useLocalStorage(
+    [],
+    "monthlyMealPlan"
+  );
+
+  const daysInMonth = 30;
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -34,14 +25,88 @@ function Cal() {
     "Sunday",
   ];
 
-  const daysInMonth = 31; // Set the number of days in the month
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  const shuffleArray = (array) => {
+    const newArr = [...array];
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    }
+    return newArr;
+  };
 
-  // Find out which day of the week the 1st of the month is on (e.g., Sunday = 0, Monday = 1, etc.)
-  const startDayOfMonth = new Date(2025, 0, 1).getDay(); // For example, January 1st, 2025
+  useEffect(() => {
+    if (allDishes.length > 0 && selectedEmployee) {
+      const { diet, allergies } = selectedEmployee;
 
-  // Calculate the number of rows needed
-  const numberOfRows = Math.ceil((daysInMonth + startDayOfMonth) / 7);
+      const filtered = allDishes.filter((dish) => {
+        const ingredients = dish.ingredients || [];
+
+        const meetsDietRestrictions = diet.every((dietType) => {
+          const restrictedIngredients = dietaryRules[dietType];
+          if (!restrictedIngredients) return true;
+          return !restrictedIngredients.some((ingredient) =>
+            ingredients.includes(ingredient)
+          );
+        });
+
+        const containsAllergens = allergies.some((allergyType) => {
+          const allergens = allergyRules[allergyType];
+          if (!allergens) return false;
+          return allergens.some((allergen) => ingredients.includes(allergen));
+        });
+
+        return meetsDietRestrictions && !containsAllergens;
+      });
+
+      setFilteredDishes(filtered);
+    }
+  }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
+
+  useEffect(() => {
+    if (filteredDishes.length > 0 && selectedEmployee) {
+      console.log(filteredDishes);
+      const shuffled = shuffleArray(filteredDishes);
+
+      // Determine a fixed weekday off (consistent for the employee)
+      const employeeDayOff = selectedEmployee.employeeID % 7;
+      console.log(employeeDayOff);
+
+      const assignments = new Array(daysInMonth).fill(null);
+      let mealIndex = 0;
+
+      for (let i = 0; i < daysInMonth; i++) {
+        const dayOfWeek = i % 7;
+
+        if (dayOfWeek === employeeDayOff) {
+          assignments[i] = null; // Assign fixed day off
+        } else {
+          if (mealIndex >= shuffled.length) {
+            mealIndex = 0; // Reset index to start repeating meals
+          }
+
+          let selectedMeal = shuffled[mealIndex];
+
+          // Prevent consecutive repeats with a controlled retry limit
+          let retryCount = 0;
+          while (
+            i > 0 &&
+            assignments[i - 1]?.id === selectedMeal?.id &&
+            retryCount < shuffled.length
+          ) {
+            mealIndex = (mealIndex + 1) % shuffled.length;
+            selectedMeal = shuffled[mealIndex];
+            retryCount++;
+          }
+
+          // If retry limit is reached, just assign the meal (even if consecutive)
+          assignments[i] = selectedMeal;
+          mealIndex++;
+        }
+      }
+
+      setMealAssignments(assignments);
+    }
+  }, [filteredDishes, selectedEmployee]);
 
   return (
     <div className="bg-background w-full">
@@ -56,16 +121,18 @@ function Cal() {
             </th>
           ))}
         </TableHead>
-
         <tbody>
-          {/* Generate rows dynamically */}
-          {Array.from({ length: numberOfRows }).map((_, rowIndex) => (
-            <TableRow
-              key={rowIndex}
-              days={days}
-              startIndex={rowIndex * 7 - startDayOfMonth}
-            />
-          ))}
+          {Array.from({ length: Math.ceil(daysInMonth / 7) }).map(
+            (_, rowIndex) => (
+              <TableRow
+                key={rowIndex}
+                dailyDishes={mealAssignments.slice(
+                  rowIndex * 7,
+                  rowIndex * 7 + 7
+                )}
+              />
+            )
+          )}
         </tbody>
       </table>
     </div>
