@@ -56,8 +56,8 @@ function Home() {
         <div className="grow h-full flex flex-col items-center sm:items-start justify-between ">
           {/* // ! New employee section */}
           <Section
-            title="Set your food preferences?"
-            buttonText="SIGNUP"
+            title="Edit your preferences/allergies?"
+            buttonText="EDIT"
             onClick={handleSignup}
           />
           {/* // ! Welcome screen */}
@@ -73,7 +73,7 @@ function Home() {
 
           {/* // ! manager login section  */}
           <Section
-            title="Manage weekly meals"
+            title="Manage employee meals"
             buttonText="MANAGER LOGIN"
             onClick={handleLogin}
           />

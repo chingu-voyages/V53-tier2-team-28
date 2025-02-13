@@ -48,11 +48,19 @@ function DishPreview() {
           {/* // ! Diet/Allergy */}
           <div className="flex flex-col gap-5 md:self-end justify-self-end mt-auto">
             <div className="flex gap-5 items-center">
-              <label className="w-1/2">Diet Restrictions:</label>
+              <label className="w-1/2">
+                {selectedDish?.dietIconsObj.length > 0
+                  ? "Diet Restrictions"
+                  : "No Diet Restrictions ✔️"}
+              </label>
               <PreviewIcons iconsArray={selectedDish?.dietIconsObj} />
             </div>
             <div className="flex gap-5 items-center">
-              <label className="w-1/2">Allergy Restrictions:</label>
+              <label className="w-1/2">
+                {selectedDish?.allergyIconsObj.length > 0
+                  ? "Allergy Restrictions"
+                  : "No Allergy Restrictions ✔️"}
+              </label>
               <PreviewIcons iconsArray={selectedDish?.allergyIconsObj} />
             </div>
           </div>
