@@ -5,11 +5,8 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 function Calendar() {
   const { weeklyOrMonthly } = useManagerContext();
-  const { allDishes } = useManagerContext();
 
   const { selectedEmployee } = useAllergyDietContext();
-
-  console.log(allDishes);
 
   if (!selectedEmployee) return;
 

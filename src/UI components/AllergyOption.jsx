@@ -3,8 +3,6 @@ import SmallIcon from "./SmallIcon";
 
 function AllergyOption({ names, icons }) {
   const { selectedEmployee } = useAllergyDietContext();
-  console.log(selectedEmployee);
-  console.log("selectedEmployee.allergies:", selectedEmployee?.allergies);
 
   if (!selectedEmployee.allergies || selectedEmployee.allergies.length === 0)
     return <p>No allergies</p>;

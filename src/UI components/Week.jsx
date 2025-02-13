@@ -9,14 +9,15 @@ function Week() {
   // Get all dishes and rule objects from the context
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
   // Get the selected employee (which contains diet and allergies)
-  const { selectedEmployee } = useAllergyDietContext();
+  const { selectedEmployee, employeesArray, setEmployeesArray } =
+    useAllergyDietContext();
   // State for storing dishes that pass the employee's restrictions
   const [filteredDishes, setFilteredDishes] = useState([]);
-  // State for the final meal assignments for the 7 days (one day off)
-  const [mealAssignments, setMealAssignments] = useLocalStorage(
-    [],
-    "weeklyMealPlan"
-  );
+  //  !State for the final meal assignments for the 7 days (one day off)
+  // const [mealAssignments, setMealAssignments] = useLocalStorage(
+  //   [],
+  //   "weeklyMealPlan"
+  // );
 
   // Array of week day names
   const daysOfWeek = [
@@ -43,7 +44,10 @@ function Week() {
   // ! EFFECT 1: Filter all dishes based on the employee's diet and allergies
   // -----------------------------------------------------------------------
   useEffect(() => {
-    if (allDishes.length > 0 && selectedEmployee) {
+    if (
+      (allDishes?.length > 0 && !selectedEmployee?.weeklyMealPlan) ||
+      selectedEmployee?.weeklyMealPlan?.length === 0
+    ) {
       const { diet, allergies } = selectedEmployee;
 
       const filtered = allDishes.filter((dish) => {
@@ -78,9 +82,14 @@ function Week() {
 
   // -----------------------------------------------------------------------
   //  ! EFFECT 2: Assign 7 days of meals with one day off (random day off)
-  // -----------------------------------------------------------------------
+  // ------------------------------------------------------------- ----------
   useEffect(() => {
-    if (filteredDishes.length > 0 && selectedEmployee) {
+    if (
+      filteredDishes.length > 0 &&
+      selectedEmployee &&
+      (!selectedEmployee?.weeklyMealPlan ||
+        selectedEmployee?.weeklyMealPlan?.length === 0)
+    ) {
       // Shuffle the filtered dishes to randomize the order
       const shuffled = shuffleArray(filteredDishes);
       // We need 6 meals to assign to days (since one day will be off)
@@ -101,7 +110,17 @@ function Week() {
           mealIndex++;
         }
       }
-      setMealAssignments(assignments);
+
+      setEmployeesArray((previousArray) =>
+        previousArray.map((employeeObj) =>
+          employeeObj === selectedEmployee
+            ? { ...employeeObj, weeklyMealPlan: assignments }
+            : employeeObj
+        )
+      );
+
+      // ! here
+      // setMealAssignments(assignments);
     }
   }, [filteredDishes, selectedEmployee]);
 
@@ -122,8 +141,8 @@ function Week() {
 
         <tbody className="h-48">
           {/* Render the meal assignments using the TableRow component */}
-          {mealAssignments.length === 7 ? (
-            <TableRow dailyDishes={mealAssignments} />
+          {selectedEmployee?.weeklyMealPlan ? (
+            <TableRow dailyDishes={selectedEmployee?.weeklyMealPlan} />
           ) : (
             <tr>
               <td colSpan="7" className="text-center">

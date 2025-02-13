@@ -3,16 +3,11 @@ import TableHead from "./TableHead";
 import TableRow from "./TableRow";
 import { useManagerContext } from "../contexts/ManagerContext";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
-import { useLocalStorage } from "../helpers/useLocalStorage";
 
 function Cal() {
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
-  const { selectedEmployee } = useAllergyDietContext();
+  const { selectedEmployee, setEmployeesArray } = useAllergyDietContext();
   const [filteredDishes, setFilteredDishes] = useState([]);
-  const [mealAssignments, setMealAssignments] = useLocalStorage(
-    [],
-    "monthlyMealPlan"
-  );
 
   const daysInMonth = 30;
   const daysOfWeek = [
@@ -34,8 +29,16 @@ function Cal() {
     return newArr;
   };
 
+  // -----------------------------------------------------------------------
+  // ! EFFECT 1: Filter all dishes based on the employee's diet and allergies
+  // -----------------------------------------------------------------------
   useEffect(() => {
-    if (allDishes.length > 0 && selectedEmployee) {
+    if (
+      (allDishes?.length > 0 && !selectedEmployee?.monthlyMealPlan) ||
+      selectedEmployee?.monthlyMealPlan?.length === 0
+    ) {
+      console.log("effect2 running");
+
       const { diet, allergies } = selectedEmployee;
 
       const filtered = allDishes.filter((dish) => {
@@ -62,14 +65,21 @@ function Cal() {
     }
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
 
+  // -----------------------------------------------------------------------
+  //  ! EFFECT 2: Assign 7 days of meals with one day off (random day off)
+  // ------------------------------------------------------------- ----------
   useEffect(() => {
-    if (filteredDishes.length > 0 && selectedEmployee) {
-      console.log(filteredDishes);
+    if (
+      (filteredDishes.length > 0 &&
+        filteredDishes?.length > 0 &&
+        !selectedEmployee?.monthlyMealPlan) ||
+      selectedEmployee?.monthlyMealPla?.length === 0
+    ) {
+      console.log("effect2 running");
       const shuffled = shuffleArray(filteredDishes);
 
       // Determine a fixed weekday off (consistent for the employee)
       const employeeDayOff = selectedEmployee.employeeID % 7;
-      console.log(employeeDayOff);
 
       const assignments = new Array(daysInMonth).fill(null);
       let mealIndex = 0;
@@ -103,11 +113,19 @@ function Cal() {
           mealIndex++;
         }
       }
+      setEmployeesArray((previousArray) =>
+        previousArray.map((employeeObj) =>
+          employeeObj === selectedEmployee
+            ? { ...employeeObj, monthlyMealPlan: assignments }
+            : employeeObj
+        )
+      );
 
-      setMealAssignments(assignments);
+      // setMealAssignments(assignments);
     }
   }, [filteredDishes, selectedEmployee]);
 
+  if (!selectedEmployee) return;
   return (
     <div className="bg-background w-full">
       <table className="w-full border border-black table-fixed">
@@ -126,7 +144,7 @@ function Cal() {
             (_, rowIndex) => (
               <TableRow
                 key={rowIndex}
-                dailyDishes={mealAssignments.slice(
+                dailyDishes={selectedEmployee?.monthlyMealPlan?.slice(
                   rowIndex * 7,
                   rowIndex * 7 + 7
                 )}

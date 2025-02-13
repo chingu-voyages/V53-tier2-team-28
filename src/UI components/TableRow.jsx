@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useManagerContext } from "../contexts/ManagerContext";
 import SmallestIcon from "./Smallesticon";
 import SmallIcon from "./SmallIcon"; // Component for displaying smaller icons (if needed)
@@ -7,6 +8,8 @@ function TableRow({ dailyDishes }) {
   // Log the daily dishes array for debugging purposes
   const { setSelectedDish } = useManagerContext();
 
+  // Prevent rendering if dailyDishes is empty or undefined
+  if (!dailyDishes || dailyDishes.length === 0) return null;
   return (
     // Create a table row (<tr>) that will hold a cell for each day of the week.
     <tr className="h-full w-full grow">

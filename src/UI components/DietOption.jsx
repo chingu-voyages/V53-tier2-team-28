@@ -3,7 +3,6 @@ import SmallIcon from "./SmallIcon";
 
 function DietOption({ names, icons }) {
   const { selectedEmployee } = useAllergyDietContext();
-  console.log(selectedEmployee);
 
   if (!selectedEmployee.diet || selectedEmployee.diet.length === 0)
     return <p>No diet preferences</p>;
