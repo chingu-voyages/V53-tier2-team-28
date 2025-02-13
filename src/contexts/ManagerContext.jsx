@@ -7,14 +7,67 @@ import Mediterranean from "../assets/mediterranean.png";
 import Paleo from "../assets/paleo.png";
 import Vegan from "../assets/vegan.png";
 import Vegetarian from "../assets/vegetarian.png";
+import NutAllergy from "../assets/allergen-nuts.png";
+import GlutenAllergy from "../assets/allergen-wheat.png";
+import DairyAllergy from "../assets/allergen-milk.png";
+import ShellfishAllergy from "../assets/allergen-fish.png";
+import SoyAllergy from "../assets/allergen-soy.png";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 
 // ! CREATE USER SNIPPET FOR CONTEXT API TEMPLATE LIKE THIS
 
 const ManagerContext = createContext();
 
 export function ManagerProvider({ children }) {
-  const [allDishes, setAllDishes] = useState([]);
   const [weeklyOrMonthly, setWeeklyOrMonthly] = useState("Weekly");
+  const [allDishes, setAllDishes] = useLocalStorage([], "dishesRecipes");
+  const [selectedDish, setSelectedDish] = useState(null);
+
+  function transformDishData(dish) {
+    const ingredients = [];
+
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = dish[`strIngredient${i}`];
+      if (ingredient && ingredient.trim() !== "") {
+        ingredients.push(ingredient.toLowerCase());
+      }
+    }
+
+    return {
+      ...dish,
+      ingredients, // Add extracted ingredients array
+    };
+  }
+
+  // ! fetch dishes
+  useEffect(() => {
+    if (allDishes.length > 0) return;
+
+    const fetchRecipes = async () => {
+      console.log("API is called");
+      try {
+        const response = await fetch(
+          "https://www.themealdb.com/api/json/v1/1/search.php?s="
+        );
+        const data = await response.json();
+
+        if (data.meals) {
+          const transformedDishes = data.meals
+            .slice(0, 100)
+            .map(transformDishData)
+            .map(addDietAllergyFlagsAndIcons);
+
+          setAllDishes(transformedDishes);
+        } else {
+          console.error("No recipes found.");
+        }
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
 
   const location = useLocation();
   const isManagerLoggedIn =
@@ -34,62 +87,87 @@ export function ManagerProvider({ children }) {
     "Vegan",
   ];
 
+  // ! GO THRU CATEGORY in all dishes to look for allergens
   const allergyOptions = [
-    "Nut Allergy",
-    "Gluten Allergy",
-    "Soy Allergy",
-    "Dairy Allergy",
-    "Shellfish Allergy",
+    "NutAllergy",
+    "GlutenAllergy",
+    "SoyAllergy",
+    "DairyAllergy",
+    "ShellfishAllergy",
   ];
 
+  // Dietary and allergy rules
+  const dietaryRules = {
+    "Gluten Free": ["bread", "wheat", "barley", "rye", "pasta"],
+    Keto: ["sugar", "rice", "potato", "corn"],
+    Mediterranean: [],
+    Paleo: ["dairy", "grains", "legumes"],
+    Vegetarian: [
+      "chicken",
+      "beef",
+      "fish",
+      "pork",
+      "sausage",
+      "lamb",
+      "salmon",
+    ],
+    Vegan: [
+      "chicken",
+      "beef",
+      "fish",
+      "pork",
+      "milk",
+      "eggs",
+      "cheese",
+      "sausage",
+      "lamb",
+      "salmon",
+      "mayonnaise",
+    ],
+  };
+
+  const allergyRules = {
+    "Nut Allergy": ["almonds", "peanuts", "walnuts", "cashews"],
+    "Gluten Allergy": ["bread", "wheat", "barley", "rye", "pasta"],
+    "Soy Allergy": ["soy", "tofu", "miso", "edamame"],
+    "Dairy Allergy": ["milk", "cheese", "butter", "yogurt"],
+    "Shellfish Allergy": ["shrimp", "lobster", "crab"],
+  };
   // ! based on ingredients, add diet and allergies
   function addDietAllergyFlagsAndIcons(dish) {
-    const dietaryRules = {
-      "Gluten Free": ["Bread", "Wheat", "Barley", "Rye", "Pasta"],
-      Keto: ["Sugar", "Rice", "Potato", "Corn"],
-      Mediterranean: ["Olive Oil", "Fish", "Nuts", "Legumes"],
-      Paleo: ["Dairy", "Grains", "Legumes"],
-      Vegetarian: ["Chicken", "Beef", "Fish", "Pork", "Sausage"],
-      Vegan: [
-        "Chicken",
-        "Beef",
-        "Fish",
-        "Pork",
-        "Milk",
-        "Eggs",
-        "Cheese",
-        "Sausage",
-      ],
-    };
-
-    const allergyRules = {
-      "Nut Allergy": ["Almonds", "Peanuts", "Walnuts", "Cashews"],
-      "Gluten Allergy": ["Bread", "Wheat", "Barley", "Rye", "Pasta"],
-      "Soy Allergy": ["Soy", "Tofu", "Miso", "Edamame"],
-      "Dairy Allergy": ["Milk", "Cheese", "Butter", "Yogurt"],
-      "Shellfish Allergy": ["Shrimp", "Lobster", "Crab"],
-    };
-
+    // prettier-ignore
     const dietIconsObj = {
       "Gluten Free": GlutenFree,
-      Keto: Keto,
-      Mediterranean: Mediterranean,
-      Paleo: Paleo,
-      Vegetarian: Vegetarian,
-      Vegan: Vegan,
+      "Keto": Keto,
+      "Mediterranean": Mediterranean,
+      "Paleo": Paleo,
+      "Vegetarian": Vegetarian,
+      "Vegan": Vegan,
     };
 
-    const dishIngredients = new Set(
-      dish.ingredients.map((i) => i.toLowerCase())
+    const allergyIconsObj = {
+      "Nut Allergy": NutAllergy,
+      "Gluten Allergy": GlutenAllergy,
+      "Soy Allergy": SoyAllergy,
+      "Dairy Allergy": DairyAllergy,
+      "Shellfish Allergy": ShellfishAllergy,
+    };
+
+    // Check for diet restrictions (partial match)
+    const dietRestrictions = Object.keys(dietaryRules).filter((dietRule) =>
+      dietaryRules[dietRule].some((item) =>
+        dish.ingredients.some((ingredient) =>
+          ingredient.toLowerCase().includes(item)
+        )
+      )
     );
 
-    const dietRestrictions = Object.keys(dietaryRules).filter((diet) =>
-      dietaryRules[diet].some((item) => dishIngredients.has(item.toLowerCase()))
-    );
-
+    // Check for allergy restrictions (partial match)
     const allergyRestrictions = Object.keys(allergyRules).filter((allergy) =>
       allergyRules[allergy].some((item) =>
-        dishIngredients.has(item.toLowerCase())
+        dish.ingredients.some((ingredient) =>
+          ingredient.toLowerCase().includes(item)
+        )
       )
     );
 
@@ -101,43 +179,12 @@ export function ManagerProvider({ children }) {
         name: diet,
         icon: dietIconsObj[diet] || null,
       })),
-      fakeImage:
-        "https://tse2.mm.bing.net/th?id=OIP.MwazWhKS4ywVTleV0KCkaQHaLH&w=474&h=474&c=7",
+      allergyIconsObj: allergyRestrictions.map((allergy) => ({
+        name: allergy,
+        icon: allergyIconsObj[allergy] || null,
+      })),
     };
   }
-
-  // ! get and fix up dishes from dishesAPI
-  useEffect(() => {
-    async function fetchAllRecipes() {
-      const res = await fetch("https://menus-api.vercel.app/dishes");
-
-      if (!res.ok) throw new Error("Failed to fetch dishes");
-      const data = await res.json();
-
-      // ! analyze dish - add allergy/diet flags
-      const allDishesAnalyzed = data.map((dish) =>
-        addDietAllergyFlagsAndIcons(dish)
-      );
-
-      // ! find 50 images for 50 dishes... pfff who's gonna spend 2 hours doing that ...
-      const dishNames = allDishesAnalyzed.map((dish) => dish.name);
-
-      // ! store in state
-      setAllDishes(allDishesAnalyzed);
-    }
-    fetchAllRecipes();
-  }, []);
-
-  // // ! adding/removing dishes
-  // function addNewDish(newDish) {
-  //   setDishes((prevDishes) => [...prevDishes, newDish]);
-  //   console.log("New dish added:", newDish);
-  // }
-
-  // function removeDish(dishID) {
-  //   setDishes((prevDishes) => prevDishes.filter((dish) => dish.ID !== dishID));
-  //   console.log("Dish removed:", dishID);
-  // }
 
   return (
     <ManagerContext.Provider
@@ -149,6 +196,10 @@ export function ManagerProvider({ children }) {
         allergyOptions,
         weeklyOrMonthly,
         setWeeklyOrMonthly,
+        dietaryRules,
+        allergyRules,
+        selectedDish,
+        setSelectedDish,
       }}
     >
       {children}
@@ -160,63 +211,26 @@ export function useManagerContext() {
   return useContext(ManagerContext);
 }
 
-// // ! FORKIFY API (BETTER DISH INFO)
+// ! NOT USED ANYMORE
 
-// const BASE_URL = "https://forkify-api.herokuapp.com/api/v2/recipes/";
-// const API_KEY = "8dca65f9-7186-4b08-b9b4-f198ea66266e";
-// ! FETCH ALL DISHES (forkify API)
+// // ! get and fix up dishes from dishesAPI
 // useEffect(() => {
 //   async function fetchAllRecipes() {
-//     let allRecipes = [];
-//     const keywords = [
-//       "chicken",
-//       "pasta",
-//       "salad",
-//       "dessert",
-//       "beef",
-//       "fish",
-//       "vegetarian",
-//     ]; // Broad categories
-//     const maxPages = 3; // Prevents infinite loops
+//     const res = await fetch("https://menus-api.vercel.app/dishes");
 
-//     try {
-//       for (const keyword of keywords) {
-//         let page = 1;
-//         let hasMoreRecipes = true;
+//     if (!res.ok) throw new Error("Failed to fetch dishes");
+//     const data = await res.json();
+//     console.log(data);
+//     // ! analyze dish - add allergy/diet flags
+//     const allDishesAnalyzed = data.map((dish) =>
+//       addDietAllergyFlagsAndIcons(dish)
+//     );
 
-//         while (hasMoreRecipes && page <= maxPages) {
-//           const res = await fetch(
-//             `${BASE_URL}?search=${keyword}&page=${page}&key=${API_KEY}`
-//           );
+//     // ! find 50 images for 50 dishes... pfff who's gonna spend 2 hours doing that ...
+//     const dishNames = allDishesAnalyzed.map((dish) => dish.name);
 
-//           if (!res.ok)
-//             throw new Error(`Failed to fetch dishes for ${keyword}`);
-
-//           const data = await res.json();
-//           console.log(
-//             `Fetched ${data.data.recipes.length} recipes for ${keyword}`
-//           );
-
-//           if (data.data && data.data.recipes) {
-//             allRecipes = [...allRecipes, ...data.data.recipes];
-//           }
-
-//           if (
-//             data.data.recipes.length === 0 ||
-//             data.data.recipes.length < 10
-//           ) {
-//             hasMoreRecipes = false;
-//           } else {
-//             page += 1;
-//           }
-//         }
-//       }
-
-//       setDishes(allRecipes);
-//     } catch (error) {
-//       console.error("Error fetching dishes:", error);
-//     }
+//     // ! store in state
+//     setAllDishes(allDishesAnalyzed);
 //   }
-
 //   fetchAllRecipes();
 // }, []);

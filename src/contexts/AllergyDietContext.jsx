@@ -8,13 +8,13 @@ export function AllergyDietProvider({ children }) {
   const [employeesArray, setEmployeesArray] = useState([
     {
       name: "John",
-      allergies: ["Nut Allergy"],
+      allergies: ["NutAllergy"],
       diet: ["Mediterranean", "Keto"],
       employeeID: Math.random(),
     },
     {
       name: "Melissa",
-      allergies: ["Gluten Allergy", "Soy Allergy"],
+      allergies: ["GlutenAllergy", "SoyAllergy"],
       diet: ["GlutenFree"],
       employeeID: Math.random(),
     },
@@ -26,19 +26,19 @@ export function AllergyDietProvider({ children }) {
     },
     {
       name: "Miguel",
-      allergies: ["Dairy Allergy"],
+      allergies: ["DairyAllergy"],
       diet: ["Vegetarian"],
       employeeID: Math.random(),
     },
     {
       name: "Cassandra",
-      allergies: ["Dairy Allergy", "Shellfish Allergy"],
+      allergies: ["DairyAllergy", "ShellfishAllergy"],
       diet: ["Vegan"],
       employeeID: Math.random(),
     },
     {
       name: "Aaron",
-      allergies: ["Shellfish Allergy"],
+      allergies: ["ShellfishAllergy"],
       diet: ["Mediterranean", "Paleo"],
       employeeID: Math.random(),
     },
@@ -47,15 +47,6 @@ export function AllergyDietProvider({ children }) {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const employeeList = employeesArray.map((employee) => employee.name);
-
-  // function addNewEmployee() {
-  //   // ! logic
-  //   console.log("new employee added!!");
-  // }
-
-  // function removeEmployee() {
-  //   // ! logic
-  //   console.log(" employee removed!!");  // }
 
   return (
     <AllergyDietContext.Provider

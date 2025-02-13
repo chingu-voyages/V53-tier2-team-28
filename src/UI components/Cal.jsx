@@ -15,8 +15,6 @@ function TableRow({ days, startIndex }) {
           {day && (
             <>
               <p>Breakfast: Example Breakfast</p>
-              <p>Lunch: Example Lunch</p>
-              <p>Dinner: Example DDD</p>
             </>
           )}
         </TableCell>

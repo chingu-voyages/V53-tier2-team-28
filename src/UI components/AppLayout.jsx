@@ -1,33 +1,39 @@
 import { useManagerContext } from "../contexts/ManagerContext";
-import Cal from "../UI components/Cal";
-import Diet from "../UI components/Diet";
-import CalendarSelect from "./CalendarSelect";
+import Calendar from "./Calendar";
+import DietAndAllergies from "./DietAndAllergies";
 import DishPreview from "./DishPreview";
 import EmployeeSelect from "./EmployeeSelect";
-import Week from "./Week";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
+import { useState } from "react";
 
 function AppLayout() {
-  const { weeklyOrMonthly } = useManagerContext();
+  const { selectedEmployee } = useAllergyDietContext();
 
-  //  ! ORGANIZE APP LAYOUT AGAIN
   return (
     // ! Main App Container
     <div className="p-20 w-full flex flex-col gap-5 ">
       {/* // ! Employee and Calendar Tabs */}
+      {!selectedEmployee && (
+        <h1
+          onClick={() => {}}
+          className="text-3xl font-bold text-center text-gray-800 mb-8"
+        >
+          Select an employee to plan their meals!
+        </h1>
+      )}
       <div className="flex items-center justify-between">
         <EmployeeSelect />
       </div>
 
-      {/* // ! add the paragraph - 'select employee to manage their meals' */}
-
-      {/* // *   */}
-      <div className="">
-        <Diet />
-        {weeklyOrMonthly === "Weekly" ? <Week /> : <Cal />}
-        <DishPreview />
-      </div>
+      {selectedEmployee && (
+        // ! when employee is selected
+        <div className="">
+          <DietAndAllergies />
+          <Calendar />
+          <DishPreview />
+        </div>
+      )}
     </div>
   );
 }
-
 export default AppLayout;
