@@ -17,16 +17,16 @@ function DishPreview({ dishToPreview }) {
   // const dish =
   // const iconsToDisplay =
   // // Fake Recipe Data
-  const dish = {
-    name: "Vegetable Stir Fry",
-    ingredients: ["Vanilla", "Bread", "Zucchini", "Parsley"],
-    calories: 298,
-    dietRestrictions: ["GlutenFree"],
-    allergyRestrictions: ["Gluten Allergy"],
-    // ! fake image
-    imageUrl:
-      "https://unsplash.com/photos/cooked-food-on-black-ceramic-bowl-0Kbjfwunink",
-  };
+  // const dish = {
+  //   name: "Vegetable Stir Fry",
+  //   ingredients: ["Vanilla", "Bread", "Zucchini", "Parsley"],
+  //   calories: 298,
+  //   dietRestrictions: ["GlutenFree"],
+  //   allergyRestrictions: ["Gluten Allergy"],
+  //   // ! fake image
+  //   imageUrl:
+  //     "https://unsplash.com/photos/cooked-food-on-black-ceramic-bowl-0Kbjfwunink",
+  // };
 
   // ! function to determine which icons to display for allergies/diet
 
@@ -43,16 +43,16 @@ function DishPreview({ dishToPreview }) {
           <div className="border-b-2 border-textColor p-4 ">
             {/* // ! Recipe Title */}
             <h1 className="text-center mt-1 text-2xl font-bold">
-              {selectedDish.strMeal}
+              {selectedDish?.strMeal}
             </h1>
             {/* // ! Recipe Description */}
-            <p className="text-center">{selectedDish.description}</p>
+            <p className="text-center">{selectedDish?.description}</p>
           </div>
           {/* // ! Ingredients Title */}
           <h3 className="font-semibold text-xl pl-4">Ingredients</h3>
           {/* // ! Ingredients List */}
           <ul className="list-disc pl-10 grid grid-cols-2">
-            {selectedDish.ingredients?.map((ingredient, index) => (
+            {selectedDish?.ingredients?.map((ingredient, index) => (
               <li key={index} className="text-textColor">
                 {ingredient}
               </li>
@@ -60,7 +60,7 @@ function DishPreview({ dishToPreview }) {
           </ul>
           {/* // ! Calories */}
           <p className="mt-4 text-textColor">
-            Calories: {selectedDish.calories}
+            Calories: {selectedDish?.calories}
           </p>
 
           {/* // ! Diet/Allergy */}
@@ -82,8 +82,8 @@ function DishPreview({ dishToPreview }) {
         <div className="relative md:flex-1 w-full grow h-[300px] md:h-[420px] lg:h-[500px] xl:h-[500px]">
           <img
             className="rounded-3xl opacity-80 h-full w-full object-cover"
-            src={selectedDish.strMealThumb}
-            alt={selectedDish.strMeal}
+            src={selectedDish?.strMealThumb}
+            alt={selectedDish?.strMeal}
           />
         </div>
       </div>
