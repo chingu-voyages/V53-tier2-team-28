@@ -37,7 +37,6 @@ function DietAndAllergies() {
 
   const multipleDietRestrictions = selectedEmployee.diet.length > 1;
   const multipleAllergyRestrictions = selectedEmployee.allergies.length > 1;
-  console.log(selectedEmployee);
 
   return (
     <section className="flex gap-5">
@@ -67,31 +66,29 @@ function DietAndAllergies() {
       </table>
 
       {/* // ! ALLERGY ICONS */}
-      {selectedEmployee.allergies.length > 0 && (
-        <table className="bg-rose-50 mb-2">
-          <tbody>
-            <tr>
-              <td className="p-2">
-                <AllergyOption
-                  key={selectedEmployee.employeeID}
-                  names={
-                    multipleAllergyRestrictions
-                      ? [...selectedEmployee.allergies]
-                      : selectedEmployee.allergies
-                  }
-                  icons={
-                    multipleAllergyRestrictions
-                      ? selectedEmployee.allergies.map(
-                          (allergyCategory) => allergyIcons[allergyCategory]
-                        )
-                      : allergyIcons[selectedEmployee.allergies]
-                  }
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      )}
+      <table className="bg-rose-50 mb-2">
+        <tbody>
+          <tr>
+            <td className="p-2">
+              <AllergyOption
+                key={selectedEmployee.employeeID}
+                names={
+                  multipleAllergyRestrictions
+                    ? [...selectedEmployee.allergies]
+                    : selectedEmployee.allergies
+                }
+                icons={
+                  multipleAllergyRestrictions
+                    ? selectedEmployee.allergies.map(
+                        (allergyCategory) => allergyIcons[allergyCategory]
+                      )
+                    : allergyIcons[selectedEmployee.allergies]
+                }
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   );
 }

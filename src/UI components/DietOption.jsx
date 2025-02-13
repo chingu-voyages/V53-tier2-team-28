@@ -2,6 +2,11 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import SmallIcon from "./SmallIcon";
 
 function DietOption({ names, icons }) {
+  const { selectedEmployee } = useAllergyDietContext();
+  console.log(selectedEmployee);
+
+  if (!selectedEmployee.diet || selectedEmployee.diet.length === 0)
+    return <p>No diet preferences</p>;
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-xl">Diet</h1>
