@@ -6,9 +6,12 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 function Calendar() {
   const { weeklyOrMonthly } = useManagerContext();
   const { allDishes } = useManagerContext();
-  // const { selectedEmployee } = useAllergyDietContext();
+
+  const { selectedEmployee } = useAllergyDietContext();
 
   console.log(allDishes);
+
+  if (!selectedEmployee) return;
 
   return <div> {weeklyOrMonthly === "Weekly" ? <Week /> : <Cal />}</div>;
 }

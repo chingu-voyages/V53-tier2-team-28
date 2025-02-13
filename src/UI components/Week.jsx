@@ -3,17 +3,20 @@ import TableHead from "./TableHead";
 import TableRow from "./TableRow";
 import { useManagerContext } from "../contexts/ManagerContext";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
+import { useLocalStorage } from "../helpers/useLocalStorage";
 
 function Week() {
   // Get all dishes and rule objects from the context
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
   // Get the selected employee (which contains diet and allergies)
   const { selectedEmployee } = useAllergyDietContext();
-
   // State for storing dishes that pass the employee's restrictions
   const [filteredDishes, setFilteredDishes] = useState([]);
   // State for the final meal assignments for the 7 days (one day off)
-  const [mealAssignments, setMealAssignments] = useState([]);
+  const [mealAssignments, setMealAssignments] = useLocalStorage(
+    [],
+    "weeklyMealPlan"
+  );
 
   // Array of week day names
   const daysOfWeek = [
@@ -37,7 +40,7 @@ function Week() {
   };
 
   // -----------------------------------------------------------------------
-  // EFFECT 1: Filter all dishes based on the employee's diet and allergies
+  // ! EFFECT 1: Filter all dishes based on the employee's diet and allergies
   // -----------------------------------------------------------------------
   useEffect(() => {
     if (allDishes.length > 0 && selectedEmployee) {
@@ -69,13 +72,12 @@ function Week() {
         return meetsDietRestrictions && !containsAllergens;
       });
 
-      console.log("Filtered dishes:", filtered);
       setFilteredDishes(filtered);
     }
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
 
   // -----------------------------------------------------------------------
-  // EFFECT 2: Assign 7 days of meals with one day off (random day off)
+  //  ! EFFECT 2: Assign 7 days of meals with one day off (random day off)
   // -----------------------------------------------------------------------
   useEffect(() => {
     if (filteredDishes.length > 0 && selectedEmployee) {
@@ -99,8 +101,6 @@ function Week() {
           mealIndex++;
         }
       }
-
-      console.log("Meal assignments:", assignments);
       setMealAssignments(assignments);
     }
   }, [filteredDishes, selectedEmployee]);

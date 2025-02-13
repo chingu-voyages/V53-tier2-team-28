@@ -8,6 +8,8 @@ function DishPreview({ dishToPreview }) {
   const { selectedEmployee } = useAllergyDietContext();
   const { dietaryOptions, allergyOptions } = useManagerContext();
 
+  const { selectedDish } = useManagerContext();
+
   // ! fix diet option names and icon names
 
   // ! loop thru names and match with icon names
@@ -40,22 +42,26 @@ function DishPreview({ dishToPreview }) {
           {/* // ! Title/description div */}
           <div className="border-b-2 border-textColor p-4 ">
             {/* // ! Recipe Title */}
-            <h1 className="text-center mt-1 text-2xl font-bold">{dish.name}</h1>
+            <h1 className="text-center mt-1 text-2xl font-bold">
+              {selectedDish.strMeal}
+            </h1>
             {/* // ! Recipe Description */}
-            <p className="text-center">{dish.description}</p>
+            <p className="text-center">{selectedDish.description}</p>
           </div>
           {/* // ! Ingredients Title */}
           <h3 className="font-semibold text-xl pl-4">Ingredients</h3>
           {/* // ! Ingredients List */}
-          <ul className="list-disc pl-10">
-            {dish.ingredients?.map((ingredient, index) => (
+          <ul className="list-disc pl-10 grid grid-cols-2">
+            {selectedDish.ingredients?.map((ingredient, index) => (
               <li key={index} className="text-textColor">
                 {ingredient}
               </li>
             ))}
           </ul>
           {/* // ! Calories */}
-          <p className="mt-4 text-textColor">Calories: {dish.calories}</p>
+          <p className="mt-4 text-textColor">
+            Calories: {selectedDish.calories}
+          </p>
 
           {/* // ! Diet/Allergy */}
           <div className="md:self-end justify-self-end mt-auto">
@@ -76,8 +82,8 @@ function DishPreview({ dishToPreview }) {
         <div className="relative md:flex-1 w-full grow h-[300px] md:h-[420px] lg:h-[500px] xl:h-[500px]">
           <img
             className="rounded-3xl opacity-80 h-full w-full object-cover"
-            src={dish.imageUrl}
-            alt={dish.name}
+            src={selectedDish.strMealThumb}
+            alt={selectedDish.strMeal}
           />
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useManagerContext } from "../contexts/ManagerContext";
 import SmallestIcon from "./Smallesticon";
 import SmallIcon from "./SmallIcon"; // Component for displaying smaller icons (if needed)
 import TableCell from "./TableCell";
@@ -5,6 +6,7 @@ import TableCell from "./TableCell";
 function TableRow({ dailyDishes }) {
   // Log the daily dishes array for debugging purposes
   console.log(dailyDishes);
+  const { setSelectedDish } = useManagerContext();
 
   return (
     // Create a table row (<tr>) that will hold a cell for each day of the week.
@@ -15,8 +17,11 @@ function TableRow({ dailyDishes }) {
           {meal ? (
             // If a meal is assigned for the day:
             <>
-              {/* Display the meal name with overflow prevention */}
-              <h1 className="text-xl truncate whitespace-nowrap overflow-hidden">
+              {/* Display the meal name  */}
+              <h1
+                onClick={() => setSelectedDish(meal)}
+                className="text-2xl truncate whitespace-nowrap overflow-hidden"
+              >
                 {meal.strMeal}
               </h1>
               {/* Container for the allergy icons or a message if none exist */}

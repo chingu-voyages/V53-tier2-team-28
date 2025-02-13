@@ -5,7 +5,7 @@ function Footer() {
   // * footer to be fixed at the bottom of the HOMEPAGE otherwise it will be at the bottom of the page but need to scroll down to see it
   return (
     // ! main container
-    <footer className="absolute bottom-0 bg-background w-full p-4 ">
+    <footer className=" bg-background w-full p-4 ">
       <div className="link flex flex-wrap justify-between items-center">
         {/* Left section: GitHub Link */}
         <a

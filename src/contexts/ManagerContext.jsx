@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import GlutenFree from "../assets/gluten-free.png";
@@ -27,6 +21,7 @@ const ManagerContext = createContext();
 export function ManagerProvider({ children }) {
   const [weeklyOrMonthly, setWeeklyOrMonthly] = useState("Weekly");
   const [allDishes, setAllDishes] = useLocalStorage([], "dishesRecipes");
+  const [selectedDish, setSelectedDish] = useState(null);
 
   function transformDishData(dish) {
     const ingredients = [];
@@ -44,6 +39,7 @@ export function ManagerProvider({ children }) {
     };
   }
 
+  // ! fetch dishes
   useEffect(() => {
     if (allDishes.length > 0) return;
 
@@ -91,6 +87,7 @@ export function ManagerProvider({ children }) {
     "Vegan",
   ];
 
+  // ! GO THRU CATEGORY in all dishes to look for allergens
   const allergyOptions = [
     "NutAllergy",
     "GlutenAllergy",
@@ -137,7 +134,6 @@ export function ManagerProvider({ children }) {
     "Shellfish Allergy": ["shrimp", "lobster", "crab"],
   };
   // ! based on ingredients, add diet and allergies
-
   function addDietAllergyFlagsAndIcons(dish) {
     // prettier-ignore
     const dietIconsObj = {
@@ -202,6 +198,8 @@ export function ManagerProvider({ children }) {
         setWeeklyOrMonthly,
         dietaryRules,
         allergyRules,
+        selectedDish,
+        setSelectedDish,
       }}
     >
       {children}
