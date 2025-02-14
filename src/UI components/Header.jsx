@@ -14,6 +14,7 @@ function Header() {
       </div>
 
       <div class="p-4">
+        <p id="logged-in"></p>
         <CalendarSelect />
       </div>
     </header>
