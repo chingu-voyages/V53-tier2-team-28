@@ -3,6 +3,7 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import { useModalContext } from "../contexts/ModalContext";
 import { useLocalStorage } from "../helpers/useLocalStorage";
 import { useManagerContext } from "../contexts/ManagerContext";
+import Button from "../UI components/Button";
 
 function Signup() {
   const { isOpenModalSignup, handleCloseAnyModal } = useModalContext();
@@ -49,7 +50,7 @@ function Signup() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="max-h-[70%] overflow-scroll bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-md">
+      <div className="max-h-[70%] overflow-scroll bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-lg">
         {/* Close Button */}
         <button
           className="mb-2 w-full text-right text-gray-500 hover:text-gray-700"
@@ -57,7 +58,9 @@ function Signup() {
         >
           Close
         </button>
-        <h2 className="text-3xl font-bold text-center mb-6">Sign Up</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Edit preferences
+        </h2>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           {/* Name Selection */}
           <fieldset className="border border-gray-300 rounded-lg p-3">
@@ -116,12 +119,13 @@ function Signup() {
           </fieldset>
 
           {/* Submit Button */}
-          <button
+          <Button
             type="submit"
-            className="bg-primary hover:bg-primary-hover text-white font-semibold p-3 rounded-lg transition"
+            variation="login/submit"
+            className=" font-semibold p-3 rounded-lg transition"
           >
             Submit
-          </button>
+          </Button>
         </form>
       </div>
     </div>
