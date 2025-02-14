@@ -14,9 +14,11 @@ function Header() {
 
       <p className="italic">{isManagerLoggedIn && "Manager Logged in"}</p>
 
-      <div className="p-4">
-        <CalendarSelect />
-      </div>
+      {isManagerLoggedIn && (
+        <div className="p-4">
+          <CalendarSelect />
+        </div>
+      )}
     </header>
   );
 }

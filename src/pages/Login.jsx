@@ -4,11 +4,12 @@ import { useKeyPress } from "../helpers/useKeyPress";
 import SmallSpinner from "../UI components/SmallSpinner";
 import { useModalContext } from "../contexts/ModalContext";
 import { useManagerContext } from "../contexts/ManagerContext";
+import Button from "../UI components/Button";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("manager");
+  const [password, setPassword] = useState("1234");
 
   const navigate = useNavigate();
   const { isOpenModalLogin, handleCloseAnyModal } = useModalContext();
@@ -46,7 +47,13 @@ function Login() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-md">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-md flex flex-col gap-2">
+        <button
+          className=" text-gray-500 hover:text-gray-700 self-end"
+          onClick={handleCloseAnyModal}
+        >
+          Close
+        </button>
         <h1 className="text-3xl font-bold text-center mb-6">Log In</h1>
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <input
@@ -63,19 +70,14 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
+          <Button
             type="submit"
-            className="bg-primary hover:bg-primary-hover text-white font-semibold p-3 rounded-lg transition"
+            variation="login/submit"
+            className="bg-primary hover:bg-primary-hover text-white font-semibold p-3 rounded-lg transition mt-5"
           >
             {isLoading ? <SmallSpinner /> : "Login"}
-          </button>
+          </Button>
         </form>
-        <button
-          className="mt-4 text-gray-500 hover:text-gray-700"
-          onClick={handleCloseAnyModal}
-        >
-          Close
-        </button>
       </div>
     </div>
   );

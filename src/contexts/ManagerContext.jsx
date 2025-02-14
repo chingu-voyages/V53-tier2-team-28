@@ -87,7 +87,6 @@ export function ManagerProvider({ children }) {
     "Vegan",
   ];
 
-  // ! GO THRU CATEGORY in all dishes to look for allergens
   const allergyOptions = [
     "NutAllergy",
     "GlutenAllergy",
@@ -96,7 +95,6 @@ export function ManagerProvider({ children }) {
     "ShellfishAllergy",
   ];
 
-  // Dietary and allergy rules
   const dietaryRules = {
     "Gluten Free": ["bread", "wheat", "barley", "rye", "pasta"],
     Keto: ["sugar", "rice", "potato", "corn"],
@@ -133,6 +131,7 @@ export function ManagerProvider({ children }) {
     "Dairy Allergy": ["milk", "cheese", "butter", "yogurt"],
     "Shellfish Allergy": ["shrimp", "lobster", "crab"],
   };
+
   // ! based on ingredients, add diet and allergies
   function addDietAllergyFlagsAndIcons(dish) {
     // prettier-ignore
