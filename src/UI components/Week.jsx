@@ -6,18 +6,17 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import { useLocalStorage } from "../helpers/useLocalStorage";
 
 function Week() {
+  // State for storing dishes that pass the employee's restrictions
+  const [filteredDishes, setFilteredDishes] = useState([]);
   // Get all dishes and rule objects from the context
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
   // Get the selected employee (which contains diet and allergies)
-  const { selectedEmployee, employeesArray, setEmployeesArray } =
-    useAllergyDietContext();
-  // State for storing dishes that pass the employee's restrictions
-  const [filteredDishes, setFilteredDishes] = useState([]);
-  //  !State for the final meal assignments for the 7 days (one day off)
-  // const [mealAssignments, setMealAssignments] = useLocalStorage(
-  //   [],
-  //   "weeklyMealPlan"
-  // );
+  const {
+    selectedEmployee,
+    employeesArray,
+    setEmployeesArray,
+    setSelectedEmployee,
+  } = useAllergyDietContext();
 
   // Array of week day names
   const daysOfWeek = [
@@ -77,6 +76,7 @@ function Week() {
       });
 
       setFilteredDishes(filtered);
+      console.log("first effect finished - filtered dishes set");
     }
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
 
@@ -110,7 +110,7 @@ function Week() {
           mealIndex++;
         }
       }
-
+      console.log("setting empoyees array...");
       setEmployeesArray((previousArray) =>
         previousArray.map((employeeObj) =>
           employeeObj === selectedEmployee
@@ -119,15 +119,31 @@ function Week() {
         )
       );
 
-      // ! here
-      // setMealAssignments(assignments);
+      console.log("second effect finished");
     }
   }, [filteredDishes, selectedEmployee]);
+  console.log(selectedEmployee);
+  console.log(selectedEmployee.weeklyMealPlan);
+
+  // ! the effect that solved the bug
+  // ! ASK JOHN ABOUT THIS!!!!!!!!!!!!!!
+  useEffect(() => {
+    if (selectedEmployee) {
+      // Find the latest version of selectedEmployee in employeesArray
+      const updatedEmployee = employeesArray.find(
+        (e) => e.employeeID === selectedEmployee.employeeID
+      );
+
+      if (updatedEmployee) {
+        setSelectedEmployee(updatedEmployee);
+      }
+    }
+  }, [employeesArray, selectedEmployee, setSelectedEmployee]);
 
   return (
     <div className="bg-background w-full">
       <table className="w-full border border-black table-fixed">
-        {/* Render table header with days of the week */}
+        {/* // ! Render table header with days of the week */}
         <TableHead>
           {daysOfWeek.map((day, index) => (
             <th
@@ -140,7 +156,7 @@ function Week() {
         </TableHead>
 
         <tbody className="h-48">
-          {/* Render the meal assignments using the TableRow component */}
+          {/* // ! Render the meal assignments using the TableRow component */}
           {selectedEmployee?.weeklyMealPlan ? (
             <TableRow dailyDishes={selectedEmployee?.weeklyMealPlan} />
           ) : (
