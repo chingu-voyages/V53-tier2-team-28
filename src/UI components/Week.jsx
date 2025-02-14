@@ -6,7 +6,6 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import Button from "./Button";
 
 function Week() {
-  const [filteredDishes, setFilteredDishes] = useState([]);
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
   const {
     selectedEmployee,
@@ -14,6 +13,7 @@ function Week() {
     setEmployeesArray,
     setSelectedEmployee,
   } = useAllergyDietContext();
+  const [filteredDishes, setFilteredDishes] = useState([]);
 
   // Array of week day names
   const daysOfWeek = [
