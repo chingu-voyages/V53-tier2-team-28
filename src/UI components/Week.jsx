@@ -3,21 +3,17 @@ import TableHead from "./TableHead";
 import TableRow from "./TableRow";
 import { useManagerContext } from "../contexts/ManagerContext";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
-import { useLocalStorage } from "../helpers/useLocalStorage";
+import Button from "./Button";
 
 function Week() {
-  // Get all dishes and rule objects from the context
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
-  // Get the selected employee (which contains diet and allergies)
-  const { selectedEmployee, employeesArray, setEmployeesArray } =
-    useAllergyDietContext();
-  // State for storing dishes that pass the employee's restrictions
+  const {
+    selectedEmployee,
+    employeesArray,
+    setEmployeesArray,
+    setSelectedEmployee,
+  } = useAllergyDietContext();
   const [filteredDishes, setFilteredDishes] = useState([]);
-  //  !State for the final meal assignments for the 7 days (one day off)
-  // const [mealAssignments, setMealAssignments] = useLocalStorage(
-  //   [],
-  //   "weeklyMealPlan"
-  // );
 
   // Array of week day names
   const daysOfWeek = [
@@ -40,6 +36,34 @@ function Week() {
     return newArr;
   };
 
+  // Function to handle meal auto-generation
+  const handleAutoGenerateMeals = () => {
+    console.log(handleAutoGenerateMeals, "running");
+    console.log(filteredDishes);
+    console.log(selectedEmployee);
+    if (!selectedEmployee) return;
+    console.log("passed early return");
+    // Shuffle the dishes
+    const shuffled = shuffleArray(filteredDishes);
+    const selectedMeals = shuffled.slice(0, 6); // 6 meals (1 day off)
+
+    // Pick a random day off
+    const dayOffIndex = Math.floor(Math.random() * 7);
+
+    // Assign meals to days of the week
+    const newWeeklyPlan = daysOfWeek.map((_, index) =>
+      index === dayOffIndex ? null : selectedMeals.shift()
+    );
+
+    // Update the employee's meal plan in employeesArray
+    setEmployeesArray((prevArray) =>
+      prevArray.map((employee) =>
+        employee.employeeID === selectedEmployee.employeeID
+          ? { ...employee, weeklyMealPlan: newWeeklyPlan }
+          : employee
+      )
+    );
+  };
   // -----------------------------------------------------------------------
   // ! EFFECT 1: Filter all dishes based on the employee's diet and allergies
   // -----------------------------------------------------------------------
@@ -118,40 +142,62 @@ function Week() {
             : employeeObj
         )
       );
-
-      // ! here
-      // setMealAssignments(assignments);
     }
   }, [filteredDishes, selectedEmployee]);
 
-  return (
-    <div className="bg-background w-full">
-      <table className="w-full border border-black table-fixed">
-        {/* Render table header with days of the week */}
-        <TableHead>
-          {daysOfWeek.map((day, index) => (
-            <th
-              key={index}
-              className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
-            >
-              {day}
-            </th>
-          ))}
-        </TableHead>
+  // ! the effect that solved the bug of weekly meal plan not rendering on first click
+  // ! ASK JOHN ABOUT THIS!!!!!!!!!!!!!!
+  useEffect(() => {
+    if (selectedEmployee) {
+      // Find the latest version of selectedEmployee in employeesArray
+      const updatedEmployee = employeesArray.find(
+        (e) => e.employeeID === selectedEmployee.employeeID
+      );
 
-        <tbody className="h-48">
-          {/* Render the meal assignments using the TableRow component */}
-          {selectedEmployee?.weeklyMealPlan ? (
-            <TableRow dailyDishes={selectedEmployee?.weeklyMealPlan} />
-          ) : (
-            <tr>
-              <td colSpan="7" className="text-center">
-                Loading meals...
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      if (updatedEmployee) {
+        setSelectedEmployee(updatedEmployee);
+      }
+    }
+  }, [employeesArray, selectedEmployee, setSelectedEmployee]);
+
+  return (
+    <div className="flex flex-col gap-5">
+      {/* Auto-Generate Meals Button */}
+      {selectedEmployee && (
+        <div className="self-center">
+          <Button onClick={handleAutoGenerateMeals}>
+            Re-Generate Meals for {selectedEmployee?.name}
+          </Button>
+        </div>
+      )}
+      <div className="bg-background w-full">
+        <table className="w-full border border-black table-fixed">
+          {/* // ! Render table header with days of the week */}
+          <TableHead>
+            {daysOfWeek.map((day, index) => (
+              <th
+                key={index}
+                className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
+              >
+                {day}
+              </th>
+            ))}
+          </TableHead>
+
+          <tbody className="h-48">
+            {/* // ! Render the meal assignments using the TableRow component */}
+            {selectedEmployee?.weeklyMealPlan ? (
+              <TableRow dailyDishes={selectedEmployee?.weeklyMealPlan} />
+            ) : (
+              <tr>
+                <td colSpan="7" className="text-center">
+                  Loading meals...
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

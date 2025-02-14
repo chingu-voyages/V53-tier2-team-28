@@ -3,12 +3,18 @@ import TableHead from "./TableHead";
 import TableRow from "./TableRow";
 import { useManagerContext } from "../contexts/ManagerContext";
 import { useAllergyDietContext } from "../contexts/AllergyDietContext";
+import Button from "./Button";
 
 function Cal() {
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
-  const { selectedEmployee, setEmployeesArray } = useAllergyDietContext();
-  const [filteredDishes, setFilteredDishes] = useState([]);
+  const {
+    selectedEmployee,
+    employeesArray,
+    setEmployeesArray,
+    setSelectedEmployee,
+  } = useAllergyDietContext();
 
+  const [filteredDishes, setFilteredDishes] = useState([]);
   const daysInMonth = 30;
   const daysOfWeek = [
     "Monday",
@@ -27,6 +33,61 @@ function Cal() {
       [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
     }
     return newArr;
+  };
+
+  // Function to handle meal auto-generation
+  const handleAutoGenerateMeals = () => {
+    if (filteredDishes.length === 0 || !selectedEmployee) return;
+
+    // Shuffle the available dishes
+    const shuffledDishes = shuffleArray(filteredDishes);
+
+    // Each employee gets a fixed day off per week (based on employeeID)
+    const employeeDayOff = selectedEmployee.employeeID % 7;
+
+    // Initialize the monthly meal plan (30 days)
+    const monthlyMealPlan = new Array(daysInMonth).fill(null);
+
+    let mealIndex = 0;
+
+    for (let day = 0; day < daysInMonth; day++) {
+      const dayOfWeek = day % 7; // Get the weekday index (0-6)
+
+      if (dayOfWeek === employeeDayOff) {
+        // Assign a day off
+        monthlyMealPlan[day] = null;
+      } else {
+        if (mealIndex >= shuffledDishes.length) {
+          mealIndex = 0; // Reset index to avoid running out of dishes
+        }
+
+        let selectedMeal = shuffledDishes[mealIndex];
+
+        // Avoid consecutive repeats
+        let retryCount = 0;
+        while (
+          day > 0 &&
+          monthlyMealPlan[day - 1]?.id === selectedMeal?.id &&
+          retryCount < shuffledDishes.length
+        ) {
+          mealIndex = (mealIndex + 1) % shuffledDishes.length;
+          selectedMeal = shuffledDishes[mealIndex];
+          retryCount++;
+        }
+
+        monthlyMealPlan[day] = selectedMeal;
+        mealIndex++;
+      }
+    }
+
+    // Update the employee's meal plan
+    setEmployeesArray((prevArray) =>
+      prevArray.map((employee) =>
+        employee.employeeID === selectedEmployee.employeeID
+          ? { ...employee, monthlyMealPlan: monthlyMealPlan }
+          : employee
+      )
+    );
   };
 
   // -----------------------------------------------------------------------
@@ -60,7 +121,7 @@ function Cal() {
 
         return meetsDietRestrictions && !containsAllergens;
       });
-
+      console.log("FILTERED DISHES", filtered);
       setFilteredDishes(filtered);
     }
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
@@ -125,34 +186,60 @@ function Cal() {
     }
   }, [filteredDishes, selectedEmployee]);
 
+  // ! the effect that solved the bug
+  // ! ASK JOHN ABOUT THIS!!!!!!!!!!!!!!
+  useEffect(() => {
+    if (selectedEmployee) {
+      // Find the latest version of selectedEmployee in employeesArray
+      const updatedEmployee = employeesArray.find(
+        (e) => e.employeeID === selectedEmployee.employeeID
+      );
+
+      if (updatedEmployee) {
+        setSelectedEmployee(updatedEmployee);
+      }
+    }
+  }, [employeesArray, selectedEmployee, setSelectedEmployee]);
+
   if (!selectedEmployee) return;
   return (
-    <div className="bg-background w-full">
-      <table className="w-full border border-black table-fixed">
-        <TableHead>
-          {daysOfWeek.map((day, index) => (
-            <th
-              key={index}
-              className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
-            >
-              {day}
-            </th>
-          ))}
-        </TableHead>
-        <tbody>
-          {Array.from({ length: Math.ceil(daysInMonth / 7) }).map(
-            (_, rowIndex) => (
-              <TableRow
-                key={rowIndex}
-                dailyDishes={selectedEmployee?.monthlyMealPlan?.slice(
-                  rowIndex * 7,
-                  rowIndex * 7 + 7
-                )}
-              />
-            )
-          )}
-        </tbody>
-      </table>
+    <div className="flex flex-col gap-5">
+      {/* Auto-Generate Meals Button */}
+      {selectedEmployee && (
+        <div className="self-center">
+          <Button onClick={handleAutoGenerateMeals}>
+            Re-Generate Meals for {selectedEmployee?.name}
+          </Button>
+        </div>
+      )}
+      <div className="bg-background w-full">
+        <table className="w-full border border-black table-fixed">
+          <TableHead>
+            {daysOfWeek.map((day, index) => (
+              <th
+                key={index}
+                className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
+              >
+                {day}
+              </th>
+            ))}
+          </TableHead>
+
+          <tbody>
+            {Array.from({ length: Math.ceil(daysInMonth / 7) }).map(
+              (_, rowIndex) => (
+                <TableRow
+                  key={rowIndex}
+                  dailyDishes={selectedEmployee?.monthlyMealPlan?.slice(
+                    rowIndex * 7,
+                    rowIndex * 7 + 7
+                  )}
+                />
+              )
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

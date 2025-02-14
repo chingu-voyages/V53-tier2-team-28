@@ -10,6 +10,7 @@ function TableRow({ dailyDishes }) {
 
   // Prevent rendering if dailyDishes is empty or undefined
   if (!dailyDishes || dailyDishes.length === 0) return null;
+
   return (
     // Create a table row (<tr>) that will hold a cell for each day of the week.
     <tr className="h-full w-full grow">
