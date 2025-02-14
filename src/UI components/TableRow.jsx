@@ -5,12 +5,12 @@ import TableCell from "./TableCell";
 function TableRow({ days }) {
   // ! need to "cross-off" icons
   return (
-    <tr>
+    <tr className="h-full w-full grow">
       {days?.map((meal, index) => (
         <TableCell key={index} day={index}>
           {meal ? (
             <>
-              <h1>{meal.name}</h1>
+              <h1 className="text-xl">{meal.name}</h1>
               <div className="flex gap-2 justify-center">
                 {/* Render dietary restriction icons
                 {meal.dietIconsObj?.map((iconObj, i) => (
@@ -26,7 +26,7 @@ function TableRow({ days }) {
                   <SmallestIcon
                     key={i}
                     src={iconObj.icon}
-                    label="Free of allergens"
+                    label="Allergy flags"
                   />
                 ))}
               </div>
