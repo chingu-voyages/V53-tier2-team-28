@@ -6,11 +6,8 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import Button from "./Button";
 
 function Week() {
-  // State for storing dishes that pass the employee's restrictions
   const [filteredDishes, setFilteredDishes] = useState([]);
-  // Get all dishes and rule objects from the context
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
-  // Get the selected employee (which contains diet and allergies)
   const {
     selectedEmployee,
     employeesArray,
@@ -41,8 +38,11 @@ function Week() {
 
   // Function to handle meal auto-generation
   const handleAutoGenerateMeals = () => {
-    if (filteredDishes.length === 0 || !selectedEmployee) return;
-
+    console.log(handleAutoGenerateMeals, "running");
+    console.log(filteredDishes);
+    console.log(selectedEmployee);
+    if (!selectedEmployee) return;
+    console.log("passed early return");
     // Shuffle the dishes
     const shuffled = shuffleArray(filteredDishes);
     const selectedMeals = shuffled.slice(0, 6); // 6 meals (1 day off)
@@ -101,7 +101,6 @@ function Week() {
       });
 
       setFilteredDishes(filtered);
-      console.log("first effect finished - filtered dishes set");
     }
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
 
@@ -135,7 +134,7 @@ function Week() {
           mealIndex++;
         }
       }
-      console.log("setting empoyees array...");
+
       setEmployeesArray((previousArray) =>
         previousArray.map((employeeObj) =>
           employeeObj === selectedEmployee
@@ -143,12 +142,8 @@ function Week() {
             : employeeObj
         )
       );
-
-      console.log("second effect finished");
     }
   }, [filteredDishes, selectedEmployee]);
-  console.log(selectedEmployee);
-  console.log(selectedEmployee.weeklyMealPlan);
 
   // ! the effect that solved the bug of weekly meal plan not rendering on first click
   // ! ASK JOHN ABOUT THIS!!!!!!!!!!!!!!
@@ -171,7 +166,7 @@ function Week() {
       {selectedEmployee && (
         <div className="self-center">
           <Button onClick={handleAutoGenerateMeals}>
-            Auto-Generate Meals for {selectedEmployee?.name}
+            Re-Generate Meals for {selectedEmployee?.name}
           </Button>
         </div>
       )}

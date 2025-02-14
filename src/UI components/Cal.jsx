@@ -6,10 +6,7 @@ import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 import Button from "./Button";
 
 function Cal() {
-  // State for storing dishes that pass the employee's restrictions
   const [filteredDishes, setFilteredDishes] = useState([]);
-  // Get all dishes and rule objects from the context
-  // Get the selected employee (which contains diet and allergies)
 
   const { allDishes, dietaryRules, allergyRules } = useManagerContext();
   const {
@@ -125,7 +122,7 @@ function Cal() {
 
         return meetsDietRestrictions && !containsAllergens;
       });
-
+      console.log("FILTERED DISHES", filtered);
       setFilteredDishes(filtered);
     }
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
@@ -212,7 +209,7 @@ function Cal() {
       {selectedEmployee && (
         <div className="self-center">
           <Button onClick={handleAutoGenerateMeals}>
-            Auto-Generate Meals for {selectedEmployee?.name}
+            Re-Generate Meals for {selectedEmployee?.name}
           </Button>
         </div>
       )}

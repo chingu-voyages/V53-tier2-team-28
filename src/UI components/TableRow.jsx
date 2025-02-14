@@ -5,14 +5,11 @@ import SmallIcon from "./SmallIcon"; // Component for displaying smaller icons (
 import TableCell from "./TableCell";
 
 function TableRow({ dailyDishes }) {
-  console.log(dailyDishes);
-  console.log("tablerow rendering");
   // Log the daily dishes array for debugging purposes
   const { setSelectedDish } = useManagerContext();
 
   // Prevent rendering if dailyDishes is empty or undefined
   if (!dailyDishes || dailyDishes.length === 0) return null;
-  console.log("rendering jsx for TableRow...");
 
   return (
     // Create a table row (<tr>) that will hold a cell for each day of the week.

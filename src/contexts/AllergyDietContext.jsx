@@ -10,8 +10,8 @@ export function AllergyDietProvider({ children }) {
     [
       {
         name: "John",
-        allergies: [],
-        diet: [],
+        allergies: ["DairyAllergy"],
+        diet: ["Keto"],
         employeeID: Math.floor(Math.random() * 150),
       },
       {
@@ -34,14 +34,14 @@ export function AllergyDietProvider({ children }) {
       },
       {
         name: "Cassandra",
-        allergies: ["DairyAllergy", "ShellfishAllergy"],
-        diet: ["Vegan"],
+        allergies: ["ShellfishAllergy"],
+        diet: ["Vegan", '"Paleo"'],
         employeeID: Math.floor(Math.random() * 150),
       },
       {
         name: "Aaron",
         allergies: ["ShellfishAllergy"],
-        diet: ["Mediterranean", "Paleo"],
+        diet: ["Mediterranean"],
         employeeID: Math.floor(Math.random() * 150),
       },
     ],
