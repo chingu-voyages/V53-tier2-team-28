@@ -1,45 +1,32 @@
-# voyage-tasks
+# Title
 
-Your project's `readme` is as important to success as your code. For
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+Meal Planner
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point -
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+## Overview
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+Meal planner was created for managers to create meal plans for their employees for each day. Meal planner offers the option of weekly or monthly meal plans, with the ability
+to filter by diet types and allergies through a database of recipes. 
 
-> Own it & Make it your Own!
+## Features
 
-## Team Documents
+Meal planner offers the ability to filter recipes by diet and allergy restrictions to create weekly or monthly meal plans for an employee.
 
-You may find these helpful as you work together to organize your project.
+## Running the Project
 
-- [Team Project Ideas](./docs/team_project_ideas.md)
-- [Team Decision Log](./docs/team_decision_log.md)
+Terminal:
+npm install vite @ latest
+npm install tailwindcss
+npm run dev
 
-Meeting Agenda templates (located in the `/docs` directory in this repo):
+## Depndencies
 
-- Meeting - Voyage Kickoff --> ./docs/meeting-voyage_kickoff.docx
-- Meeting - App Vision & Feature Planning --> ./docs/meeting-vision_and_feature_planning.docx
-- Meeting - Sprint Retrospective, Review, and Planning --> ./docs/meeting-sprint_retrospective_review_and_planning.docx
-- Meeting - Sprint Open Topic Session --> ./docs/meeting-sprint_open_topic_session.docx
+vite
+tailwind 
 
 ## Our Team
 
-Everyone on your team should add their name along with a link to their GitHub
-& optionally their LinkedIn profiles below. Do this in Sprint #1 to validate
-your repo access and to practice PR'ing with your team _before_ you start
-coding!
-
-- Teammate name #1: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
-- Laura: [GitHub](https://github.com/frosty8104) / [LinkedIn](https://www.linkedin.com/in/laura-gieg-web-designer-dev/)
-- Bobby: [GitHub](https://github.com/minorObsession) / [LinkedIn](https://www.linkedin.com/in/bogdanterzic95/)
+- Teresa Green: [GitHub](https://github.com/Tegsy) / [LinkedIn](https://www.linkedin.com/in/t-g-78b60b5/)
+- Laura Gieg/Frosty: [GitHub](https://github.com/frosty8104) / [LinkedIn](https://www.linkedin.com/in/laura-gieg-web-designer-dev/)
+- Bobby/Bogdan Terzic: [GitHub](https://github.com/minorObsession) / [LinkedIn](https://www.linkedin.com/in/bogdanterzic95/)
 - Erica Chong: [GitHub](https://github.com/chonger878) / [LinkedIn](https://linkedin.com/in/charwaeericachong)
-- Noelle: [GitHub](https://github.com/Equillibria) / [LinkedIn](https://www.linkedin.com/in/noelle-jefferson/)
-
-  ...
-
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Noelle Jefferson: [GitHub](https://github.com/Equillibria) / [LinkedIn](https://www.linkedin.com/in/noelle-jefferson/)
