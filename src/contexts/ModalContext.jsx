@@ -18,6 +18,18 @@ export function ModalProvider({ children }) {
 
   const isAnyModalOpen = isOpenModalSignup || isOpenModalLogin;
 
+  // Prevent navigate from triggering unnecessary redirects
+  function handleCloseAnyModal() {
+    if (!isAnyModalOpen) return;
+
+    // Only navigate if there's a modal open and we're closing it
+    closeAnyModal();
+    if (isOpenModalLogin || isOpenModalSignup) {
+      navigate("/"); // Only navigate back if a modal was truly closed
+    }
+  }
+
+  // ! MANUALLY GO TO PATH LOGIN OR SIGNUP - DOESN'T WORK
   // useEffect(() => {
   //   if (location.pathname === "/login" && !isOpenModalLogin) {
   //     setIsOpenModalLogin(true);
@@ -29,17 +41,6 @@ export function ModalProvider({ children }) {
   //     closeAnyModal(); // Close modals if not on login/signup page
   //   }
   // }, [location.pathname, isOpenModalLogin, isOpenModalSignup]);
-
-  // Prevent navigate from triggering unnecessary redirects
-  function handleCloseAnyModal() {
-    if (!isAnyModalOpen) return;
-
-    // Only navigate if there's a modal open and we're closing it
-    closeAnyModal();
-    if (isOpenModalLogin || isOpenModalSignup) {
-      navigate("/"); // Only navigate back if a modal was truly closed
-    }
-  }
 
   useKeyPress("Escape", handleCloseAnyModal);
 

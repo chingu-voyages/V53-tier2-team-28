@@ -10,6 +10,8 @@ function Signup() {
     employeeDietAndAllergies,
     setEmployeeDietAndAllergies,
     employeeList,
+    employeesArray,
+    setEmployeesArray,
   } = useAllergyDietContext();
 
   const { dietaryOptions, allergyOptions } = useManagerContext();
@@ -17,8 +19,6 @@ function Signup() {
   const [selectedName, setSelectedName] = useState(employeeList[0] || "");
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [selectedAllergies, setSelectedAllergies] = useState([]);
-
-  console.log(employeeDietAndAllergies);
 
   function handleCheckboxChange(setState, value) {
     setState((prev) =>
@@ -31,26 +31,15 @@ function Signup() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    //  find employee object within the array
-    const employeeObject = employeeDietAndAllergies.find(
-      (employee) => employee.name === selectedName
-    );
-
     // Update the state with the new data
     // ! I WAS HERE!! IT'S MAKING DUPLICATES INSTEAD OF JUST MODIFYING THE EXISTING OBJECT
-    setEmployeeDietAndAllergies((prev) => [
-      ...prev,
-      {
-        ...employeeObject,
-        diet: selectedDiets,
-        allergies: selectedAllergies,
-      },
-    ]);
-
-    // update local storage
-    // useEffect(() => {
-    //   useLocalStorage(employeeDietAndAllergies, "employeePreferences");
-    // }, [employeeDietAndAllergies]);
+    setEmployeesArray((prev) =>
+      prev.map((employee) =>
+        employee.name === selectedName
+          ? { ...employee, diet: selectedDiets, allergies: selectedAllergies }
+          : employee
+      )
+    );
 
     // Close modal after submission
     handleCloseAnyModal();
@@ -60,7 +49,14 @@ function Signup() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-md">
+      <div className="max-h-[70%] overflow-scroll bg-white rounded-2xl shadow-xl p-8 w-[90%] max-w-md">
+        {/* Close Button */}
+        <button
+          className="mb-2 w-full text-right text-gray-500 hover:text-gray-700"
+          onClick={handleCloseAnyModal}
+        >
+          Close
+        </button>
         <h2 className="text-3xl font-bold text-center mb-6">Sign Up</h2>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           {/* Name Selection */}
@@ -127,14 +123,6 @@ function Signup() {
             Submit
           </button>
         </form>
-
-        {/* Close Button */}
-        <button
-          className="mt-4 text-gray-500 hover:text-gray-700"
-          onClick={handleCloseAnyModal}
-        >
-          Close
-        </button>
       </div>
     </div>
   );

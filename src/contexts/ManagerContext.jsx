@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import GlutenFree from "../assets/gluten-free.png";
@@ -27,6 +21,7 @@ const ManagerContext = createContext();
 export function ManagerProvider({ children }) {
   const [weeklyOrMonthly, setWeeklyOrMonthly] = useState("Weekly");
   const [allDishes, setAllDishes] = useLocalStorage([], "dishesRecipes");
+  const [selectedDish, setSelectedDish] = useState(null);
 
   function transformDishData(dish) {
     const ingredients = [];
@@ -44,6 +39,7 @@ export function ManagerProvider({ children }) {
     };
   }
 
+  // ! fetch dishes
   useEffect(() => {
     if (allDishes.length > 0) return;
 
@@ -91,6 +87,7 @@ export function ManagerProvider({ children }) {
     "Vegan",
   ];
 
+  // ! GO THRU CATEGORY in all dishes to look for allergens
   const allergyOptions = [
     "NutAllergy",
     "GlutenAllergy",
@@ -99,53 +96,53 @@ export function ManagerProvider({ children }) {
     "ShellfishAllergy",
   ];
 
+  // Dietary and allergy rules
+  const dietaryRules = {
+    "Gluten Free": ["bread", "wheat", "barley", "rye", "pasta"],
+    Keto: ["sugar", "rice", "potato", "corn"],
+    Mediterranean: [],
+    Paleo: ["dairy", "grains", "legumes"],
+    Vegetarian: [
+      "chicken",
+      "beef",
+      "fish",
+      "pork",
+      "sausage",
+      "lamb",
+      "salmon",
+    ],
+    Vegan: [
+      "chicken",
+      "beef",
+      "fish",
+      "pork",
+      "milk",
+      "eggs",
+      "cheese",
+      "sausage",
+      "lamb",
+      "salmon",
+      "mayonnaise",
+    ],
+  };
+
+  const allergyRules = {
+    "Nut Allergy": ["almonds", "peanuts", "walnuts", "cashews"],
+    "Gluten Allergy": ["bread", "wheat", "barley", "rye", "pasta"],
+    "Soy Allergy": ["soy", "tofu", "miso", "edamame"],
+    "Dairy Allergy": ["milk", "cheese", "butter", "yogurt"],
+    "Shellfish Allergy": ["shrimp", "lobster", "crab"],
+  };
   // ! based on ingredients, add diet and allergies
-
   function addDietAllergyFlagsAndIcons(dish) {
-    const dietaryRules = {
-      "Gluten Free": ["bread", "wheat", "barley", "rye", "pasta"],
-      Keto: ["sugar", "rice", "potato", "corn"],
-      Mediterranean: [],
-      Paleo: ["dairy", "grains", "legumes"],
-      Vegetarian: [
-        "chicken",
-        "beef",
-        "fish",
-        "pork",
-        "sausage",
-        "lamb",
-        "salmon",
-      ],
-      Vegan: [
-        "chicken",
-        "beef",
-        "fish",
-        "pork",
-        "milk",
-        "eggs",
-        "cheese",
-        "sausage",
-        "lamb",
-        "salmon",
-        "mayonnaise",
-      ],
-    };
-
-    const allergyRules = {
-      "Nut Allergy": ["almonds", "peanuts", "walnuts", "cashews"],
-      "Gluten Allergy": ["bread", "wheat", "barley", "rye", "pasta"],
-      "Soy Allergy": ["soy", "tofu", "miso", "edamame"],
-      "Dairy Allergy": ["milk", "cheese", "butter", "yogurt"],
-      "Shellfish Allergy": ["shrimp", "lobster", "crab"],
-    };
-
+    // prettier-ignore
     const dietIconsObj = {
       "Gluten Free": GlutenFree,
-      Keto: Keto,
-      Mediterranean: Mediterranean,
-      Paleo: Paleo,
-      Vegetarian: Vegetarian,
-      Vegan: Vegan,
+      "Keto": Keto,
+      "Mediterranean": Mediterranean,
+      "Paleo": Paleo,
+      "Vegetarian": Vegetarian,
+      "Vegan": Vegan,
     };
 
     const allergyIconsObj = {
@@ -199,6 +196,10 @@ export function ManagerProvider({ children }) {
         allergyOptions,
         weeklyOrMonthly,
         setWeeklyOrMonthly,
+        dietaryRules,
+        allergyRules,
+        selectedDish,
+        setSelectedDish,
       }}
     >
       {children}
@@ -233,3 +234,4 @@ export function useManagerContext() {
 //   }
 //   fetchAllRecipes();
 // }, []);
+//
