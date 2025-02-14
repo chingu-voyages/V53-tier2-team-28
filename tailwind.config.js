@@ -18,7 +18,7 @@ export default {
           hover: "#fbbf24", // yellow-400
         },
         background: {
-          DEFAULT: "#fff1f2", // rose-50
+          DEFAULT: "#c8e6c9", // green-100
           littleDarker: "#ffe4e6", // rose-100
           darker: "#fecdd3", // rose-200
           hover: "#1f2937", // gray-800 (strong contrast for hover)
