@@ -6,6 +6,10 @@ function Header() {
   //console.log(useManagerContext())
   const { isManagerLoggedIn } = useManagerContext();
   console.log(isManagerLoggedIn);
+  const {loggedIn} = () => (
+    <p>Manager Logged In</p>
+  );
+
   return (
     <header className="fixed flex justify-between max-h-20 top-0 left-0 w-full bg-background/80 shadow-md p-0 z-50">
       {/* // ! LOGO  */}
@@ -20,5 +24,7 @@ function Header() {
     </header>
   );
 }
+
+
 
 export default Header;
