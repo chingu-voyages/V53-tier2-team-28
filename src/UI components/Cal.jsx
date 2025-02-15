@@ -13,6 +13,8 @@ function Cal() {
     setEmployeesArray,
     setSelectedEmployee,
   } = useAllergyDietContext();
+  const [isFiltering, setIsFiltering] = useState(true);
+
   const [filteredDishes, setFilteredDishes] = useState([]);
 
   const daysInMonth = 30;
@@ -37,7 +39,8 @@ function Cal() {
 
   // Function to handle meal auto-generation
   const handleAutoGenerateMeals = () => {
-    if (filteredDishes.length === 0 || !selectedEmployee) {
+    console.log(filteredDishes);
+    if (isFiltering || filteredDishes.length === 0 || !selectedEmployee) {
       console.error("No dishes available or no employee selected.");
       return;
     }
@@ -103,38 +106,36 @@ function Cal() {
   // ! EFFECT 1: Filter all dishes based on the employee's diet and allergies
   // -----------------------------------------------------------------------
   useEffect(() => {
-    if (
-      (allDishes?.length > 0 && !selectedEmployee?.monthlyMealPlan) ||
-      selectedEmployee?.monthlyMealPlan?.length === 0
-    ) {
-      console.log("effect2 running");
+    if (!selectedEmployee || allDishes.length === 0) return;
 
-      const { diet, allergies } = selectedEmployee;
+    setIsFiltering(true);
 
-      const filtered = allDishes.filter((dish) => {
-        const ingredients = dish.ingredients || [];
+    const { diet, allergies } = selectedEmployee;
 
-        const meetsDietRestrictions = diet.every((dietType) => {
-          const restrictedIngredients = dietaryRules[dietType];
-          if (!restrictedIngredients) return true;
-          return !restrictedIngredients.some((ingredient) =>
-            ingredients.includes(ingredient)
-          );
-        });
+    const filtered = allDishes.filter((dish) => {
+      const ingredients = dish.ingredients || [];
 
-        const containsAllergens = allergies.some((allergyType) => {
-          const allergens = allergyRules[allergyType];
-          if (!allergens) return false;
-          return allergens.some((allergen) => ingredients.includes(allergen));
-        });
-
-        return meetsDietRestrictions && !containsAllergens;
+      const meetsDietRestrictions = diet.every((dietType) => {
+        const restrictedIngredients = dietaryRules[dietType];
+        if (!restrictedIngredients) return true;
+        return !restrictedIngredients.some((ingredient) =>
+          ingredients.includes(ingredient)
+        );
       });
-      console.log("FILTERED DISHES", filtered);
-      setFilteredDishes(filtered);
-    }
-  }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
 
+      const containsAllergens = allergies.some((allergyType) => {
+        const allergens = allergyRules[allergyType];
+        if (!allergens) return false;
+        return allergens.some((allergen) => ingredients.includes(allergen));
+      });
+
+      return meetsDietRestrictions && !containsAllergens;
+    });
+
+    console.log("FILTERED DISHES", filtered);
+    setFilteredDishes(filtered);
+    setIsFiltering(false);
+  }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
   // -----------------------------------------------------------------------
   //  ! EFFECT 2: Assign 7 days of meals with one day off (random day off)
   // ------------------------------------------------------------- ----------
