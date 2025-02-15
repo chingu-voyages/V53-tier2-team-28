@@ -15,12 +15,12 @@ Meal Planner provides the following functionalities:
 
 ## Running the Project
 
-'''
+```
 npm install vite @ latest
 npm install tailwindcss
 npm run dev
 
-'''
+```
 
 ## Depndencies
 
