@@ -4,24 +4,28 @@ Meal Planner
 
 ## Overview
 
-Meal planner was created for managers to create meal plans for their employees for each day. Meal planner offers the option of weekly or monthly meal plans, with the ability
-to filter by diet types and allergies through a database of recipes. 
+This project was developed for the Chingu Voyage 53 sprint. The specifications for this project were to create a meal planner application that managers can use to develop meal plans for their employees on a daily basis. This application can be utilized to reduce uncertainty regarding employee meal choices and enhance workplace productivity.
 
 ## Features
 
-Meal planner offers the ability to filter recipes by diet and allergy restrictions to create weekly or monthly meal plans for an employee.
+Meal Planner provides the following functionalities:
+* Separate logins for employees and managers
+* Filtering of recipes based on dietary and allergy restrictions
+* Generation of weekly or monthly meal plans for employees
 
 ## Running the Project
 
-Terminal:
+'''
 npm install vite @ latest
 npm install tailwindcss
 npm run dev
 
+'''
+
 ## Depndencies
 
-vite
-tailwind 
+* vite
+* tailwind 
 
 ## Our Team
 
