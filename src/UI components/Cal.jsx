@@ -13,8 +13,8 @@ function Cal() {
     setEmployeesArray,
     setSelectedEmployee,
   } = useAllergyDietContext();
-
   const [filteredDishes, setFilteredDishes] = useState([]);
+
   const daysInMonth = 30;
   const daysOfWeek = [
     "Monday",
@@ -37,12 +37,17 @@ function Cal() {
 
   // Function to handle meal auto-generation
   const handleAutoGenerateMeals = () => {
-    if (filteredDishes.length === 0 || !selectedEmployee) return;
+    if (filteredDishes.length === 0 || !selectedEmployee) {
+      console.error("No dishes available or no employee selected.");
+      return;
+    }
 
-    // Shuffle the available dishes
-    const shuffledDishes = shuffleArray(filteredDishes);
+    console.log("handleAutoGenerateMeals running for monthly schedule");
 
-    // Each employee gets a fixed day off per week (based on employeeID)
+    // Clone and shuffle the dishes to prevent modifying the original array
+    const shuffledDishes = shuffleArray([...filteredDishes]);
+
+    // Assign a fixed weekly day off based on employeeID
     const employeeDayOff = selectedEmployee.employeeID % 7;
 
     // Initialize the monthly meal plan (30 days)
@@ -57,13 +62,14 @@ function Cal() {
         // Assign a day off
         monthlyMealPlan[day] = null;
       } else {
+        // Prevent running out of meals
         if (mealIndex >= shuffledDishes.length) {
-          mealIndex = 0; // Reset index to avoid running out of dishes
+          mealIndex = 0; // Reset index to cycle through dishes
         }
 
         let selectedMeal = shuffledDishes[mealIndex];
 
-        // Avoid consecutive repeats
+        // Avoid consecutive repeats (with a retry limit)
         let retryCount = 0;
         while (
           day > 0 &&
@@ -75,16 +81,19 @@ function Cal() {
           retryCount++;
         }
 
+        // Assign the meal
         monthlyMealPlan[day] = selectedMeal;
         mealIndex++;
       }
     }
 
+    console.log("Generated Monthly Meal Plan:", monthlyMealPlan);
+
     // Update the employee's meal plan
     setEmployeesArray((prevArray) =>
       prevArray.map((employee) =>
         employee.employeeID === selectedEmployee.employeeID
-          ? { ...employee, monthlyMealPlan: monthlyMealPlan }
+          ? { ...employee, monthlyMealPlan }
           : employee
       )
     );

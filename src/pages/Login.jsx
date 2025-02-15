@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKeyPress } from "../helpers/useKeyPress";
-import SmallSpinner from "../UI components/SmallSpinner";
 import { useModalContext } from "../contexts/ModalContext";
 import { useManagerContext } from "../contexts/ManagerContext";
 import Button from "../UI components/Button";
 
 function Login() {
-  const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("manager");
   const [password, setPassword] = useState("1234");
 
@@ -17,30 +15,34 @@ function Login() {
 
   console.log("THESE ARE THE managerCredentials:", managerCredentials);
 
-  function handleLogin(e) {
-    if (e) e.preventDefault();
+  const handleLogin = useCallback(
+    (e) => {
+      if (e) e.preventDefault();
 
-    // Activate loading spinner
-    setIsLoading(true);
-
-    setTimeout(() => {
-      // Guard clause for invalid credentials
-      if (username !== managerCredentials.username) {
-        alert("Invalid username");
-        setIsLoading(false);
+      if (
+        !managerCredentials ||
+        !managerCredentials.username ||
+        !managerCredentials.password
+      ) {
+        alert("Manager credentials not set.");
         return;
-      } else if (+password !== +managerCredentials.password) {
-        alert("Invalid password");
-        setIsLoading(false);
-        return;
-      } else {
-        // Successful login
-        navigate("/app");
       }
 
-      setIsLoading(false);
-    }, 1000);
-  }
+      setTimeout(() => {
+        if (username !== managerCredentials.username) {
+          alert("Invalid username");
+          return;
+        } else if (+password !== +managerCredentials.password) {
+          alert("Invalid password");
+          return;
+        } else {
+          navigate("/app");
+        }
+      }, 500);
+      console.log("handleLogin finished... ");
+    },
+    [username, password, managerCredentials, navigate]
+  );
 
   useKeyPress("Enter", handleLogin);
   if (!isOpenModalLogin) return null;
@@ -73,9 +75,9 @@ function Login() {
           <Button
             type="submit"
             variation="login/submit"
-            className="bg-primary hover:bg-primary-hover text-white font-semibold p-3 rounded-lg transition mt-5"
+            className=" font-semibold p-3 rounded-lg transition mt-5"
           >
-            {isLoading ? <SmallSpinner /> : "Login"}
+            Login
           </Button>
         </form>
       </div>

@@ -12,37 +12,37 @@ export function AllergyDietProvider({ children }) {
         name: "John",
         allergies: ["DairyAllergy"],
         diet: ["Keto"],
-        employeeID: Math.floor(Math.random() * 150),
+        employeeID: Math.random(), // ! CHECK IF CRYPTO IS THE PROBLEM
       },
       {
         name: "Melissa",
         allergies: [],
         diet: ["GlutenFree"],
-        employeeID: Math.floor(Math.random() * 150),
+        employeeID: Math.random(),
       },
       {
         name: "Emilio",
         allergies: [],
         diet: ["Vegan"],
-        employeeID: Math.floor(Math.random() * 150),
+        employeeID: Math.random(),
       },
       {
         name: "Miguel",
         allergies: ["DairyAllergy"],
         diet: ["Vegetarian"],
-        employeeID: Math.floor(Math.random() * 150),
+        employeeID: Math.random(),
       },
       {
         name: "Cassandra",
         allergies: ["ShellfishAllergy"],
         diet: ["Vegan", "Paleo"],
-        employeeID: Math.floor(Math.random() * 150),
+        employeeID: Math.random(),
       },
       {
         name: "Aaron",
         allergies: ["ShellfishAllergy"],
         diet: ["Mediterranean"],
-        employeeID: Math.floor(Math.random() * 150),
+        employeeID: Math.random(),
       },
     ],
     "employeesArray"

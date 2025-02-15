@@ -36,24 +36,35 @@ function Week() {
     return newArr;
   };
 
-  // Function to handle meal auto-generation
   const handleAutoGenerateMeals = () => {
-    console.log(handleAutoGenerateMeals, "running");
-    console.log(filteredDishes);
-    console.log(selectedEmployee);
+    console.log("handleAutoGenerateMeals running");
+    console.log("Filtered Dishes:", filteredDishes);
+    console.log("Selected Employee:", selectedEmployee);
+
     if (!selectedEmployee) return;
-    console.log("passed early return");
-    // Shuffle the dishes
-    const shuffled = shuffleArray(filteredDishes);
-    const selectedMeals = shuffled.slice(0, 6); // 6 meals (1 day off)
+    console.log("Passed early return");
+
+    if (filteredDishes.length < 6) {
+      console.error("Not enough dishes available for auto-generation");
+      return;
+    }
+
+    // Shuffle dishes safely
+    const shuffled = shuffleArray([...filteredDishes]);
+    const selectedMeals = shuffled.slice(0, 6); // Select 6 meals (1 day off)
 
     // Pick a random day off
     const dayOffIndex = Math.floor(Math.random() * 7);
 
-    // Assign meals to days of the week
-    const newWeeklyPlan = daysOfWeek.map((_, index) =>
-      index === dayOffIndex ? null : selectedMeals.shift()
-    );
+    // Assign meals to days of the week, ensuring there are no undefined values
+    const newWeeklyPlan = daysOfWeek.map((_, index) => {
+      if (index === dayOffIndex) return null; // This is the day off
+      return selectedMeals.length > 0
+        ? selectedMeals.shift()
+        : shuffled[Math.floor(Math.random() * shuffled.length)];
+    });
+
+    console.log("Generated Weekly Plan:", newWeeklyPlan);
 
     // Update the employee's meal plan in employeesArray
     setEmployeesArray((prevArray) =>
@@ -64,45 +75,33 @@ function Week() {
       )
     );
   };
+
   // -----------------------------------------------------------------------
   // ! EFFECT 1: Filter all dishes based on the employee's diet and allergies
   // -----------------------------------------------------------------------
   useEffect(() => {
-    if (
-      (allDishes?.length > 0 && !selectedEmployee?.weeklyMealPlan) ||
-      selectedEmployee?.weeklyMealPlan?.length === 0
-    ) {
-      const { diet, allergies } = selectedEmployee;
+    if (!selectedEmployee) return;
 
-      const filtered = allDishes.filter((dish) => {
-        // Ensure dish.ingredients exists; if not, default to an empty array.
-        const ingredients = dish.ingredients || [];
-
-        // Check if the dish meets the employee's dietary restrictions.
-        // For each diet type the employee follows, check that the dish
-        // does NOT include any restricted ingredient.
-        const meetsDietRestrictions = diet.every((dietType) => {
-          const restrictedIngredients = dietaryRules[dietType];
-          if (!restrictedIngredients) return true; // No rules found? Then it's okay.
-          return !restrictedIngredients.some((ingredient) =>
-            ingredients.includes(ingredient)
-          );
-        });
-
-        // Check if the dish contains any of the employee's allergens.
-        const containsAllergens = allergies.some((allergyType) => {
-          const allergens = allergyRules[allergyType];
-          if (!allergens) return false; // No allergens for this type? Skip.
-          return allergens.some((allergen) => ingredients.includes(allergen));
-        });
-
-        // Only include the dish if it meets diet restrictions and contains no allergens.
-        return meetsDietRestrictions && !containsAllergens;
+    const { diet, allergies } = selectedEmployee;
+    const filtered = allDishes.filter((dish) => {
+      const ingredients = dish.ingredients || [];
+      const meetsDietRestrictions = diet.every((dietType) => {
+        const restrictedIngredients = dietaryRules[dietType] || [];
+        return !restrictedIngredients.some((ingredient) =>
+          ingredients.includes(ingredient)
+        );
+      });
+      const containsAllergens = allergies.some((allergyType) => {
+        const allergens = allergyRules[allergyType] || [];
+        return allergens.some((allergen) => ingredients.includes(allergen));
       });
 
-      setFilteredDishes(filtered);
-    }
-  }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
+      return meetsDietRestrictions && !containsAllergens;
+    });
+
+    setFilteredDishes(filtered);
+  }, [allDishes, selectedEmployee, dietaryRules, allergyRules, employeesArray]);
+  // added employeesArray to make sure it updates if a change happens
 
   // -----------------------------------------------------------------------
   //  ! EFFECT 2: Assign 7 days of meals with one day off (random day off)
@@ -134,7 +133,6 @@ function Week() {
           mealIndex++;
         }
       }
-
       setEmployeesArray((previousArray) =>
         previousArray.map((employeeObj) =>
           employeeObj === selectedEmployee
