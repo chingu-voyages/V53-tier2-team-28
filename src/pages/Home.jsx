@@ -29,7 +29,7 @@ function Home() {
 
   return (
     // * THIS CONTAINER TO BE 80% AND FOOTER TO BE 20% OF THE SCREEN HEIGHT
-    <div className="flex flex-col justify-between w-full h-[90vh] p-28 bg-backgroundImage bg-cover bg-fixed bg-bottom ">
+    <div className="flex flex-col justify-between w-full h-full p-32 bg-cover bg-fixed bg-bottom mt-10">
       {/* // ! Check if the user is logged in */}
       {currentAccount ? (
         <>
@@ -53,7 +53,7 @@ function Home() {
           </div>
         </>
       ) : (
-        <div className="grow h-full flex flex-col items-center sm:items-start justify-between ">
+        <div className="grow h-full flex flex-col items-center sm:items-start justify-between">
           {/* // ! New employee section */}
           <Section
             title="Edit your preferences/allergies?"

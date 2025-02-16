@@ -75,6 +75,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button
+            // ! if left out, next line causes huge bug!!!
             onClick={handleLogin}
             type="submit"
             variation="login-submit"
