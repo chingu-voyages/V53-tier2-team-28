@@ -12,6 +12,8 @@ function Home() {
 
   // ! fake employee
   // currentAccount.typeOfUser = "employee";
+  //
+  //
 
   const navigate = useNavigate();
 
