@@ -121,7 +121,7 @@ function Signup() {
           {/* Submit Button */}
           <Button
             type="submit"
-            variation="login/submit"
+            variation="login-submit"
             className=" font-semibold p-3 rounded-lg transition"
           >
             Submit

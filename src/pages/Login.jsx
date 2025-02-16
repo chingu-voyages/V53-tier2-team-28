@@ -7,7 +7,7 @@ import Button from "../UI components/Button";
 
 function Login() {
   const [username, setUsername] = useState("manager");
-  const [password, setPassword] = useState("1234");
+  const [password, setPassword] = useState(1234);
 
   const navigate = useNavigate();
   const { isOpenModalLogin, handleCloseAnyModal } = useModalContext();
@@ -17,7 +17,8 @@ function Login() {
 
   const handleLogin = useCallback(
     (e) => {
-      if (e) e.preventDefault();
+      console.log(e);
+      e.preventDefault();
 
       if (
         !managerCredentials ||
@@ -27,6 +28,7 @@ function Login() {
         alert("Manager credentials not set.");
         return;
       }
+      console.log("passed check");
 
       setTimeout(() => {
         if (username !== managerCredentials.username) {
@@ -57,7 +59,7 @@ function Login() {
           Close
         </button>
         <h1 className="text-3xl font-bold text-center mb-6">Log In</h1>
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4">
           <input
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             type="text"
@@ -72,13 +74,14 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
+          <button
+            onClick={handleLogin}
             type="submit"
-            variation="login/submit"
+            variation="login-submit"
             className=" font-semibold p-3 rounded-lg transition mt-5"
           >
             Login
-          </Button>
+          </button>
         </form>
       </div>
     </div>

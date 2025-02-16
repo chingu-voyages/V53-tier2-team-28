@@ -20,7 +20,7 @@ function Header() {
         </div>
       )}
 
-      <div class="sm:max-sm:flex ite"></div>
+      <div className="sm:max-sm:flex ite"></div>
     </header>
   );
 }

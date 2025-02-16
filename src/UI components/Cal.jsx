@@ -13,9 +13,9 @@ function Cal() {
     setEmployeesArray,
     setSelectedEmployee,
   } = useAllergyDietContext();
-  const [isFiltering, setIsFiltering] = useState(true);
 
   const [filteredDishes, setFilteredDishes] = useState([]);
+  const [isFiltering, setIsFiltering] = useState(true);
 
   const daysInMonth = 30;
   const daysOfWeek = [
@@ -39,40 +39,37 @@ function Cal() {
 
   // Function to handle meal auto-generation
   const handleAutoGenerateMeals = () => {
-    console.log(filteredDishes);
     if (isFiltering || filteredDishes.length === 0 || !selectedEmployee) {
       console.error("No dishes available or no employee selected.");
       return;
     }
 
-    console.log("handleAutoGenerateMeals running for monthly schedule");
-
     // Clone and shuffle the dishes to prevent modifying the original array
     const shuffledDishes = shuffleArray([...filteredDishes]);
 
-    // Assign a fixed weekly day off based on employeeID
-    const employeeDayOff = selectedEmployee.employeeID % 7;
+    // Assign a unique fixed weekly day off per employee
+    // For example, employee 1 gets Monday (0), employee 2 gets Tuesday (1), etc.
+    const employeeDayOff = selectedEmployee.employeeID % 7; // This ensures each employee gets a unique day off
 
     // Initialize the monthly meal plan (30 days)
     const monthlyMealPlan = new Array(daysInMonth).fill(null);
 
     let mealIndex = 0;
 
+    // Loop over each day of the month (30 days)
     for (let day = 0; day < daysInMonth; day++) {
       const dayOfWeek = day % 7; // Get the weekday index (0-6)
 
       if (dayOfWeek === employeeDayOff) {
-        // Assign a day off
+        // Assign the same day off every week (unique for each employee)
         monthlyMealPlan[day] = null;
       } else {
-        // Prevent running out of meals
         if (mealIndex >= shuffledDishes.length) {
-          mealIndex = 0; // Reset index to cycle through dishes
+          mealIndex = 0; // Reset index to start repeating meals
         }
-
         let selectedMeal = shuffledDishes[mealIndex];
 
-        // Avoid consecutive repeats (with a retry limit)
+        // Prevent consecutive repeats (with a retry limit)
         let retryCount = 0;
         while (
           day > 0 &&
@@ -84,15 +81,12 @@ function Cal() {
           retryCount++;
         }
 
-        // Assign the meal
         monthlyMealPlan[day] = selectedMeal;
         mealIndex++;
       }
     }
 
-    console.log("Generated Monthly Meal Plan:", monthlyMealPlan);
-
-    // Update the employee's meal plan
+    // Update employee's meal plan in state
     setEmployeesArray((prevArray) =>
       prevArray.map((employee) =>
         employee.employeeID === selectedEmployee.employeeID
@@ -132,10 +126,10 @@ function Cal() {
       return meetsDietRestrictions && !containsAllergens;
     });
 
-    console.log("FILTERED DISHES", filtered);
     setFilteredDishes(filtered);
     setIsFiltering(false);
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules]);
+
   // -----------------------------------------------------------------------
   //  ! EFFECT 2: Assign 7 days of meals with one day off (random day off)
   // ------------------------------------------------------------- ----------

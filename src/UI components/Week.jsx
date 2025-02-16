@@ -13,7 +13,9 @@ function Week() {
     setEmployeesArray,
     setSelectedEmployee,
   } = useAllergyDietContext();
+
   const [filteredDishes, setFilteredDishes] = useState([]);
+  const [isFiltering, setIsFiltering] = useState(true);
 
   // Array of week day names
   const daysOfWeek = [
@@ -37,17 +39,11 @@ function Week() {
   };
 
   const handleAutoGenerateMeals = () => {
-    console.log("handleAutoGenerateMeals running");
-    console.log("Filtered Dishes:", filteredDishes);
-    console.log("Selected Employee:", selectedEmployee);
-
-    if (!selectedEmployee) return;
-    console.log("Passed early return");
-
-    if (filteredDishes.length < 6) {
-      console.error("Not enough dishes available for auto-generation");
-      return;
-    }
+    if (isFiltering || filteredDishes.length === 0 || !selectedEmployee)
+      if (filteredDishes.length < 6) {
+        console.error("Not enough dishes available for auto-generation");
+        return;
+      }
 
     // Shuffle dishes safely
     const shuffled = shuffleArray([...filteredDishes]);
@@ -64,8 +60,6 @@ function Week() {
         : shuffled[Math.floor(Math.random() * shuffled.length)];
     });
 
-    console.log("Generated Weekly Plan:", newWeeklyPlan);
-
     // Update the employee's meal plan in employeesArray
     setEmployeesArray((prevArray) =>
       prevArray.map((employee) =>
@@ -81,6 +75,8 @@ function Week() {
   // -----------------------------------------------------------------------
   useEffect(() => {
     if (!selectedEmployee) return;
+
+    setIsFiltering(true);
 
     const { diet, allergies } = selectedEmployee;
     const filtered = allDishes.filter((dish) => {
@@ -100,6 +96,7 @@ function Week() {
     });
 
     setFilteredDishes(filtered);
+    setIsFiltering(false);
   }, [allDishes, selectedEmployee, dietaryRules, allergyRules, employeesArray]);
   // added employeesArray to make sure it updates if a change happens
 
