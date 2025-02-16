@@ -33,6 +33,8 @@ function AppLayout() {
           <DishPreview />
         </div>
       )}
+ 
+    <div class="text-center sm:text-left"></div>
     </div>
   );
 }
