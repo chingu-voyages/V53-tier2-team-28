@@ -12,7 +12,9 @@ function Header() {
         <img className=" w-20 p-4" src={Logo} />
       </div>
 
-      <p className="italic">{isManagerLoggedIn && "Manager Logged in"}</p>
+      <p className="italic self-center">
+        {isManagerLoggedIn && "Manager Logged in"}
+      </p>
 
       {isManagerLoggedIn && (
         <div className="p-4">

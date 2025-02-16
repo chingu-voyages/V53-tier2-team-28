@@ -59,7 +59,7 @@ function Login() {
           Close
         </button>
         <h1 className="text-3xl font-bold text-center mb-6">Log In</h1>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleLogin}>
           <input
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             type="text"
@@ -74,14 +74,14 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
+          <Button
             onClick={handleLogin}
             type="submit"
             variation="login-submit"
             className=" font-semibold p-3 rounded-lg transition mt-5"
           >
             Login
-          </button>
+          </Button>
         </form>
       </div>
     </div>

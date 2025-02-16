@@ -32,8 +32,7 @@ function Signup() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // Update the state with the new data
-    // ! I WAS HERE!! IT'S MAKING DUPLICATES INSTEAD OF JUST MODIFYING THE EXISTING OBJECT
+    // Update the state with new data
     setEmployeesArray((prev) =>
       prev.map((employee) =>
         employee.name === selectedName
