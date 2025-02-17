@@ -5,6 +5,8 @@
 Meal Planner is a web application designed to assist managers in creating personalized meal plans for their employees. The application allows meal plans to be created on a **weekly** or **monthly** basis, with filtering options for dietary preferences and allergies. The platform leverages a database of recipes to generate meal options that align with individual restrictions.
 
 ## Deployed app
+https://meal-planner-team28.netlify.app/
+
 
 ## Features
 
