@@ -3,7 +3,7 @@ function TableCell({ day, children }) {
     <td
       className={`text-textColor border-r-2 border-b-2 border-textColor p-2 h-full align-baseline`}
     >
-      <div className="flex flex-col justify-center items-center grow h-full">
+      <div className="flex flex-col justify-center items-center grow h-full sm:text-xs">
         {/* Style the number separately */}
         {day ? <span className="font-bold text-lg self-end">{day}</span> : ""}
         {/* Other content, like meals, will follow */}

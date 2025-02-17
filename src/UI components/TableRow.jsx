@@ -23,7 +23,7 @@ function TableRow({ dailyDishes }) {
               {/* Display the meal name  */}
               <h1
                 onClick={() => setSelectedDish(meal)}
-                className="text-2xl truncate whitespace-nowrap overflow-hidden"
+                className="text-2xl truncate whitespace-nowrap overflow-hidden sm:text-sm"
               >
                 {meal.strMeal}
               </h1>
@@ -48,7 +48,7 @@ function TableRow({ dailyDishes }) {
             </>
           ) : (
             // If no meal is assigned, display "Day Off" with overflow prevention
-            <h1 className="truncate whitespace-nowrap overflow-hidden">
+            <h1 className="truncate whitespace-nowrap overflow-hidden sm:text-xs">
               Day Off
             </h1>
           )}

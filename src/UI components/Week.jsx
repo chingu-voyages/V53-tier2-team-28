@@ -166,13 +166,13 @@ function Week() {
         </div>
       )}
       <div className="bg-background w-full">
-        <table className="w-full border border-black table-fixed">
+        <table className="max-w-lg mx-auto p-1 w-full border border-black table-none sm:text-xs table-fixed">
           {/* // ! Render table header with days of the week */}
           <TableHead>
             {daysOfWeek.map((day, index) => (
               <th
                 key={index}
-                className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
+                className="max-w-lg mx-auto p-1 text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center sm:flex-shrink-0"
               >
                 {day}
               </th>

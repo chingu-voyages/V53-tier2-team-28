@@ -85,12 +85,12 @@ function Week() {
 
   return (
     <div className="bg-background w-full">
-      <table className="w-full border border-black table-fixed">
+      <table className="w-full border border-black table-fixed sm:text-xs">
         <TableHead>
           {daysOfWeek.map((day, index) => (
             <th
               key={index}
-              className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center"
+              className="text-textColor border-r-2 border-b-2 border-gray-950 w-1/7 h-20 text-center sm:txt-xs"
             >
               {day}
             </th>

@@ -34,8 +34,8 @@ function AppLayout() {
         </div>
       )}
  
-    <div class="text-center sm:text-left"></div>
-    </div>
+        <div class="text-center sm:text-left items-center md:flex-col"></div>
+        </div>
   );
 }
 export default AppLayout;
