@@ -156,7 +156,7 @@ function Week() {
   }, [employeesArray, selectedEmployee, setSelectedEmployee]);
 
   return (
-    <div className="flex flex-col gap-5  items-center justify-center">
+    <div className="flex flex-col gap-5 items-center justify-center">
       {/* Auto-Generate Meals Button */}
       {selectedEmployee && (
         <div className="">

@@ -9,7 +9,7 @@ function Footer() {
       <div className="link flex flex-wrap justify-between items-center">
         {/* Left section: GitHub Link */}
         <a
-          href="https://github.com/v53-tier2-team-28/tree/main"
+          href="https://github.com/chingu-voyages/v53-tier2-team-28"
           className="flex items-center space-x-2 w-full sm:w-auto"
         >
           <img className="w-24" src={github} alt="GitHub" />

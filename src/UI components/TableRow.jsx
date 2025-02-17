@@ -23,7 +23,7 @@ function TableRow({ dailyDishes }) {
               {/* Display the meal name  */}
               <h1
                 onClick={() => setSelectedDish(meal)}
-                className="text-2xl truncate whitespace-nowrap overflow-hidden"
+                className="text-sm sm:text-base md:text-2xl truncate whitespace-nowrap overflow-hidden"
               >
                 {meal.strMeal}
               </h1>

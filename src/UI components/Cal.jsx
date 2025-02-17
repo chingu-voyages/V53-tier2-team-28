@@ -207,7 +207,7 @@ function Cal() {
 
   if (!selectedEmployee) return;
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 items-center justify-center">
       {/* Auto-Generate Meals Button */}
       {selectedEmployee && (
         <div className="self-center">

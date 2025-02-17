@@ -19,7 +19,7 @@ function DishPreview() {
       {/* // ! Container for the recipe image and details, uses flex for responsive layout */}
       <div className="flex flex-col gap-2 md:flex-row items-center lg:items-start p-4 w-full">
         {/* // ! Recipe Details Container: */}
-        <div className="flex flex-col h-full w-full items-center md:items-stretch grow md:flex-1 gap-3 p-4 max-w-[600px] mx-auto lg:mx-0">
+        <div className="flex flex-col  h-full w-full items-center md:items-stretch grow md:flex-1 gap-3 p-4 max-w-[600px] mx-auto lg:mx-0">
           {/* // ! Title/description div */}
           <div className="border-b-2 border-textColor p-4 ">
             {/* // ! Recipe Title */}
@@ -32,7 +32,7 @@ function DishPreview() {
           {/* // ! Ingredients Title */}
           <h3 className="font-semibold text-xl pl-4">Ingredients</h3>
           {/* // ! Ingredients List */}
-          <ul className="list-disc pl-10 grid grid-cols-2">
+          <ul className="list-disc pl-10 grid grid-cols-2 gap-x-5">
             {selectedDish?.ingredients?.map((ingredient, index) => (
               <li key={index} className="text-textColor">
                 {ingredient}
