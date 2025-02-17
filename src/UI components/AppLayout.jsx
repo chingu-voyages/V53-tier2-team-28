@@ -11,13 +11,10 @@ function AppLayout() {
 
   return (
     // ! Main App Container
-    <div className="p-20 w-full flex flex-col gap-5 ">
+    <div className="p-20 w-full flex flex-col gap-5  ">
       {/* // ! Employee and Calendar Tabs */}
       {!selectedEmployee && (
-        <h1
-          onClick={() => {}}
-          className="text-3xl font-bold text-center text-gray-800 mb-8"
-        >
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Select an employee to plan their meals!
         </h1>
       )}
@@ -33,8 +30,8 @@ function AppLayout() {
           <DishPreview />
         </div>
       )}
- 
-    <div class="text-center sm:text-left"></div>
+
+      <div className="text-center sm:text-left"></div>
     </div>
   );
 }

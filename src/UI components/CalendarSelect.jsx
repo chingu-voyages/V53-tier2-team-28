@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useManagerContext } from "../contexts/ManagerContext";
+import { useAllergyDietContext } from "../contexts/AllergyDietContext";
 
 const options = ["Weekly", "Monthly"];
 
 function CalendarSelect() {
   const { weeklyOrMonthly, setWeeklyOrMonthly } = useManagerContext();
+  const { selectedEmployee } = useAllergyDietContext();
 
+  if (!selectedEmployee) return null;
   return (
     <ul className="flex gap-8">
       {options.map((option) => (

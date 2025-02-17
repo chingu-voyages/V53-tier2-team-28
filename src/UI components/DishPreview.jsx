@@ -11,7 +11,7 @@ function DishPreview() {
   const { dietaryOptions, allergyOptions } = useManagerContext();
 
   const { selectedDish } = useManagerContext();
-  if (!selectedEmployee) return;
+  if (!selectedEmployee || !selectedDish) return null;
 
   return (
     // ! Main container that holds everything in a row layout with gap between sections
