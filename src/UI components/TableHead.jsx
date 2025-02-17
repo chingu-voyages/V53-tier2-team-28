@@ -1,6 +1,6 @@
 function TableHead({ children }) {
   return (
-    <thead className="border-b-2 border-x-textColor">
+    <thead className="max-w-lg mx-auto p-4 border-b-2 border-x-textColor">
       <tr>{children}</tr>
     </thead>
   );
