@@ -27,14 +27,14 @@ To run the Meal Planner project locally, follow the steps below:
 ### Steps to Run
 
 Clone the repository:
-git clone <https://github.com/minorObsession/meal-planner.git>
-npm run dev - to start development
+- git clone <https://github.com/minorObsession/meal-planner.git> 
+- npm run dev - to start development
 
 ## Depndencies
 
-vite
-eslint
-tailwind css
+- vite
+- eslint
+- tailwind css
 
 ## Our Team
 
