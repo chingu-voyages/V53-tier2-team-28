@@ -11,7 +11,7 @@ function AppLayout() {
 
   return (
     // ! Main App Container
-    <div className="p-20 w-full flex flex-col gap-5  ">
+    <div className="py-20 px-3 sm:px-10 md:px-16 lg:px-20 flex flex-col gap-5 justify-center items-center w-full grow-0">
       {/* // ! Employee and Calendar Tabs */}
       {!selectedEmployee && (
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
@@ -31,7 +31,7 @@ function AppLayout() {
         </div>
       )}
 
-      <div className="text-center sm:text-left"></div>
+      <div class="text-center sm:text-left"></div>
     </div>
   );
 }

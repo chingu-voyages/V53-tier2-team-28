@@ -156,10 +156,10 @@ function Week() {
   }, [employeesArray, selectedEmployee, setSelectedEmployee]);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5  items-center justify-center">
       {/* Auto-Generate Meals Button */}
       {selectedEmployee && (
-        <div className="self-center">
+        <div className="">
           <Button onClick={handleAutoGenerateMeals}>
             Re-Generate Meals for {selectedEmployee?.name}
           </Button>

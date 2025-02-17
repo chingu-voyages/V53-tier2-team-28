@@ -39,7 +39,7 @@ function DietAndAllergies() {
   const multipleAllergyRestrictions = selectedEmployee.allergies.length > 1;
 
   return (
-    <section className=" flex gap-5 lg:gap-10 justify-self-center sm:justify-self-start">
+    <section className=" flex gap-5 lg:gap-10 justify-self-center sm:justify-self-start mb-4 md:mb-10">
       {/* // ! DIET ICONS */}
       <table className="bg-background mb-2 rounded-lg">
         <tbody>
