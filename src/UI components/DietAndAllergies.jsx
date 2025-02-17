@@ -39,9 +39,9 @@ function DietAndAllergies() {
   const multipleAllergyRestrictions = selectedEmployee.allergies.length > 1;
 
   return (
-    <section className="flex gap-5">
+    <section className=" flex gap-5 lg:gap-10 justify-self-center sm:justify-self-start">
       {/* // ! DIET ICONS */}
-      <table className="bg-rose-50 mb-2">
+      <table className="bg-background mb-2 rounded-lg">
         <tbody>
           <tr>
             <td className="p-2">
@@ -66,7 +66,7 @@ function DietAndAllergies() {
       </table>
 
       {/* // ! ALLERGY ICONS */}
-      <table className="bg-rose-50 mb-2">
+      <table className="bg-background mb-2 rounded-lg">
         <tbody>
           <tr>
             <td className="p-2">

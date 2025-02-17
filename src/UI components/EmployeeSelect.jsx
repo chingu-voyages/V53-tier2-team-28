@@ -5,7 +5,7 @@ function EmployeeSelect() {
     useAllergyDietContext();
 
   return (
-    <ul className="flex gap-8">
+    <ul className="flex flex-wrap gap-4 max-w-[80%] mx-auto justify-center md:flex-nowrap">
       {employeesArray.map((employee) => (
         <div
           className={`${
