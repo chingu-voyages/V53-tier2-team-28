@@ -65,7 +65,7 @@ function Home() {
           {/* // ! Welcome screen */}
           <div className="flex flex-col self-center items-center gap-4 mb-8">
             <h1 className="text-4xl font-bold text-center text-textColor">
-              NAME OF COMPANY....
+              MEAL PLANNER
             </h1>
             <h2 className="text-2xl text-center text-textColor max-w-[55vw]">
               the company that takes care of your well-being, as well as your
