@@ -31,7 +31,7 @@ function Home() {
 
   return (
     // * THIS CONTAINER TO BE 80% AND FOOTER TO BE 20% OF THE SCREEN HEIGHT
-    <div className="flex flex-col justify-between w-full h-full p-32 bg-cover bg-fixed bg-bottom mt-10">
+    <div className="flex flex-col justify-between w-full h-full p-20 lg:p-32 bg-cover bg-fixed bg-bottom ">
       {/* // ! Check if the user is logged in */}
       {currentAccount ? (
         <>
@@ -55,7 +55,7 @@ function Home() {
           </div>
         </>
       ) : (
-        <div className="grow h-full flex flex-col items-center sm:items-start justify-between">
+        <div className="grow h-full flex flex-col gap-4 items-center sm:items-start justify-between">
           {/* // ! New employee section */}
           <Section
             title="Edit your preferences/allergies?"
@@ -63,11 +63,11 @@ function Home() {
             onClick={handleSignup}
           />
           {/* // ! Welcome screen */}
-          <div className="flex flex-col self-center items-center gap-4 mb-8">
-            <h1 className="text-4xl font-bold text-center text-textColor">
+          <div className="flex flex-col self-center items-center gap-4 mb-4 lg:mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-center text-textColor">
               MEAL PLANNER
             </h1>
-            <h2 className="text-2xl text-center text-textColor max-w-[55vw]">
+            <h2 className="text-xl md:ext-2xl text-center text-textColor w-[90vw] sm:w-[55vw]">
               the company that takes care of your well-being, as well as your
               bank account! 🍏💰
             </h2>

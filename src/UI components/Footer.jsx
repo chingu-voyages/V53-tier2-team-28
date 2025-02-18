@@ -5,8 +5,8 @@ function Footer() {
   // * footer to be fixed at the bottom of the HOMEPAGE otherwise it will be at the bottom of the page but need to scroll down to see it
   return (
     // ! main container
-    <footer className="bg-background w-full p-4 ">
-      <div className="link flex flex-wrap justify-between items-center">
+    <footer className=" bg-background w-full p-4 px-8 ">
+      <div className=" flex flex-wrap gap-4 justify-between items-center">
         {/* Left section: GitHub Link */}
         <a
           href="https://github.com/chingu-voyages/v53-tier2-team-28"
@@ -21,7 +21,20 @@ function Footer() {
           {/* Developer section */}
           <ul className="text-left w-full sm:w-auto">
             <li className="text-textColor">
-              <strong>Developer</strong>
+              <strong>Developers</strong>
+            </li>
+            <li className="text-textColor">
+              Bogdan Terzic |{" "}
+              <a href="https://github.com/minorObsession" className="underline">
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.linkedin.com/in/bogdanterzic95/"
+                className="underline"
+              >
+                LinkedIn
+              </a>
             </li>
             <li className="text-textColor">
               Erica C |{" "}
@@ -49,25 +62,12 @@ function Footer() {
                 LinkedIn
               </a>
             </li>
-            <li className="text-textColor">
-              Bogdan Terzic |{" "}
-              <a href="https://github.com/minorObsession" className="underline">
-                GitHub
-              </a>{" "}
-              |{" "}
-              <a
-                href="https://www.linkedin.com/in/bogdanterzic95/"
-                className="underline"
-              >
-                LinkedIn
-              </a>
-            </li>
           </ul>
 
           {/* Scrum Master section */}
           <ul className="text-left w-full sm:w-auto">
             <li className="text-textColor">
-              <strong>Scrum Master</strong>
+              <strong>Scrum Masters</strong>
             </li>
             <li className="text-textColor">
               Noelle Jefferson |{" "}
